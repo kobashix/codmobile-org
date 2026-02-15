@@ -1,0 +1,13 @@
+# Cache static assets (images, css) for 1 year to maximize Speed Index
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Cache HTML for 1 hour so users see Season updates quickly
+/*.html
+  Cache-Control: public, max-age=3600, must-revalidate
+
+# Security Headers (Google loves this)
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
