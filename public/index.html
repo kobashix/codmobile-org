@@ -100,6 +100,10 @@
 
         .search-nav-btn { cursor: pointer; padding: 8px; border-radius: 4px; transition: background 0.3s; color: white; display: flex; align-items: center; justify-content: center; }
         .search-nav-btn:hover { background: rgba(255,255,255,0.1); }
+
+        /* Video Player Page */
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: black; border: 1px solid #333; margin-bottom: 20px; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
     </style>
 </head>
 <body>
@@ -155,7 +159,7 @@
                 </div>
 
                 <!-- VIDEO INTEL CARD (Span 2) -->
-                <div class="card span-2" id="video-card" onclick="openVideo()">
+                <div class="card span-2" id="video-card" onclick="openVideoPlayer()">
                     <div class="play-icon">▶</div>
                     <img id="video-thumb" src="" class="card-bg" style="opacity: 0.4;">
                     <div class="card-content">
@@ -217,6 +221,19 @@
         </div>
     </div>
 
+    <!-- INTERNAL VIDEO PLAYER -->
+    <div id="player" class="page">
+        <div class="grid-wrapper" style="max-width:1000px;">
+            <h2 style="font-family:'Oswald'; margin-bottom:10px;">Tactical Briefing</h2>
+            <div class="video-container">
+                <iframe id="main-video-embed" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+            <h3 id="player-title" style="color:white;"></h3>
+            <p id="player-desc" style="color:#aaa; font-size:0.9rem; margin-top:10px;"></p>
+            <div style="text-align:center; margin-top:40px; cursor:pointer; color:#888;" onclick="showPage('home')">← Return to Base</div>
+        </div>
+    </div>
+
     <!-- TACTICAL SEARCH -->
     <div id="search" class="page">
         <div class="grid-wrapper search-container">
@@ -241,12 +258,16 @@
     </div>
 
     <script>
-        // Global var to hold the current video URL and Data
-        let currentVideoUrl = "";
+        // Global var to hold the current video Data
         let globalData = null;
 
-        function openVideo() {
-            if(currentVideoUrl) window.open(currentVideoUrl, '_blank');
+        function openVideoPlayer() {
+            if (globalData && globalData.video) {
+                document.getElementById('main-video-embed').src = globalData.video.url;
+                document.getElementById('player-title').innerText = globalData.video.title;
+                document.getElementById('player-desc').innerText = globalData.video.desc || "Scraped from YouTube/Reddit #codmobile_partner";
+                showPage('player');
+            }
         }
 
         // CLIENT-SIDE FALLBACK LOGIC
@@ -272,19 +293,19 @@
                     { code: "BVRPZBZJ53", reward: "Verified Code (Backup)", source: "Backup" },
                     { code: "BMRMZBZESA", reward: "Verified Code (Backup)", source: "Backup" }
                 ],
-                // BACKUP VIDEO DATA
+                // BACKUP VIDEO DATA (Embed URL format)
                 video: {
                     title: "SEASON 2 META: Top 10 Weapons",
-                    url: "https://www.youtube.com/watch?v=TNN631X8JDo",
+                    url: "https://www.youtube.com/embed/TNN631X8JDo?autoplay=1",
                     thumbnail: "https://img.youtube.com/vi/TNN631X8JDo/maxresdefault.jpg",
                     desc: "Community analysis of the new Lachmann-556 and USS 9 buffs. Watch for the gunsmith breakdown at 2:30."
                 },
-                // BACKUP PATCH NOTES (Simulates Scraper)
+                // BACKUP PATCH NOTES (Aligned with Activision Screenshot)
                 patchNotes: [
-                    { title: "New Weapon: Lachmann-556", desc: "A modular 5.56 assault rifle that acts as a bridge between SMGs and ARs. Unlock at Tier 21." },
-                    { title: "Multiplayer Map: Nuketown 'Year of the Horse'", desc: "A Lunar New Year themed reskin of the classic map with night-time lighting." },
-                    { title: "Battle Royale Class: Jet Boost", desc: "Active: Propel yourself forward or upward. Passive: Reduced fall damage." },
-                    { title: "Weapon Balance", desc: "Buffs: USS 9 (Range), Oden (ADS Speed). Nerfs: BP50 (Range), DR-H (Headshot Multiplier)." }
+                    { title: "Version 35.0 — December 8, 2025", desc: "Overall app optimizations to reduce storage space and improve download speeds." },
+                    { title: "Storage Optimization", desc: "Android size reduced to ~1.6 GB. iOS size reduced to ~3.3 GB." },
+                    { title: "DMZ Recon", desc: "The new DMZ Recon game mode will be downloaded as part of Version 35.0." },
+                    { title: "Battle Royale", desc: "Isolated map requires new high-definition audio assets download." }
                 ]
             };
         }
@@ -295,6 +316,12 @@
                 if (!res.ok) throw new Error("API Route Not Found");
                 globalData = await res.json();
                 console.log("Using LIVE Data from Cloudflare");
+
+                // SANITY CHECK: If Scrape Failed, use Backup Patch Notes
+                if (!globalData.patchNotes || globalData.patchNotes.length === 0 || (globalData.patchNotes[0] && globalData.patchNotes[0].title === "Manual Override")) {
+                    console.warn("Backend reported scrape failure. Swapping in Backup Patch Notes.");
+                    globalData.patchNotes = getBackupData().patchNotes;
+                }
 
             } catch (e) {
                 console.warn("API Fetch Failed, switching to Offline Mode:", e);
@@ -316,7 +343,6 @@
             if (globalData.video) {
                 document.getElementById('video-title').innerText = globalData.video.title;
                 document.getElementById('video-thumb').src = globalData.video.thumbnail;
-                currentVideoUrl = globalData.video.url;
             } else {
                 document.getElementById('video-card').style.display = 'none';
             }
@@ -466,9 +492,18 @@
         }
 
         function showPage(id) {
+            // Stop video if leaving player page
+            if (id !== 'player') {
+                const iframe = document.getElementById('main-video-embed');
+                const src = iframe.src;
+                iframe.src = ''; // Kill video
+                iframe.src = src; // Reset for next time (optional, or leave blank)
+            }
+
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             window.scrollTo(0,0);
+            
             if(id !== 'search') {
                 document.getElementById('search-input').value = ''; 
                 document.getElementById('search-results').innerHTML = `<div style="text-align:center; color:#444; margin-top:50px;">

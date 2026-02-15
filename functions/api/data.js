@@ -25,76 +25,73 @@ export async function onRequest(context) {
     // A. PROCESS YOUTUBE (Priority Video Source)
     if (youtubeRes.ok) {
         const ytText = await youtubeRes.text();
-        // Regex to find video IDs and Titles in raw HTML (fragile but functional without API key)
         const videoIdMatch = ytText.match(/"videoId":"([a-zA-Z0-9_-]{11})"/);
         const titleMatch = ytText.match(/"title":{"runs":\[{"text":"(.*?)"}\]/);
 
         if (videoIdMatch && titleMatch) {
             videoIntel = {
                 title: titleMatch[1],
-                url: `https://www.youtube.com/watch?v=${videoIdMatch[1]}`,
+                url: `https://www.youtube.com/embed/${videoIdMatch[1]}?autoplay=1`, // Embed format
                 thumbnail: `https://img.youtube.com/vi/${videoIdMatch[1]}/maxresdefault.jpg`,
                 desc: "Latest #codmobile_partner Intel"
             };
         }
     }
 
-    // B. PROCESS REDDIT (Codes & Backup Video)
+    // B. PROCESS REDDIT
     if (redditRes.ok) {
       const json = await redditRes.json();
       json.data.children.forEach(post => {
         const p = post.data;
-        
-        // 1. Extract Codes
         const codeRegex = /\b[A-Z0-9]{10,14}\b/g;
         const found = (p.title + p.selftext).match(codeRegex);
         if (found) {
           found.forEach(code => {
-            if (!codes.find(c => c.code === code)) {
-              codes.push({ code: code, reward: "Community Found", source: "Reddit" });
-            }
+            if (!codes.find(c => c.code === code)) codes.push({ code: code, reward: "Community Found", source: "Reddit" });
           });
         }
-
-        // 2. Extract Backup Video (if YouTube scrape failed)
+        
+        // Backup Video
         if (!videoIntel && (p.url.includes('youtube.com') || p.url.includes('youtu.be'))) {
-            videoIntel = {
-                title: p.title.substring(0, 50) + "...",
-                url: p.url,
-                thumbnail: `https://img.youtube.com/vi/${getYouTubeID(p.url)}/maxresdefault.jpg`,
-                desc: "Trending on r/CallOfDutyMobile"
-            };
+            const vidId = getYouTubeID(p.url);
+            if(vidId) {
+                videoIntel = {
+                    title: p.title.substring(0, 50) + "...",
+                    url: `https://www.youtube.com/embed/${vidId}?autoplay=1`,
+                    thumbnail: `https://img.youtube.com/vi/${vidId}/maxresdefault.jpg`,
+                    desc: "Trending on r/CallOfDutyMobile"
+                };
+            }
         }
       });
     }
 
-    // C. PROCESS ACTIVISION (Patch Notes)
+    // C. PROCESS ACTIVISION (Updated for Version Headers)
     if (activisionRes.ok) {
         const text = await activisionRes.text();
-        // Strategy 1: Look for List Items
-        const listItems = text.match(/<li>(.*?)<\/li>/g);
-        // Strategy 2: Look for Paragraphs if lists fail (common in Activison layout)
-        const pItems = text.match(/<p>(.*?)<\/p>/g);
+        // Look for "Version XX.0" headers
+        const versionMatch = text.match(/Version\s+\d+\.\d+\s+—\s+.*?(?=Version|$)/gs);
         
-        const combinedItems = [...(listItems || []), ...(pItems || [])];
+        if (versionMatch) {
+            const latestBlock = versionMatch[0]; // Take the newest version block
+            // Extract the Title
+            const title = latestBlock.split('\n')[0].replace(/<[^>]*>/g, '').trim();
+            // Extract the first meaningful paragraph/point
+            const descMatch = latestBlock.match(/<li>(.*?)<\/li>|<p>(.*?)<\/p>/);
+            const desc = descMatch ? (descMatch[1] || descMatch[2]).replace(/<[^>]*>/g, '').trim() : "Check official site for details.";
 
-        if (combinedItems.length > 0) {
-            let count = 0;
-            combinedItems.forEach(item => {
-                if (count >= 5) return;
-                // aggressive cleaning
-                const cleanText = item.replace(/<\/?[^>]+(>|$)/g, "").trim(); 
-                
-                // Filter for keywords to ensure relevance
-                if (cleanText.length > 25 && cleanText.length < 150 && 
-                   (cleanText.includes("New") || cleanText.includes("Weapon") || cleanText.includes("Map") || cleanText.includes("Mode") || cleanText.includes("Fix"))) {
+            patchNotes.push({ title: title, desc: desc });
+            
+            // Look for subsequent headers in that block (e.g., DMZ Recon)
+            const subHeaderMatch = latestBlock.match(/<strong>(.*?)<\/strong>/g);
+            if(subHeaderMatch) {
+                subHeaderMatch.slice(0,3).forEach(h => {
                     patchNotes.push({
-                        title: "System Update",
-                        desc: cleanText
+                        title: h.replace(/<[^>]*>/g, ''),
+                        desc: "Detailed update available in full patch notes."
                     });
-                    count++;
-                }
-            });
+                });
+            }
         }
     }
 
@@ -102,7 +99,7 @@ export async function onRequest(context) {
     console.log("Scrape Error", err);
   }
 
-  // 3. FALLBACKS (Smart Generation if Scrape Fails)
+  // 3. FALLBACKS (Aligned with Screenshot Evidence)
   if (codes.length === 0) {
     codes = [
         { code: "BVRPZBZJ53", reward: "Verified Code", source: "Backup" },
@@ -110,18 +107,15 @@ export async function onRequest(context) {
     ];
   }
 
-  // Improved Fallback for Patch Notes to avoid "Manual Override" error
   if (patchNotes.length === 0) {
-      const seasonNum = (today.getMonth() % 12) + 1;
       patchNotes = [
-          { title: "Weapon Tuning", desc: `Balance adjustments deployed for Season ${seasonNum} meta weapons.` },
-          { title: "Ranked Series", desc: `New Ranked Series active. Rewards include Epic blueprints.` },
-          { title: "Optimizations", desc: "General performance and stability improvements for mobile devices." },
-          { title: "Anti-Cheat", desc: "Ricochet anti-cheat definition updates applied." }
+          { title: "Version 35.0 — December 8, 2025", desc: "Overall app optimizations to reduce storage space and improve download speeds." },
+          { title: "Storage Optimization", desc: "Android size reduced to ~1.6 GB. iOS size reduced to ~3.3 GB." },
+          { title: "DMZ Recon", desc: "The new DMZ Recon game mode will be downloaded as part of Version 35.0." },
+          { title: "Battle Royale", desc: "Isolated map requires new high-definition audio assets download." }
       ];
   }
 
-  // 4. RESPONSE
   const data = {
     status: seasonName,
     hero: {
@@ -146,7 +140,7 @@ export async function onRequest(context) {
 }
 
 function getYouTubeID(url) {
-    if (!url) return "";
+    if (!url) return null;
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
     const match = url.match(regExp);
     return (match && match[2].length === 11) ? match[2] : null;
