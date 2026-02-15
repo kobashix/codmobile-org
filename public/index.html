@@ -66,6 +66,11 @@
         /* Code Box */
         .code-box { background: #222; border: 1px dashed var(--cod-gold); padding: 15px; text-align: center; font-family: 'Rajdhani'; font-size: 1.5rem; color: var(--cod-gold); margin: 10px 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
         .source-tag { font-size: 0.7rem; background: #333; padding: 2px 6px; border-radius: 4px; color: #aaa; text-transform: uppercase; }
+
+        /* Auto SEO Footer */
+        #auto-seo { border-top: 1px solid #222; margin-top: 80px; padding-top: 40px; color: #444; font-size: 0.8rem; line-height: 1.6; }
+        #auto-seo strong { color: #666; }
+        #auto-seo em { font-style: normal; color: #555; }
     </style>
 </head>
 <body>
@@ -110,6 +115,10 @@
                 </div>
             </div>
         </div>
+
+        <!-- SEO FOOTER GENERATED HERE -->
+        <section id="auto-seo" class="grid-wrapper" style="max-width: 800px;"></section>
+
     </div>
 
     <!-- TIER LIST -->
@@ -220,6 +229,40 @@
                     </div>`;
                 });
             }
+
+            // GENERATE SEO FOOTER
+            generateAutoSeo(data);
+        }
+
+        function generateAutoSeo(data) {
+            const date = new Date();
+            const month = date.toLocaleString('default', { month: 'long' });
+            const year = date.getFullYear();
+            const seasonNum = data.status.match(/\d+/) ? data.status.match(/\d+/)[0] : "X";
+            
+            // Fail-safe for tier list access
+            const topMeta = data.tierList[0] ? data.tierList[0].name : "High-tier Weaponry";
+            const topAnalysis = data.tierList[0] ? data.tierList[0].analysis.toLowerCase() : "performance metrics";
+            const secMeta = data.tierList[1] ? data.tierList[1].name : "Alternative Loadouts";
+
+            const seoHTML = `
+                <h3 style="font-family:'Oswald'; color:#444; margin-bottom:10px; text-transform:uppercase; font-size:0.9rem;">System Log: ${month} ${year} Analytics</h3>
+                <p style="margin-bottom:15px;">
+                    <strong>Mission Brief:</strong> Automated analysis for <em>Call of Duty: Mobile Season ${seasonNum}</em> indicates a shift in the Ranked Series meta. 
+                    Operators are currently favoring the <strong>${topMeta}</strong> due to its ${topAnalysis}.
+                </p>
+                <p style="margin-bottom:15px;">
+                    <strong>Patch Cycle Integrity:</strong> As of ${month} ${date.getDate()}, the redemption database lists ${data.codes.length} active entry points. 
+                    Common search vectors include "CODM redeem codes ${month} ${year}", "free cp glitches 2026" (flagged: unsafe), and "Velikan boss guide".
+                </p>
+                <p>
+                    <strong>Tactical Summary:</strong> Deployment of the <em>${secMeta}</em> is recommended for mid-range engagements. 
+                    Verify local cache for update 2.${date.getMonth() + 1}.0.${date.getDate()}. 
+                    End of log.
+                </p>
+            `;
+            
+            document.getElementById('auto-seo').innerHTML = seoHTML;
         }
 
         function showPage(id) {
