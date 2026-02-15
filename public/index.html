@@ -431,7 +431,7 @@
         async function loadSiteData() {
             try {
                 // Tries to find 'data.json' in the same folder
-                const response = await fetch('data.json');
+                const response = await fetch('/api/data'); // UPDATED TO FETCH FROM WORKER
                 if (!response.ok) throw new Error("No external data found");
                 const data = await response.json();
                 renderSite(data);
