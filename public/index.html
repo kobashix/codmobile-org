@@ -241,7 +241,7 @@
     <!-- NAVIGATION -->
     <nav>
         <div class="logo" onclick="showPage('home')">CODMobile<span>.ORG</span></div>
-        <div style="color: var(--cod-red); font-weight: bold; font-family:'Rajdhani'">SEASON 2 LIVE</div>
+        <div style="color: var(--cod-red); font-weight: bold; font-family:'Rajdhani'" id="nav-status">SEASON 2 LIVE</div>
     </nav>
 
     <!-- === PAGE: HOME === -->
@@ -249,9 +249,9 @@
         <header class="hero">
             <div class="hero-bg"></div>
             <div style="z-index:2; padding:0 20px;">
-                <div style="color:var(--cod-gold); font-family:'Rajdhani'; font-weight:700; letter-spacing:2px; margin-bottom:10px;">YEAR OF THE HORSE UPDATE</div>
-                <h1>Lunar <span style="color:var(--cod-red)">Charge</span></h1>
-                <p style="max-width:600px; margin-bottom:30px; font-size:1.1rem; color:#ccc;">
+                <div style="color:var(--cod-gold); font-family:'Rajdhani'; font-weight:700; letter-spacing:2px; margin-bottom:10px;" id="hero-subtitle">YEAR OF THE HORSE UPDATE</div>
+                <h1 id="hero-title">Lunar <span style="color:var(--cod-red)">Charge</span></h1>
+                <p style="max-width:600px; margin-bottom:30px; font-size:1.1rem; color:#ccc;" id="hero-desc">
                     The 2026 Meta has shifted. Master the USS 9, defeat Velikan, and claim your rewards.
                 </p>
                 <button class="cta-btn" onclick="showPage('tierlist')">View Meta Tier List</button>
@@ -264,9 +264,9 @@
                 <div class="card span-2-col span-2-row" onclick="showPage('tierlist')">
                     <img src="https://images.unsplash.com/photo-1595590424283-b8f17842773f?q=80&w=2070&auto=format&fit=crop" class="card-bg" alt="Meta Tier List">
                     <div class="card-content">
-                        <span style="color:var(--cod-gold); font-weight:bold; font-size:0.8rem;">UPDATED FEB 15</span>
+                        <span style="color:var(--cod-gold); font-weight:bold; font-size:0.8rem;" id="card-meta-date">UPDATED FEB 15</span>
                         <h3>S-Tier Meta List</h3>
-                        <p style="color:#aaa; font-size:0.9rem;">Why the USS 9 is unbeatable.</p>
+                        <p style="color:#aaa; font-size:0.9rem;" id="card-meta-desc">Why the USS 9 is unbeatable.</p>
                     </div>
                 </div>
 
@@ -316,31 +316,8 @@
                         <th>Analysis</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td><span class="tier-badge">S+</span></td>
-                        <td style="font-weight:bold; color:white;">USS 9</td>
-                        <td>SMG</td>
-                        <td>Fastest TTK (180ms) up to 15m. Absolute close-range king.</td>
-                    </tr>
-                    <tr>
-                        <td><span class="tier-badge">S</span></td>
-                        <td style="font-weight:bold; color:white;">Lachmann-556</td>
-                        <td>AR</td>
-                        <td>Zero recoil. The new "Beam" for mid-range.</td>
-                    </tr>
-                    <tr>
-                        <td><span class="tier-badge">S</span></td>
-                        <td style="font-weight:bold; color:white;">Oden</td>
-                        <td>AR</td>
-                        <td>Two-tap potential remains untouched. High skill gap.</td>
-                    </tr>
-                    <tr>
-                        <td><span class="tier-badge">A</span></td>
-                        <td style="font-weight:bold; color:white;">BP50</td>
-                        <td>AR</td>
-                        <td>Great fire rate, but range nerfed slightly in S2.</td>
-                    </tr>
+                <tbody id="tier-list-body">
+                    <!-- Populated by JS -->
                 </tbody>
             </table>
         </div>
@@ -393,11 +370,9 @@
 
             <p style="margin-bottom:20px; color:#ccc;">Click codes to copy. Redeem at the official redemption center.</p>
 
-            <div class="code-box" onclick="copyCode(this)">CUOFZBZR5M</div>
-            <p style="text-align:center; color:var(--cod-gold);">Reward: Season 2 Lunar Crate (x2)</p>
-
-            <div class="code-box" onclick="copyCode(this)">CUKQZBZTMS</div>
-            <p style="text-align:center; color:var(--cod-gold);">Reward: 500 Credits + XP Card</p>
+            <div id="codes-container">
+                <!-- Populated by JS -->
+            </div>
 
             <div class="gunsmith-card" style="margin-top:40px; background:#2a0000; border-color:var(--cod-red);">
                 <h3 style="color:white;">⚠️ Expired Codes</h3>
@@ -428,24 +403,88 @@
         </div>
     </div>
 
-    <!-- JAVASCRIPT: HANDLES PAGE SWITCHING -->
+    <!-- JAVASCRIPT: HANDLES DATA & ROUTING -->
     <script>
-        // Initialize Lucide Icons
         lucide.createIcons();
 
-        // Simple Router function
-        function showPage(pageId) {
-            // Hide all pages
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
+        // 1. DEFAULT DATA (Backup if JSON fetch fails)
+        const defaultData = {
+            status: "SEASON 2 LIVE",
+            hero: {
+                subtitle: "YEAR OF THE HORSE UPDATE",
+                title: 'Lunar <span style="color:var(--cod-red)">Charge</span>',
+                desc: "The 2026 Meta has shifted. Master the USS 9, defeat Velikan, and claim your rewards."
+            },
+            tierList: [
+                { tier: "S+", name: "USS 9", type: "SMG", analysis: "Fastest TTK (180ms) up to 15m. Absolute close-range king." },
+                { tier: "S", name: "Lachmann-556", type: "AR", analysis: "Zero recoil. The new 'Beam' for mid-range." },
+                { tier: "S", name: "Oden", type: "AR", analysis: "Two-tap potential remains untouched. High skill gap." },
+                { tier: "A", name: "BP50", type: "AR", analysis: "Great fire rate, but range nerfed slightly in S2." }
+            ],
+            codes: [
+                { code: "CUOFZBZR5M", reward: "Season 2 Lunar Crate (x2)" },
+                { code: "CUKQZBZTMS", reward: "500 Credits + XP Card" }
+            ]
+        };
+
+        // 2. FETCH FUNCTION
+        async function loadSiteData() {
+            try {
+                // Tries to find 'data.json' in the same folder
+                const response = await fetch('data.json');
+                if (!response.ok) throw new Error("No external data found");
+                const data = await response.json();
+                renderSite(data);
+                console.log("Loaded from External JSON");
+            } catch (error) {
+                console.log("Using Default Data");
+                renderSite(defaultData);
+            }
+        }
+
+        // 3. RENDER FUNCTION
+        function renderSite(data) {
+            // Update Text
+            if(document.getElementById('nav-status')) document.getElementById('nav-status').innerText = data.status;
+            if(document.getElementById('hero-subtitle')) document.getElementById('hero-subtitle').innerText = data.hero.subtitle;
+            if(document.getElementById('hero-title')) document.getElementById('hero-title').innerHTML = data.hero.title;
+            if(document.getElementById('hero-desc')) document.getElementById('hero-desc').innerText = data.hero.desc;
+
+            // Render Tier List
+            const tbody = document.getElementById('tier-list-body');
+            tbody.innerHTML = '';
+            data.tierList.forEach(item => {
+                const row = `
+                    <tr>
+                        <td><span class="tier-badge">${item.tier}</span></td>
+                        <td style="font-weight:bold; color:white;">${item.name}</td>
+                        <td>${item.type}</td>
+                        <td>${item.analysis}</td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
             });
-            // Show selected page
+
+            // Render Codes
+            const codesContainer = document.getElementById('codes-container');
+            codesContainer.innerHTML = '';
+            data.codes.forEach(item => {
+                const div = document.createElement('div');
+                div.innerHTML = `
+                    <div class="code-box" onclick="copyCode(this)">${item.code}</div>
+                    <p style="text-align:center; color:var(--cod-gold);">${item.reward}</p>
+                `;
+                codesContainer.appendChild(div);
+            });
+        }
+
+        // 4. ROUTER & UTILS
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
-            // Scroll to top
             window.scrollTo(0, 0);
         }
 
-        // Copy Code Function
         function copyCode(element) {
             const code = element.innerText;
             navigator.clipboard.writeText(code);
@@ -457,6 +496,10 @@
                 element.style.color = "var(--cod-gold)";
             }, 1000);
         }
+
+        // Start
+        loadSiteData();
+
     </script>
 
 </body>
