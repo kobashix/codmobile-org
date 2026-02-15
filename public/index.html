@@ -81,14 +81,38 @@
         .patch-list li { background: #151515; border-left: 3px solid var(--cod-gold); padding: 15px; margin-bottom: 10px; }
         .patch-list strong { color: white; display: block; margin-bottom: 5px; font-family: 'Oswald'; text-transform: uppercase; }
         .patch-list p { color: #aaa; font-size: 0.9rem; margin: 0; }
+
+        /* Search UI */
+        .search-container { max-width: 800px; margin: 0 auto; }
+        .search-input-wrapper { position: relative; margin-bottom: 40px; }
+        #search-input { width: 100%; background: #111; border: 1px solid #333; padding: 20px; font-size: 1.2rem; color: white; font-family: 'Rajdhani'; padding-left: 50px; outline: none; transition: border-color 0.3s; }
+        #search-input:focus { border-color: var(--cod-gold); }
+        .search-icon-input { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #666; }
+        
+        .result-item { background: #1a1a1a; padding: 20px; border-left: 4px solid #333; margin-bottom: 15px; animation: fadeIn 0.2s; }
+        .result-item.tier { border-color: var(--cod-gold); }
+        .result-item.code { border-color: var(--cod-red); }
+        .result-item.patch { border-color: #0088ff; }
+        
+        .result-type { font-size: 0.7rem; text-transform: uppercase; color: #888; margin-bottom: 5px; font-weight: bold; font-family: 'Rajdhani'; }
+        .result-title { color: white; font-family: 'Oswald'; font-size: 1.2rem; margin-bottom: 5px; }
+        .result-desc { color: #aaa; font-size: 0.9rem; }
+
+        .search-nav-btn { cursor: pointer; padding: 8px; border-radius: 4px; transition: background 0.3s; color: white; display: flex; align-items: center; justify-content: center; }
+        .search-nav-btn:hover { background: rgba(255,255,255,0.1); }
     </style>
 </head>
 <body>
 
     <nav>
         <div class="logo" onclick="showPage('home')">CODMobile<span>.ORG</span></div>
-        <div class="live-indicator">
-            <span class="dot"></span> <span id="nav-status">INITIALIZING...</span>
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <div class="search-nav-btn" onclick="showPage('search')" title="Tactical Search">
+                <i data-lucide="search" style="width: 20px; height: 20px;"></i>
+            </div>
+            <div class="live-indicator">
+                <span class="dot"></span> <span id="nav-status">INITIALIZING...</span>
+            </div>
         </div>
     </nav>
 
@@ -99,7 +123,10 @@
                 <div style="color:var(--cod-gold); font-family:'Rajdhani'; font-weight:700; letter-spacing:2px;" id="hero-subtitle">LOADING...</div>
                 <h1 id="hero-title"></h1>
                 <p style="max-width:600px; margin-bottom:30px; color:#ccc;" id="hero-desc"></p>
-                <button class="cta-btn" onclick="showPage('tierlist')">View Intel</button>
+                <div style="display: flex; gap: 15px; justify-content: center;">
+                    <button class="cta-btn" onclick="showPage('tierlist')">View Intel</button>
+                    <button class="cta-btn" style="background: transparent; border: 1px solid white;" onclick="showPage('search')">Search DB</button>
+                </div>
             </div>
         </header>
 
@@ -190,9 +217,33 @@
         </div>
     </div>
 
+    <!-- TACTICAL SEARCH -->
+    <div id="search" class="page">
+        <div class="grid-wrapper search-container">
+            <h2 style="font-family:'Oswald'; margin-bottom:10px; text-align:center;">DATABASE SEARCH</h2>
+            <p style="text-align:center; color:#666; margin-bottom: 30px; font-family:'Rajdhani';">Querying Auto-Scraped Intel...</p>
+            
+            <div class="search-input-wrapper">
+                <i data-lucide="search" class="search-icon-input"></i>
+                <input type="text" id="search-input" placeholder="Type a weapon, code, or keyword..." onkeyup="performSearch()">
+            </div>
+            
+            <div id="search-results">
+                <!-- Results populated via JS -->
+                <div style="text-align:center; color:#444; margin-top:50px;">
+                    <i data-lucide="terminal" style="margin-bottom:10px; width:40px; height:40px; opacity:0.3;"></i>
+                    <p>SYSTEM READY. AWAITING INPUT.</p>
+                </div>
+            </div>
+            
+            <div style="text-align:center; margin-top:40px; cursor:pointer; color:#888;" onclick="showPage('home')">← Return to Base</div>
+        </div>
+    </div>
+
     <script>
-        // Global var to hold the current video URL
+        // Global var to hold the current video URL and Data
         let currentVideoUrl = "";
+        let globalData = null;
 
         function openVideo() {
             if(currentVideoUrl) window.open(currentVideoUrl, '_blank');
@@ -239,35 +290,33 @@
         }
 
         async function init() {
-            let data;
-            
             try {
                 const res = await fetch('/api/data');
                 if (!res.ok) throw new Error("API Route Not Found");
-                data = await res.json();
+                globalData = await res.json();
                 console.log("Using LIVE Data from Cloudflare");
 
             } catch (e) {
                 console.warn("API Fetch Failed, switching to Offline Mode:", e);
-                data = getBackupData();
-                document.getElementById('nav-status').innerText = data.status + " (OFFLINE)";
+                globalData = getBackupData();
+                document.getElementById('nav-status').innerText = globalData.status + " (OFFLINE)";
             }
 
             // UI RENDER
             if (document.getElementById('nav-status').innerText === "INITIALIZING...") {
-                 document.getElementById('nav-status').innerText = data.status;
+                 document.getElementById('nav-status').innerText = globalData.status;
             }
             
             // Hero
-            document.getElementById('hero-subtitle').innerText = data.hero.subtitle;
-            document.getElementById('hero-title').innerHTML = data.hero.title;
-            document.getElementById('hero-desc').innerText = data.hero.desc;
+            document.getElementById('hero-subtitle').innerText = globalData.hero.subtitle;
+            document.getElementById('hero-title').innerHTML = globalData.hero.title;
+            document.getElementById('hero-desc').innerText = globalData.hero.desc;
 
             // Video Card
-            if (data.video) {
-                document.getElementById('video-title').innerText = data.video.title;
-                document.getElementById('video-thumb').src = data.video.thumbnail;
-                currentVideoUrl = data.video.url;
+            if (globalData.video) {
+                document.getElementById('video-title').innerText = globalData.video.title;
+                document.getElementById('video-thumb').src = globalData.video.thumbnail;
+                currentVideoUrl = globalData.video.url;
             } else {
                 document.getElementById('video-card').style.display = 'none';
             }
@@ -275,7 +324,7 @@
             // Tiers
             const tierBody = document.getElementById('tier-list-body');
             tierBody.innerHTML = ""; 
-            data.tierList.forEach(t => {
+            globalData.tierList.forEach(t => {
                 tierBody.innerHTML += `<tr>
                     <td><span class="tier-badge">${t.tier}</span></td>
                     <td style="font-weight:bold">${t.name}</td>
@@ -286,10 +335,10 @@
             // Codes
             const codeBox = document.getElementById('codes-container');
             codeBox.innerHTML = ""; 
-            if (data.codes.length === 0) {
+            if (globalData.codes.length === 0) {
                     codeBox.innerHTML = "<p style='text-align:center; color:#666'>No new codes found today.</p>";
             } else {
-                data.codes.forEach(c => {
+                globalData.codes.forEach(c => {
                     codeBox.innerHTML += `<div style="margin-bottom:10px">
                         <div class="code-box" onclick="navigator.clipboard.writeText('${c.code}')">
                             <span>${c.code}</span>
@@ -303,8 +352,8 @@
             // Patch Notes
             const patchBox = document.getElementById('patch-container');
             patchBox.innerHTML = "";
-            if (data.patchNotes) {
-                data.patchNotes.forEach(p => {
+            if (globalData.patchNotes) {
+                globalData.patchNotes.forEach(p => {
                     patchBox.innerHTML += `<li>
                         <strong>${p.title}</strong>
                         <p>${p.desc}</p>
@@ -312,7 +361,78 @@
                 });
             }
 
-            generateAutoSeo(data);
+            generateAutoSeo(globalData);
+            
+            // Re-init icons
+            lucide.createIcons();
+        }
+
+        // SEARCH FUNCTION
+        function performSearch() {
+            const input = document.getElementById('search-input').value.toLowerCase();
+            const resultsContainer = document.getElementById('search-results');
+            
+            if (input.length < 2) {
+                resultsContainer.innerHTML = `<div style="text-align:center; color:#444; margin-top:50px;">
+                    <i data-lucide="terminal" style="margin-bottom:10px; width:40px; height:40px; opacity:0.3;"></i>
+                    <p>SYSTEM READY. AWAITING INPUT.</p>
+                </div>`;
+                lucide.createIcons();
+                return;
+            }
+
+            resultsContainer.innerHTML = '';
+            let foundCount = 0;
+
+            // Search Tier List
+            globalData.tierList.forEach(item => {
+                if (item.name.toLowerCase().includes(input) || item.analysis.toLowerCase().includes(input)) {
+                    resultsContainer.innerHTML += `
+                        <div class="result-item tier" onclick="showPage('tierlist')">
+                            <div class="result-type">WEAPON INTEL • TIER ${item.tier}</div>
+                            <div class="result-title">${item.name}</div>
+                            <div class="result-desc">${item.analysis}</div>
+                        </div>
+                    `;
+                    foundCount++;
+                }
+            });
+
+            // Search Codes
+            globalData.codes.forEach(item => {
+                if (item.code.toLowerCase().includes(input) || item.reward.toLowerCase().includes(input)) {
+                    resultsContainer.innerHTML += `
+                        <div class="result-item code" onclick="showPage('codes')">
+                            <div class="result-type">REDEEM CODE • ${item.source}</div>
+                            <div class="result-title">${item.code}</div>
+                            <div class="result-desc">Reward: ${item.reward}</div>
+                        </div>
+                    `;
+                    foundCount++;
+                }
+            });
+
+            // Search Patch Notes
+            if (globalData.patchNotes) {
+                globalData.patchNotes.forEach(item => {
+                    if (item.title.toLowerCase().includes(input) || item.desc.toLowerCase().includes(input)) {
+                        resultsContainer.innerHTML += `
+                            <div class="result-item patch" onclick="showPage('patchnotes')">
+                                <div class="result-type">PATCH NOTE • OFFICIAL</div>
+                                <div class="result-title">${item.title}</div>
+                                <div class="result-desc">${item.desc}</div>
+                            </div>
+                        `;
+                        foundCount++;
+                    }
+                });
+            }
+
+            if (foundCount === 0) {
+                resultsContainer.innerHTML = `<div style="text-align:center; color:#666; margin-top:30px;">
+                    <p>No internal intel found for "${input}".</p>
+                </div>`;
+            }
         }
 
         function generateAutoSeo(data) {
@@ -349,6 +469,14 @@
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             window.scrollTo(0,0);
+            if(id !== 'search') {
+                document.getElementById('search-input').value = ''; 
+                document.getElementById('search-results').innerHTML = `<div style="text-align:center; color:#444; margin-top:50px;">
+                    <i data-lucide="terminal" style="margin-bottom:10px; width:40px; height:40px; opacity:0.3;"></i>
+                    <p>SYSTEM READY. AWAITING INPUT.</p>
+                </div>`;
+                lucide.createIcons();
+            }
         }
 
         init();
