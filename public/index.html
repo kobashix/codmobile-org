@@ -56,7 +56,11 @@
         .card:hover .card-bg { transform: scale(1.1); opacity: 0.3; }
         .card-content { position: relative; z-index: 1; padding: 20px; background: linear-gradient(to top, black, transparent); width: 100%; }
         .span-2 { grid-column: span 2; }
-        @media (max-width: 900px) { .bento-grid { grid-template-columns: 1fr; } .span-2 { grid-column: span 1; } }
+        .span-4 { grid-column: span 4; }
+        @media (max-width: 900px) { .bento-grid { grid-template-columns: 1fr; } .span-2, .span-4 { grid-column: span 1; } }
+
+        /* Play Button Overlay */
+        .play-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3rem; color: white; opacity: 0.8; text-shadow: 0 0 20px black; z-index: 2; pointer-events: none; }
 
         /* Tier Table */
         .tier-table { width: 100%; border-collapse: collapse; max-width: 800px; margin: 0 auto; }
@@ -71,6 +75,12 @@
         #auto-seo { border-top: 1px solid #222; margin-top: 80px; padding-top: 40px; color: #444; font-size: 0.8rem; line-height: 1.6; }
         #auto-seo strong { color: #666; }
         #auto-seo em { font-style: normal; color: #555; }
+
+        /* Patch Notes List */
+        .patch-list { list-style: none; padding: 0; }
+        .patch-list li { background: #151515; border-left: 3px solid var(--cod-gold); padding: 15px; margin-bottom: 10px; }
+        .patch-list strong { color: white; display: block; margin-bottom: 5px; font-family: 'Oswald'; text-transform: uppercase; }
+        .patch-list p { color: #aaa; font-size: 0.9rem; margin: 0; }
     </style>
 </head>
 <body>
@@ -95,6 +105,7 @@
 
         <div class="grid-wrapper">
             <div class="bento-grid">
+                <!-- Meta Tier List -->
                 <div class="card span-2" onclick="showPage('tierlist')">
                     <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80" 
                          class="card-bg"
@@ -104,6 +115,8 @@
                         <p style="color:#aaa; font-size:0.8rem;">Auto-Season Calculator</p>
                     </div>
                 </div>
+
+                <!-- Redeem Codes -->
                 <div class="card span-2" onclick="showPage('codes')">
                     <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80" 
                          class="card-bg"
@@ -113,6 +126,28 @@
                         <p style="color:#aaa; font-size:0.8rem;">Source: Backup Database</p>
                     </div>
                 </div>
+
+                <!-- VIDEO INTEL CARD (Span 2) -->
+                <div class="card span-2" id="video-card" onclick="openVideo()">
+                    <div class="play-icon">▶</div>
+                    <img id="video-thumb" src="" class="card-bg" style="opacity: 0.4;">
+                    <div class="card-content">
+                        <span style="color:var(--cod-gold); font-weight:bold; font-size:0.8rem;">TACTICAL BRIEFING</span>
+                        <h3 id="video-title">Loading Intel...</h3>
+                    </div>
+                </div>
+
+                 <!-- PATCH NOTES CARD (Span 2) -->
+                 <div class="card span-2" onclick="showPage('patchnotes')">
+                    <img src="https://images.unsplash.com/photo-1616428753229-87a7a5823158?auto=format&fit=crop&w=800&q=80" 
+                         class="card-bg"
+                         onerror="this.onerror=null;this.src='https://placehold.co/800x600/111/FFF?text=PATCH+NOTES'">
+                    <div class="card-content">
+                        <h3>Patch Notes</h3>
+                        <p style="color:#aaa; font-size:0.8rem;">Activision Source: Verified</p>
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -141,21 +176,40 @@
         </div>
     </div>
 
+    <!-- PATCH NOTES -->
+    <div id="patchnotes" class="page">
+        <div class="grid-wrapper" style="max-width:800px;">
+            <h2 style="font-family:'Oswald'; margin-bottom:20px; text-align:center;">Latest Patch Notes</h2>
+            <div style="margin-bottom: 20px; text-align: center; color: #666; font-size: 0.8rem;">
+                Source: support.activision.com/cod-mobile
+            </div>
+            <ul class="patch-list" id="patch-container">
+                <!-- Populated by JS -->
+            </ul>
+            <div style="text-align:center; margin-top:20px; cursor:pointer; color:#888;" onclick="showPage('home')">← Back</div>
+        </div>
+    </div>
+
     <script>
+        // Global var to hold the current video URL
+        let currentVideoUrl = "";
+
+        function openVideo() {
+            if(currentVideoUrl) window.open(currentVideoUrl, '_blank');
+        }
+
         // CLIENT-SIDE FALLBACK LOGIC
-        // This ensures the site works even if the Cloudflare Worker isn't reachable (like in Preview)
-        
         function getBackupData() {
             const today = new Date();
             const currentMonth = today.getMonth() + 1;
-            const calculatedSeason = (currentMonth % 12) + 1; // Basic Monthly Season Logic
+            const calculatedSeason = (currentMonth % 12) + 1; 
             
             return {
                 status: `SEASON ${calculatedSeason} LIVE`,
                 hero: {
                     subtitle: `AUTOMATED INTEL // ${today.toLocaleDateString()}`,
                     title: `META <span style="color:var(--cod-red)">WATCH</span>`,
-                    desc: `Real-time surveillance of the CODM Meta. Automatically scanning for Season ${calculatedSeason} intel and active redemption codes.`,
+                    desc: `Real-time surveillance of the CODM Meta. Automatically scanning for Season ${calculatedSeason} intel.`,
                 },
                 tierList: [
                     { tier: "S+", name: "BP50", type: "AR", analysis: "High Fire Rate. Consistent Meta." },
@@ -166,6 +220,20 @@
                 codes: [
                     { code: "BVRPZBZJ53", reward: "Verified Code (Backup)", source: "Backup" },
                     { code: "BMRMZBZESA", reward: "Verified Code (Backup)", source: "Backup" }
+                ],
+                // BACKUP VIDEO DATA
+                video: {
+                    title: "SEASON 2 META: Top 10 Weapons",
+                    url: "https://www.youtube.com/watch?v=TNN631X8JDo",
+                    thumbnail: "https://img.youtube.com/vi/TNN631X8JDo/maxresdefault.jpg",
+                    desc: "Community analysis of the new Lachmann-556 and USS 9 buffs. Watch for the gunsmith breakdown at 2:30."
+                },
+                // BACKUP PATCH NOTES (Simulates Scraper)
+                patchNotes: [
+                    { title: "New Weapon: Lachmann-556", desc: "A modular 5.56 assault rifle that acts as a bridge between SMGs and ARs. Unlock at Tier 21." },
+                    { title: "Multiplayer Map: Nuketown 'Year of the Horse'", desc: "A Lunar New Year themed reskin of the classic map with night-time lighting." },
+                    { title: "Battle Royale Class: Jet Boost", desc: "Active: Propel yourself forward or upward. Passive: Reduced fall damage." },
+                    { title: "Weapon Balance", desc: "Buffs: USS 9 (Range), Oden (ADS Speed). Nerfs: BP50 (Range), DR-H (Headshot Multiplier)." }
                 ]
             };
         }
@@ -174,25 +242,18 @@
             let data;
             
             try {
-                // Attempt to fetch from the live Worker
                 const res = await fetch('/api/data');
-                
                 if (!res.ok) throw new Error("API Route Not Found");
-                
                 data = await res.json();
                 console.log("Using LIVE Data from Cloudflare");
 
             } catch (e) {
-                // Fallback to Client-Side Generation if API fails (fixes Preview Error)
                 console.warn("API Fetch Failed, switching to Offline Mode:", e);
                 data = getBackupData();
-                
-                // Update Nav Status to indicate Offline Mode
                 document.getElementById('nav-status').innerText = data.status + " (OFFLINE)";
             }
 
-            // RENDER UI
-            // Visuals
+            // UI RENDER
             if (document.getElementById('nav-status').innerText === "INITIALIZING...") {
                  document.getElementById('nav-status').innerText = data.status;
             }
@@ -202,9 +263,18 @@
             document.getElementById('hero-title').innerHTML = data.hero.title;
             document.getElementById('hero-desc').innerText = data.hero.desc;
 
+            // Video Card
+            if (data.video) {
+                document.getElementById('video-title').innerText = data.video.title;
+                document.getElementById('video-thumb').src = data.video.thumbnail;
+                currentVideoUrl = data.video.url;
+            } else {
+                document.getElementById('video-card').style.display = 'none';
+            }
+
             // Tiers
             const tierBody = document.getElementById('tier-list-body');
-            tierBody.innerHTML = ""; // Clear existing
+            tierBody.innerHTML = ""; 
             data.tierList.forEach(t => {
                 tierBody.innerHTML += `<tr>
                     <td><span class="tier-badge">${t.tier}</span></td>
@@ -215,7 +285,7 @@
 
             // Codes
             const codeBox = document.getElementById('codes-container');
-            codeBox.innerHTML = ""; // Clear existing
+            codeBox.innerHTML = ""; 
             if (data.codes.length === 0) {
                     codeBox.innerHTML = "<p style='text-align:center; color:#666'>No new codes found today.</p>";
             } else {
@@ -230,7 +300,18 @@
                 });
             }
 
-            // GENERATE SEO FOOTER
+            // Patch Notes
+            const patchBox = document.getElementById('patch-container');
+            patchBox.innerHTML = "";
+            if (data.patchNotes) {
+                data.patchNotes.forEach(p => {
+                    patchBox.innerHTML += `<li>
+                        <strong>${p.title}</strong>
+                        <p>${p.desc}</p>
+                    </li>`;
+                });
+            }
+
             generateAutoSeo(data);
         }
 
@@ -240,7 +321,6 @@
             const year = date.getFullYear();
             const seasonNum = data.status.match(/\d+/) ? data.status.match(/\d+/)[0] : "X";
             
-            // Fail-safe for tier list access
             const topMeta = data.tierList[0] ? data.tierList[0].name : "High-tier Weaponry";
             const topAnalysis = data.tierList[0] ? data.tierList[0].analysis.toLowerCase() : "performance metrics";
             const secMeta = data.tierList[1] ? data.tierList[1].name : "Alternative Loadouts";
