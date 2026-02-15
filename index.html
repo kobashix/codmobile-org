@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CODMobile.org | Season 2 2026 Meta & Trends</title>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsMediaOrganization",
+      "name": "CODMobile.org",
+      "url": "https://www.CODMobile.org",
+      "logo": "https://www.codmobile.org/assets/logo-2026.png",
+      "sameAs": ["https://twitter.com/CODMobileOrg"]
+    }
+    </script>
+
+    <style>
+        :root {
+            --cod-yellow: #FFD700;
+            --cod-black: #0f0f0f;
+            --cod-grey: #1a1a1a;
+            --cod-accent: #ff3b3b; /* Season 2 Lunar Red */
+            --text-main: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        
+        body { background-color: var(--cod-black); color: var(--text-main); }
+
+        /* Navigation - Sticky for High UX */
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--cod-accent);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .logo { font-weight: 900; font-size: 1.5rem; letter-spacing: -1px; }
+        .logo span { color: var(--cod-yellow); }
+
+        /* Hero Section - Season 2 Specific */
+        header.hero {
+            height: 60vh;
+            background: linear-gradient(rgba(0,0,0,0.3), var(--cod-black)), url('https://placehold.co/1920x1080/1a1a1a/FFF?text=Season+2+Lunar+Charge+Background');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 { font-size: 4rem; text-transform: uppercase; font-style: italic; margin-bottom: 0.5rem; }
+        .highlight { color: var(--cod-accent); }
+        .hero-cta {
+            background: var(--cod-yellow);
+            color: black;
+            padding: 15px 40px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            transition: transform 0.2s;
+        }
+        .hero-cta:hover { transform: scale(1.05); }
+
+        /* AdSense Placeholder - Top Banner */
+        .ad-unit-banner {
+            width: 100%;
+            height: 90px;
+            background: #222;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #555;
+            font-size: 0.8rem;
+            border: 1px dashed #444;
+        }
+
+        /* Bento Grid Layout - The SEO Engine */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 300px);
+            gap: 15px;
+            padding: 20px 5%;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--cod-grey);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid #333;
+        }
+
+        .card:hover { transform: translateY(-5px); border-color: var(--cod-yellow); }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+        }
+        .card:hover img { opacity: 0.3; }
+
+        .card-content {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            z-index: 2;
+        }
+
+        .tag {
+            background: var(--cod-accent);
+            padding: 4px 8px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+
+        .card h3 { font-size: 1.5rem; font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
+
+        /* Grid Spans for Visual Interest */
+        .large { grid-column: span 2; grid-row: span 2; }
+        .wide { grid-column: span 2; }
+
+        /* Content Section - SEO Text */
+        .content-section {
+            padding: 40px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .meta-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .meta-table th, .meta-table td {
+            text-align: left;
+            padding: 15px;
+            border-bottom: 1px solid #333;
+        }
+        .meta-table th { color: var(--cod-yellow); }
+        .tier-s { color: #ff3b3b; font-weight: bold; }
+        .tier-a { color: #ff9900; font-weight: bold; }
+
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .grid-container { grid-template-columns: 1fr; grid-template-rows: auto; }
+            .large, .wide { grid-column: span 1; grid-row: span 1; height: 250px; }
+            nav { flex-direction: column; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">CODMobile<span>.ORG</span></div>
+        <div style="font-size: 0.9rem; font-weight: bold; color: #ccc;">SEASON 2: LUNAR CHARGE</div>
+    </nav>
+
+    <header class="hero">
+        <h1>Season 2 <span class="highlight">Meta</span></h1>
+        <p style="font-size: 1.2rem; max-width: 600px; margin-bottom: 20px;">
+            The Year of the Horse is here. Master the Lachmann-556, dominate DMZ Recon, and claim your Gods of Wealth rewards.
+        </p>
+        <a href="#loadouts" class="hero-cta">Get Best Loadouts</a>
+    </header>
+
+    <div class="ad-unit-banner">
+        [AdSense Display Ad - Responsive]
+    </div>
+
+    <div class="grid-container">
+        
+        <div class="card large" onclick="location.href='/meta-tier-list'">
+            <img src="https://placehold.co/800x600/222/FFF?text=Feb+2026+Meta+Tier+List" alt="CODM Meta Tier List Season 2 2026">
+            <div class="card-content">
+                <span class="tag">Updated Feb 15</span>
+                <h3>Top 10 Meta Guns: USS 9 vs Lachmann</h3>
+            </div>
+        </div>
+
+        <div class="card wide" onclick="location.href='/redeem-codes'">
+            <img src="https://placehold.co/600x300/333/FFF?text=Active+Redeem+Codes" alt="CODM Redeem Codes February 2026">
+            <div class="card-content">
+                <span class="tag">Free Loot</span>
+                <h3>February 2026 Redeem Codes</h3>
+            </div>
+        </div>
+
+        <div class="card" onclick="location.href='/dmz-recon-guide'">
+            <img src="https://placehold.co/300x300/444/FFF?text=Velikan+Boss+Guide" alt="Velikan Boss Guide Building 21">
+            <div class="card-content">
+                <span class="tag">Guide</span>
+                <h3>Defeat Velikan</h3>
+            </div>
+        </div>
+
+        <div class="card" onclick="location.href='/loadouts/lachmann-556'">
+            <img src="https://placehold.co/300x300/111/FFF?text=Lachmann-556+Build" alt="Lachmann-556 Best Gunsmith">
+            <div class="card-content">
+                <span class="tag">Gunsmith</span>
+                <h3>Lachmann-556 Setup</h3>
+            </div>
+        </div>
+
+         <div class="card wide" onclick="location.href='/esports'">
+            <img src="https://placehold.co/600x300/000/FFF?text=World+Champs+2026" alt="CODM World Championship 2026">
+            <div class="card-content">
+                <span class="tag">Esports</span>
+                <h3>Road to Worlds 2026</h3>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="ad-unit-banner">
+        [AdSense In-Article Ad]
+    </div>
+
+    <section class="content-section" id="tier-list">
+        <h2 style="border-left: 5px solid var(--cod-yellow); padding-left: 15px; margin-bottom: 20px;">Current Meta Snapshot (Feb 2026)</h2>
+        <p>Season 2 has shifted the meta heavily toward high-mobility SMGs and the new Lachmann-556 AR. Below are the weapons you need to be running in Ranked Multiplayer.</p>
+        
+        <table class="meta-table">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Weapon</th>
+                    <th>Type</th>
+                    <th>Best For</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="tier-s">S-Tier</td>
+                    <td>USS 9</td>
+                    <td>SMG</td>
+                    <td>Aggressive Flex (Current King)</td>
+                </tr>
+                <tr>
+                    <td class="tier-s">S-Tier</td>
+                    <td>VMP</td>
+                    <td>SMG</td>
+                    <td>Close Range Eraser</td>
+                </tr>
+                <tr>
+                    <td class="tier-s">S-Tier</td>
+                    <td>Oden</td>
+                    <td>AR</td>
+                    <td>2-Tap Mid Range</td>
+                </tr>
+                <tr>
+                    <td class="tier-a">A-Tier</td>
+                    <td>Lachmann-556</td>
+                    <td>AR</td>
+                    <td>New Season 2 Stability King</td>
+                </tr>
+                <tr>
+                    <td class="tier-a">A-Tier</td>
+                    <td>BP50</td>
+                    <td>AR</td>
+                    <td>Recoil-free / Beginner Friendly</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <footer style="background: #111; padding: 40px; text-align: center; margin-top: 50px; border-top: 1px solid #333;">
+        <p style="color: #666; font-size: 0.8rem;">
+            &copy; 2026 CODMobile.org. Not affiliated with Activision or TiMi Studios. 
+            <a href="#" style="color: #888;">Privacy Policy</a> | <a href="#" style="color: #888;">Ad Choices</a>
+        </p>
+    </footer>
+
+</body>
+</html>
