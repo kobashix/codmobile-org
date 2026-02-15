@@ -3,24 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CODMobile.org | Season 2 2026: Lunar Charge Meta & Intel</title>
+    <title>CODMobile.org | Season 2 2026 Meta & Intel</title>
     <meta name="description" content="Official Fan Source for COD Mobile Season 2 'Lunar Charge'. Updated Feb 2026 Meta Tier List, Lachmann-556 Gunsmiths, and Active Redeem Codes.">
-    <meta name="keywords" content="CODM Season 2 2026, Lachmann-556 Loadout, USS 9 Meta, CODM Redeem Codes Feb 2026, Velikan Boss Guide">
     
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Oswald:wght@500;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
         :root {
-            /* Season 2 'Lunar Charge' Palette */
             --cod-gold: #FFD700;
             --cod-red: #D81B1B; 
             --cod-black: #050505;
             --cod-panel: #111111;
             --cod-border: #333;
             --text-main: #EAEAEA;
-            --text-muted: #888;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -30,19 +31,7 @@
             color: var(--text-main); 
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
-            line-height: 1.5;
-        }
-
-        /* --- UI OVERLAYS --- */
-        /* CRT Scanline Effect for 'Tactical' Vibe */
-        body::after {
-            content: " ";
-            display: block;
-            position: fixed;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: repeating-linear-gradient(0deg, rgba(0,0,0,0.15), rgba(0,0,0,0.15) 1px, transparent 1px, transparent 2px);
-            pointer-events: none;
-            z-index: 9999;
+            padding-bottom: 50px;
         }
 
         /* --- NAVIGATION --- */
@@ -63,27 +52,31 @@
             font-family: 'Oswald', sans-serif; 
             font-size: 1.5rem; 
             text-transform: uppercase; 
-            letter-spacing: -1px; 
             color: white; 
-            display: flex;
-            align-items: center;
-            gap: 5px;
+            cursor: pointer;
+            text-decoration: none;
         }
         .logo span { color: var(--cod-gold); }
-        .nav-status {
-            font-family: 'Rajdhani', sans-serif;
-            font-weight: 700;
-            color: var(--cod-red);
-            font-size: 0.9rem;
-            border: 1px solid var(--cod-red);
-            padding: 2px 8px;
-            border-radius: 4px;
-            text-transform: uppercase;
+
+        /* --- PAGE SYSTEM --- */
+        .page {
+            display: none; /* All pages hidden by default */
+            padding-top: 80px; /* Space for fixed nav */
+            min-height: 100vh;
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        /* Show active page */
+        .page.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- HERO SECTION --- */
+        /* --- HERO SECTION (Home Page) --- */
         header.hero {
-            height: 75vh;
+            height: 70vh;
             position: relative;
             display: flex;
             flex-direction: column;
@@ -97,23 +90,10 @@
         .hero-bg {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            /* Image: Red smoke/Tactical vibe (matches Lunar Theme) */
             background: linear-gradient(to bottom, rgba(5,5,5,0.4), var(--cod-black)), 
                         url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
             z-index: -1;
             filter: saturate(1.2) contrast(1.1);
-        }
-
-        .hero-badge {
-            background: var(--cod-gold);
-            color: black;
-            font-family: 'Rajdhani', sans-serif;
-            font-weight: 800;
-            text-transform: uppercase;
-            padding: 5px 15px;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
-            clip-path: polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 10px);
         }
 
         h1 { 
@@ -122,19 +102,7 @@
             text-transform: uppercase; 
             line-height: 0.9;
             margin-bottom: 1rem;
-            letter-spacing: -2px;
             text-shadow: 0 10px 30px rgba(0,0,0,0.8);
-        }
-
-        .hero p {
-            max-width: 600px;
-            font-size: 1.1rem;
-            color: #ccc;
-            margin-bottom: 30px;
-            background: rgba(0,0,0,0.6);
-            padding: 10px 20px;
-            border-radius: 4px;
-            border-left: 3px solid var(--cod-red);
         }
 
         .cta-btn {
@@ -144,36 +112,19 @@
             font-family: 'Rajdhani', sans-serif;
             font-size: 1.4rem;
             font-weight: 700;
-            text-decoration: none;
+            border: none;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.2s;
+            cursor: pointer;
             clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
         }
-        .cta-btn:hover { background: white; color: black; transform: scale(1.05); }
+        .cta-btn:hover { background: white; color: black; }
 
-        /* --- BENTO GRID LAYOUT --- */
-        .grid-wrapper {
-            padding: 60px 5%;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .grid-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: end;
-            margin-bottom: 30px;
-            border-bottom: 1px solid var(--cod-border);
-            padding-bottom: 10px;
-        }
-        .grid-header h2 { font-family: 'Oswald', sans-serif; font-size: 2rem; text-transform: uppercase; color: white; }
-        .grid-header span { color: var(--cod-gold); font-family: 'Rajdhani', sans-serif; }
-
+        /* --- BENTO GRID (Home Page) --- */
+        .grid-wrapper { padding: 60px 5%; max-width: 1400px; margin: 0 auto; }
         .bento-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(2, 350px); /* Fixed height for consistency */
+            grid-template-rows: repeat(2, 300px);
             gap: 20px;
         }
 
@@ -182,206 +133,331 @@
             border: 1px solid var(--cod-border);
             position: relative;
             overflow: hidden;
+            cursor: pointer;
             text-decoration: none;
-            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
         }
+        .card:hover { border-color: var(--cod-gold); transform: translateY(-5px); }
 
-        .card:hover { border-color: var(--cod-gold); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-
-        /* Background Images for Cards */
         .card-bg {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             object-fit: cover;
-            transition: transform 0.5s;
             opacity: 0.6;
             z-index: 0;
+            transition: transform 0.5s;
         }
         .card:hover .card-bg { transform: scale(1.1); opacity: 0.4; }
 
         .card-content {
             position: relative;
             z-index: 1;
-            padding: 25px;
-            background: linear-gradient(to top, rgba(0,0,0,1), transparent);
+            padding: 20px;
+            background: linear-gradient(to top, black, transparent);
             width: 100%;
         }
-
-        .card-tag {
-            background: var(--cod-gold);
-            color: black;
-            padding: 2px 8px;
-            font-size: 0.7rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            display: inline-block;
-            margin-bottom: 8px;
-        }
-
-        .card h3 {
-            color: white;
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.8rem;
-            text-transform: uppercase;
-            line-height: 1;
-        }
+        .card h3 { color: white; font-family: 'Oswald', sans-serif; font-size: 1.5rem; text-transform: uppercase; }
 
         /* Grid Spans */
         .span-2-col { grid-column: span 2; }
         .span-2-row { grid-row: span 2; }
-        
         @media (max-width: 900px) {
             .bento-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
-            .span-2-col, .span-2-row { grid-column: span 1; grid-row: span 1; height: 300px; }
+            .span-2-col, .span-2-row { grid-column: span 1; grid-row: span 1; height: 250px; }
         }
 
-        /* --- CONTENT SECTION --- */
-        .content-section {
-            background: #0f0f0f;
-            padding: 60px 5%;
-            margin-top: 60px;
-            border-top: 1px solid var(--cod-border);
+        /* --- CONTENT PAGES (Tier List, Loadouts, etc) --- */
+        .content-container { max-width: 1000px; margin: 0 auto; padding: 20px 5%; }
+        
+        .page-header {
+            border-bottom: 2px solid var(--cod-red);
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+        }
+        .page-header h2 { font-family: 'Oswald'; font-size: 3rem; text-transform: uppercase; }
+
+        /* Tier List Table */
+        .tier-table { width: 100%; border-collapse: collapse; margin-bottom: 40px; }
+        .tier-table th { text-align: left; color: var(--cod-gold); border-bottom: 1px solid #444; padding: 10px; }
+        .tier-table td { padding: 15px 10px; border-bottom: 1px solid #222; }
+        .tier-badge { 
+            background: var(--cod-red); color: white; padding: 2px 8px; 
+            font-family: 'Rajdhani'; font-weight: bold; border-radius: 4px;
         }
 
+        /* Gunsmith Card */
+        .gunsmith-card {
+            background: #151515;
+            border: 1px solid #333;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        .attachment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .attachment {
+            background: #000;
+            padding: 10px;
+            border-left: 3px solid var(--cod-gold);
+            font-size: 0.9rem;
+        }
+        .attachment span { display: block; color: #888; font-size: 0.7rem; text-transform: uppercase; }
+
+        /* Code Box */
         .code-box {
-            background: #1a1a1a;
+            background: #222;
             border: 1px dashed var(--cod-gold);
-            padding: 15px;
-            font-family: 'Rajdhani', monospace;
-            font-size: 1.5rem;
-            color: var(--cod-gold);
+            padding: 20px;
             text-align: center;
-            margin: 10px 0;
+            font-family: 'Rajdhani';
+            font-size: 2rem;
+            color: var(--cod-gold);
+            margin: 20px 0;
             cursor: pointer;
         }
-        .code-box:hover { background: #222; }
 
-        footer {
-            text-align: center;
-            padding: 40px;
-            color: #444;
-            font-size: 0.8rem;
-            border-top: 1px solid #222;
-        }
-
-        /* --- ADSENSE PLACEHOLDERS --- */
-        .ad-slot {
-            width: 100%;
-            height: 100px;
-            background: #111;
-            margin: 20px 0;
-            display: flex;
+        /* Back Button */
+        .back-btn {
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            color: #333;
-            border: 1px solid #222;
-            font-size: 0.8rem;
+            color: #888;
+            text-decoration: none;
+            margin-bottom: 20px;
+            cursor: pointer;
+            font-weight: bold;
         }
+        .back-btn:hover { color: white; }
 
     </style>
 </head>
 <body>
 
+    <!-- NAVIGATION -->
     <nav>
-        <div class="logo">CODMobile<span>.ORG</span></div>
-        <div class="nav-status">Season 2: Live</div>
+        <div class="logo" onclick="showPage('home')">CODMobile<span>.ORG</span></div>
+        <div style="color: var(--cod-red); font-weight: bold; font-family:'Rajdhani'">SEASON 2 LIVE</div>
     </nav>
 
-    <header class="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-badge">Year of the Horse Update</div>
-        <h1>Lunar <span style="color:var(--cod-red)">Charge</span></h1>
-        <p>
-            The 2026 Meta has shifted. The USS 9 rules close-range, the Lachmann-556 is the new AR King, and Velikan has taken over Building 21.
-        </p>
-        <a href="#loadouts" class="cta-btn">View Meta Tier List</a>
-    </header>
+    <!-- === PAGE: HOME === -->
+    <div id="home" class="page active">
+        <header class="hero">
+            <div class="hero-bg"></div>
+            <div style="z-index:2; padding:0 20px;">
+                <div style="color:var(--cod-gold); font-family:'Rajdhani'; font-weight:700; letter-spacing:2px; margin-bottom:10px;">YEAR OF THE HORSE UPDATE</div>
+                <h1>Lunar <span style="color:var(--cod-red)">Charge</span></h1>
+                <p style="max-width:600px; margin-bottom:30px; font-size:1.1rem; color:#ccc;">
+                    The 2026 Meta has shifted. Master the USS 9, defeat Velikan, and claim your rewards.
+                </p>
+                <button class="cta-btn" onclick="showPage('tierlist')">View Meta Tier List</button>
+            </div>
+        </header>
 
-    <div class="ad-slot">[AdSense Responsive Display Ad]</div>
-
-    <div class="grid-wrapper" id="loadouts">
-        
-        <div class="grid-header">
-            <h2>Intel Center</h2>
-            <span>UPDATED: FEB 15, 2026</span>
-        </div>
-
-        <div class="bento-grid">
-            
-            <a href="/meta-tier-list" class="card span-2-col span-2-row">
-                <img src="https://images.unsplash.com/photo-1595590424283-b8f17842773f?q=80&w=2070&auto=format&fit=crop" class="card-bg" alt="Season 2 Meta Tier List">
-                <div class="card-content">
-                    <span class="card-tag">Critical Intel</span>
-                    <h3>S-Tier Meta List</h3>
-                    <p style="color: #aaa; margin-top: 5px;">Why the USS 9 & Lachmann-556 are dominating Ranked.</p>
+        <div class="grid-wrapper">
+            <div class="bento-grid">
+                <!-- Card 1: Meta -->
+                <div class="card span-2-col span-2-row" onclick="showPage('tierlist')">
+                    <img src="https://images.unsplash.com/photo-1595590424283-b8f17842773f?q=80&w=2070&auto=format&fit=crop" class="card-bg" alt="Meta Tier List">
+                    <div class="card-content">
+                        <span style="color:var(--cod-gold); font-weight:bold; font-size:0.8rem;">UPDATED FEB 15</span>
+                        <h3>S-Tier Meta List</h3>
+                        <p style="color:#aaa; font-size:0.9rem;">Why the USS 9 is unbeatable.</p>
+                    </div>
                 </div>
-            </a>
 
-            <a href="/redeem-codes" class="card span-2-col">
-                <img src="https://images.unsplash.com/photo-1555680202-c86f0e12f086?q=80&w=2070&auto=format&fit=crop" class="card-bg" alt="Active Redeem Codes">
-                <div class="card-content">
-                    <span class="card-tag">Free Loot</span>
-                    <h3>Feb '26 Redeem Codes</h3>
-                    <p style="color: #aaa;">Get the "Lunar" Crate Keys.</p>
+                <!-- Card 2: Codes -->
+                <div class="card span-2-col" onclick="showPage('codes')">
+                    <img src="https://images.unsplash.com/photo-1555680202-c86f0e12f086?q=80&w=2070&auto=format&fit=crop" class="card-bg" alt="Redeem Codes">
+                    <div class="card-content">
+                        <h3>Redeem Codes</h3>
+                        <p style="color:#aaa; font-size:0.9rem;">New "Lunar" Crate Keys.</p>
+                    </div>
                 </div>
-            </a>
 
-            <a href="/guides/velikan" class="card">
-                <img src="https://images.unsplash.com/photo-1626262963177-85642ff152af?q=80&w=1958&auto=format&fit=crop" class="card-bg" alt="Velikan Boss Guide">
-                <div class="card-content">
-                    <span class="card-tag">Guide</span>
-                    <h3>Defeat Velikan</h3>
+                <!-- Card 3: Loadouts -->
+                <div class="card" onclick="showPage('loadouts')">
+                    <img src="https://images.unsplash.com/photo-1585314062340-f1a5a7c9328d?q=80&w=2070&auto=format&fit=crop" class="card-bg" alt="Lachmann-556">
+                    <div class="card-content">
+                        <h3>Lachmann-556</h3>
+                    </div>
                 </div>
-            </a>
 
-            <a href="/loadouts/lachmann-556" class="card">
-                <img src="https://images.unsplash.com/photo-1585314062340-f1a5a7c9328d?q=80&w=2070&auto=format&fit=crop" class="card-bg" alt="Lachmann-556 Gunsmith">
-                <div class="card-content">
-                    <span class="card-tag">New Weapon</span>
-                    <h3>Lachmann-556</h3>
+                <!-- Card 4: Guide -->
+                <div class="card" onclick="showPage('guide')">
+                    <img src="https://images.unsplash.com/photo-1626262963177-85642ff152af?q=80&w=1958&auto=format&fit=crop" class="card-bg" alt="Velikan Guide">
+                    <div class="card-content">
+                        <h3>Velikan Guide</h3>
+                    </div>
                 </div>
-            </a>
-
+            </div>
         </div>
     </div>
 
-    <section class="content-section">
-        <div style="max-width: 800px; margin: 0 auto;">
-            <h2 style="font-family: 'Oswald'; color: var(--cod-gold); margin-bottom: 20px;">LATEST: Active Redeem Code (Feb 2026)</h2>
-            <p style="color: #ccc; margin-bottom: 10px;">Use this code immediately for the Season 2 Celebration Crate. Verified working as of Feb 15.</p>
-            
-            <div class="code-box">CUOFZBZR5M</div>
-            <div class="code-box">CUKQZBZTMS</div>
-            
-            <p style="font-size: 0.8rem; color: #666; text-align: center; margin-top: 10px;">*Codes expire Feb 28, 2026. Click to copy.</p>
+    <!-- === PAGE: TIER LIST === -->
+    <div id="tierlist" class="page">
+        <div class="content-container">
+            <div class="back-btn" onclick="showPage('home')">← Back to Home</div>
+            <div class="page-header">
+                <h2>Season 2 Meta Tier List</h2>
+                <p style="color:#aaa;">Updated for Ranked Series 1 (2026)</p>
+            </div>
 
-            <div class="ad-slot" style="margin-top: 40px;">[AdSense In-Article Ad]</div>
-
-            <h3 style="color: white; margin-top: 40px; font-family: 'Oswald';">Season 2 "Lunar Charge" Patch Notes</h3>
-            <ul style="list-style: none; margin-top: 20px; color: #ddd;">
-                <li style="margin-bottom: 15px; border-left: 2px solid var(--cod-red); padding-left: 15px;">
-                    <strong style="color: white;">New Weapon: Lachmann-556</strong><br>
-                    A high-stability Assault Rifle that rivals the Grau 5.56. Unlocks at Battle Pass Tier 21.
-                </li>
-                <li style="margin-bottom: 15px; border-left: 2px solid var(--cod-red); padding-left: 15px;">
-                    <strong style="color: white;">Building 21 Update</strong><br>
-                    Velikan has returned as the main boss. He now drops the RGL-80 Grenade Launcher (essential for final exfil).
-                </li>
-                <li style="margin-bottom: 15px; border-left: 2px solid var(--cod-red); padding-left: 15px;">
-                    <strong style="color: white;">Ranked Series Reset</strong><br>
-                    New "Grand Master" rewards include the "Year of the Horse" operator skin.
-                </li>
-            </ul>
+            <table class="tier-table">
+                <thead>
+                    <tr>
+                        <th>Tier</th>
+                        <th>Weapon</th>
+                        <th>Type</th>
+                        <th>Analysis</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="tier-badge">S+</span></td>
+                        <td style="font-weight:bold; color:white;">USS 9</td>
+                        <td>SMG</td>
+                        <td>Fastest TTK (180ms) up to 15m. Absolute close-range king.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tier-badge">S</span></td>
+                        <td style="font-weight:bold; color:white;">Lachmann-556</td>
+                        <td>AR</td>
+                        <td>Zero recoil. The new "Beam" for mid-range.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tier-badge">S</span></td>
+                        <td style="font-weight:bold; color:white;">Oden</td>
+                        <td>AR</td>
+                        <td>Two-tap potential remains untouched. High skill gap.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tier-badge">A</span></td>
+                        <td style="font-weight:bold; color:white;">BP50</td>
+                        <td>AR</td>
+                        <td>Great fire rate, but range nerfed slightly in S2.</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-    </section>
+    </div>
 
-    <footer>
-        &copy; 2026 CODMobile.org. Fan Site. Not affiliated with Activision or TiMi Studios. <br>
-        <a href="#" style="color: #666; text-decoration: none;">Privacy Policy</a> | <a href="#" style="color: #666; text-decoration: none;">Ad Choices</a>
-    </footer>
+    <!-- === PAGE: LOADOUTS === -->
+    <div id="loadouts" class="page">
+        <div class="content-container">
+            <div class="back-btn" onclick="showPage('home')">← Back to Home</div>
+            <div class="page-header">
+                <h2>Best Gunsmith Builds</h2>
+            </div>
+
+            <!-- Loadout 1 -->
+            <div class="gunsmith-card">
+                <h3 style="color:var(--cod-gold); font-family:'Oswald'; font-size:1.5rem;">Lachmann-556 (Zero Recoil)</h3>
+                <p style="color:#ccc; margin-bottom:10px;">The meta build for Passive/Anchor playstyle.</p>
+                <div class="attachment-grid">
+                    <div class="attachment"><span>Muzzle</span>Agency Suppressor</div>
+                    <div class="attachment"><span>Barrel</span>Lachmann Nova</div>
+                    <div class="attachment"><span>Optic</span>Classic Red Dot</div>
+                    <div class="attachment"><span>Underbarrel</span>Field Agent Foregrip</div>
+                    <div class="attachment"><span>Ammunition</span>40 Round Mag</div>
+                </div>
+            </div>
+
+            <!-- Loadout 2 -->
+            <div class="gunsmith-card">
+                <h3 style="color:var(--cod-gold); font-family:'Oswald'; font-size:1.5rem;">USS 9 (Aggressive)</h3>
+                <p style="color:#ccc; margin-bottom:10px;">Maximum mobility and strafe speed.</p>
+                <div class="attachment-grid">
+                    <div class="attachment"><span>Muzzle</span>Monolithic Suppressor</div>
+                    <div class="attachment"><span>Barrel</span>Rapid Fire</div>
+                    <div class="attachment"><span>Stock</span>No Stock</div>
+                    <div class="attachment"><span>Laser</span>OWC Tactical</div>
+                    <div class="attachment"><span>Rear Grip</span>Stippled Grip Tape</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- === PAGE: REDEEM CODES === -->
+    <div id="codes" class="page">
+        <div class="content-container">
+            <div class="back-btn" onclick="showPage('home')">← Back to Home</div>
+            <div class="page-header">
+                <h2>Active Redeem Codes</h2>
+                <p style="color:#aaa;">Codes verified as of February 15, 2026.</p>
+            </div>
+
+            <p style="margin-bottom:20px; color:#ccc;">Click codes to copy. Redeem at the official redemption center.</p>
+
+            <div class="code-box" onclick="copyCode(this)">CUOFZBZR5M</div>
+            <p style="text-align:center; color:var(--cod-gold);">Reward: Season 2 Lunar Crate (x2)</p>
+
+            <div class="code-box" onclick="copyCode(this)">CUKQZBZTMS</div>
+            <p style="text-align:center; color:var(--cod-gold);">Reward: 500 Credits + XP Card</p>
+
+            <div class="gunsmith-card" style="margin-top:40px; background:#2a0000; border-color:var(--cod-red);">
+                <h3 style="color:white;">⚠️ Expired Codes</h3>
+                <p style="color:#aaa;">Do not use: DAEDZBZGVB, BMRMZBZESA</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- === PAGE: GUIDE === -->
+    <div id="guide" class="page">
+        <div class="content-container">
+            <div class="back-btn" onclick="showPage('home')">← Back to Home</div>
+            <div class="page-header">
+                <h2>Velikan Boss Guide</h2>
+                <p style="color:#aaa;">Building 21 - Solo Strategy</p>
+            </div>
+
+            <div style="background:#111; padding:30px; border-left:4px solid var(--cod-red);">
+                <h3 style="color:white; margin-bottom:15px;">Phase 1: The Approach</h3>
+                <p style="color:#ccc; margin-bottom:20px;">Velikan spawns on the 3rd floor laboratory. Do NOT engage until you clear the Shadow Company bots. He uses an RGL-80, so stay away from tight corridors.</p>
+                
+                <h3 style="color:white; margin-bottom:15px;">Phase 2: The Damage</h3>
+                <p style="color:#ccc; margin-bottom:20px;">Use the <strong>ZRG 20mm</strong> (Anti-Vehicle Mag) or thermites. He has high armor but is slow. Rotate between cover constantly.</p>
+
+                <h3 style="color:white; margin-bottom:15px;">Phase 3: The Loot</h3>
+                <p style="color:#ccc;">Defeating him drops the <strong>RGL-80 (Contraband)</strong> and the "Velikan's Keycard" which opens the Armory room on the 1st floor.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT: HANDLES PAGE SWITCHING -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Simple Router function
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Copy Code Function
+        function copyCode(element) {
+            const code = element.innerText;
+            navigator.clipboard.writeText(code);
+            const originalText = element.innerText;
+            element.innerText = "COPIED!";
+            element.style.color = "white";
+            setTimeout(() => {
+                element.innerText = originalText;
+                element.style.color = "var(--cod-gold)";
+            }, 1000);
+        }
+    </script>
 
 </body>
 </html>
