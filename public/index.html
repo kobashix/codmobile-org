@@ -31,7 +31,19 @@
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         /* Hero */
-        header.hero { height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; border-bottom: 4px solid var(--cod-gold); background: linear-gradient(to bottom, rgba(0,0,0,0.7), #050505), url('https://images.unsplash.com/photo-1626262963177-85642ff152af?auto=format&fit=crop&w=1920&q=80') center/cover; }
+        header.hero { 
+            height: 60vh; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            text-align: center; 
+            border-bottom: 4px solid var(--cod-gold); 
+            background-color: #050505; /* Fallback color */
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0.7), #050505), url('https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=1920&q=80');
+            background-position: center;
+            background-size: cover;
+        }
         h1 { font-family: 'Oswald'; font-size: clamp(3rem, 6vw, 6rem); text-transform: uppercase; line-height: 0.9; margin-bottom: 1rem; }
         .cta-btn { background: var(--cod-red); color: white; padding: 15px 40px; font-family: 'Rajdhani'; font-weight: 700; border: none; text-transform: uppercase; cursor: pointer; clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px); }
 
@@ -79,14 +91,18 @@
         <div class="grid-wrapper">
             <div class="bento-grid">
                 <div class="card span-2" onclick="showPage('tierlist')">
-                    <img src="https://images.unsplash.com/photo-1542259685-6102717e35bb?auto=format&fit=crop&w=800&q=80" class="card-bg">
+                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80" 
+                         class="card-bg"
+                         onerror="this.onerror=null;this.src='https://placehold.co/800x600/111/FFF?text=META+DATA'">
                     <div class="card-content">
                         <h3>Meta Tier List</h3>
                         <p style="color:#aaa; font-size:0.8rem;">Auto-Season Calculator</p>
                     </div>
                 </div>
                 <div class="card span-2" onclick="showPage('codes')">
-                    <img src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=800&q=80" class="card-bg">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80" 
+                         class="card-bg"
+                         onerror="this.onerror=null;this.src='https://placehold.co/800x600/111/FFF?text=REDEEM+CODES'">
                     <div class="card-content">
                         <h3>Redeem Codes</h3>
                         <p style="color:#aaa; font-size:0.8rem;">Source: Backup Database</p>
