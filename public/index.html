@@ -3,527 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CODMobile.org | Season 2 2026 Meta & Intel</title>
-    <meta name="description" content="Official Fan Source for COD Mobile Season 2 'Lunar Charge'. Updated Feb 2026 Meta Tier List, Lachmann-556 Gunsmiths, and Active Redeem Codes.">
+    <title>CODMobile.org | Auto-Intel</title>
     
-    <!-- Fonts -->
+    <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Oswald:wght@500;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        :root {
-            --cod-gold: #FFD700;
-            --cod-red: #D81B1B; 
-            --cod-black: #050505;
-            --cod-panel: #111111;
-            --cod-border: #333;
-            --text-main: #EAEAEA;
-        }
-
+        :root { --cod-gold: #FFD700; --cod-red: #D81B1B; --cod-black: #050505; --cod-panel: #111; --text-main: #EAEAEA; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body { 
-            background-color: var(--cod-black); 
-            color: var(--text-main); 
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-            padding-bottom: 50px;
-        }
+        body { background-color: var(--cod-black); color: var(--text-main); font-family: 'Inter', sans-serif; padding-bottom: 50px; }
 
-        /* --- NAVIGATION --- */
-        nav {
-            position: fixed;
-            top: 0; width: 100%;
-            background: rgba(5, 5, 5, 0.95);
-            border-bottom: 1px solid var(--cod-border);
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-        }
-        
-        .logo { 
-            font-family: 'Oswald', sans-serif; 
-            font-size: 1.5rem; 
-            text-transform: uppercase; 
-            color: white; 
-            cursor: pointer;
-            text-decoration: none;
-        }
+        /* Nav */
+        nav { position: fixed; top: 0; width: 100%; background: rgba(5,5,5,0.95); border-bottom: 1px solid #333; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; backdrop-filter: blur(10px); }
+        .logo { font-family: 'Oswald'; font-size: 1.5rem; text-transform: uppercase; color: white; cursor: pointer; }
         .logo span { color: var(--cod-gold); }
-
-        /* --- PAGE SYSTEM --- */
-        .page {
-            display: none; /* All pages hidden by default */
-            padding-top: 80px; /* Space for fixed nav */
-            min-height: 100vh;
-            animation: fadeIn 0.3s ease-in;
-        }
         
-        /* Show active page */
+        /* Live Pulse Animation */
+        .live-indicator { display: flex; align-items: center; gap: 6px; font-family: 'Rajdhani'; font-weight: bold; color: var(--cod-red); font-size: 0.9rem; }
+        .dot { width: 8px; height: 8px; background: var(--cod-red); border-radius: 50%; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 1; box-shadow: 0 0 0 0 rgba(216, 27, 27, 0.7); } 70% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(216, 27, 27, 0); } 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(216, 27, 27, 0); } }
+
+        /* Page System */
+        .page { display: none; padding-top: 80px; min-height: 100vh; animation: fadeIn 0.3s; }
         .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        /* Hero */
+        header.hero { height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; border-bottom: 4px solid var(--cod-gold); background: linear-gradient(to bottom, rgba(0,0,0,0.7), #050505), url('https://images.unsplash.com/photo-1626262963177-85642ff152af?auto=format&fit=crop&w=1920&q=80') center/cover; }
+        h1 { font-family: 'Oswald'; font-size: clamp(3rem, 6vw, 6rem); text-transform: uppercase; line-height: 0.9; margin-bottom: 1rem; }
+        .cta-btn { background: var(--cod-red); color: white; padding: 15px 40px; font-family: 'Rajdhani'; font-weight: 700; border: none; text-transform: uppercase; cursor: pointer; clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px); }
 
-        /* --- HERO SECTION (Home Page) --- */
-        header.hero {
-            height: 70vh;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            border-bottom: 4px solid var(--cod-gold);
-            overflow: hidden;
-        }
+        /* Grid */
+        .grid-wrapper { padding: 40px 5%; max-width: 1400px; margin: 0 auto; }
+        .bento-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .card { background: var(--cod-panel); border: 1px solid #333; height: 300px; position: relative; overflow: hidden; cursor: pointer; display: flex; flex-direction: column; justify-content: flex-end; }
+        .card:hover { border-color: var(--cod-gold); }
+        .card-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.5; transition: 0.5s; }
+        .card:hover .card-bg { transform: scale(1.1); opacity: 0.3; }
+        .card-content { position: relative; z-index: 1; padding: 20px; background: linear-gradient(to top, black, transparent); width: 100%; }
+        .span-2 { grid-column: span 2; }
+        @media (max-width: 900px) { .bento-grid { grid-template-columns: 1fr; } .span-2 { grid-column: span 1; } }
 
-        .hero-bg {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            /* Default: Retro Computer Vibe */
-            background: linear-gradient(to bottom, rgba(5,5,5,0.4), var(--cod-black)), 
-                        url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
-            z-index: -1;
-            filter: saturate(1.2) contrast(1.1);
-            transition: opacity 0.5s;
-        }
-
-        h1 { 
-            font-family: 'Oswald', sans-serif;
-            font-size: clamp(3rem, 6vw, 6rem); 
-            text-transform: uppercase; 
-            line-height: 0.9;
-            margin-bottom: 1rem;
-            text-shadow: 0 10px 30px rgba(0,0,0,0.8);
-        }
-
-        .cta-btn {
-            background: var(--cod-red);
-            color: white;
-            padding: 15px 40px;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            border: none;
-            text-transform: uppercase;
-            cursor: pointer;
-            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
-        }
-        .cta-btn:hover { background: white; color: black; }
-
-        /* --- BENTO GRID (Home Page) --- */
-        .grid-wrapper { padding: 60px 5%; max-width: 1400px; margin: 0 auto; }
-        .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(2, 300px);
-            gap: 20px;
-        }
-
-        .card {
-            background: var(--cod-panel);
-            border: 1px solid var(--cod-border);
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-        }
-        .card:hover { border-color: var(--cod-gold); transform: translateY(-5px); }
-
-        .card-bg {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover;
-            opacity: 0.6;
-            z-index: 0;
-            transition: transform 0.5s;
-        }
-        .card:hover .card-bg { transform: scale(1.1); opacity: 0.4; }
-
-        .card-content {
-            position: relative;
-            z-index: 1;
-            padding: 20px;
-            background: linear-gradient(to top, black, transparent);
-            width: 100%;
-        }
-        .card h3 { color: white; font-family: 'Oswald', sans-serif; font-size: 1.5rem; text-transform: uppercase; }
-
-        /* Grid Spans */
-        .span-2-col { grid-column: span 2; }
-        .span-2-row { grid-row: span 2; }
-        @media (max-width: 900px) {
-            .bento-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
-            .span-2-col, .span-2-row { grid-column: span 1; grid-row: span 1; height: 250px; }
-        }
-
-        /* --- CONTENT PAGES (Tier List, Loadouts, etc) --- */
-        .content-container { max-width: 1000px; margin: 0 auto; padding: 20px 5%; }
-        
-        .page-header {
-            border-bottom: 2px solid var(--cod-red);
-            margin-bottom: 30px;
-            padding-bottom: 10px;
-        }
-        .page-header h2 { font-family: 'Oswald'; font-size: 3rem; text-transform: uppercase; }
-
-        /* Tier List Table */
-        .tier-table { width: 100%; border-collapse: collapse; margin-bottom: 40px; }
-        .tier-table th { text-align: left; color: var(--cod-gold); border-bottom: 1px solid #444; padding: 10px; }
-        .tier-table td { padding: 15px 10px; border-bottom: 1px solid #222; }
-        .tier-badge { 
-            background: var(--cod-red); color: white; padding: 2px 8px; 
-            font-family: 'Rajdhani'; font-weight: bold; border-radius: 4px;
-        }
-
-        /* Gunsmith Card */
-        .gunsmith-card {
-            background: #151515;
-            border: 1px solid #333;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-        }
-        .attachment-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 10px;
-            margin-top: 15px;
-        }
-        .attachment {
-            background: #000;
-            padding: 10px;
-            border-left: 3px solid var(--cod-gold);
-            font-size: 0.9rem;
-        }
-        .attachment span { display: block; color: #888; font-size: 0.7rem; text-transform: uppercase; }
+        /* Tier Table */
+        .tier-table { width: 100%; border-collapse: collapse; max-width: 800px; margin: 0 auto; }
+        .tier-table td { padding: 15px; border-bottom: 1px solid #222; }
+        .tier-badge { background: var(--cod-red); padding: 2px 8px; font-weight: bold; }
 
         /* Code Box */
-        .code-box {
-            background: #222;
-            border: 1px dashed var(--cod-gold);
-            padding: 20px;
-            text-align: center;
-            font-family: 'Rajdhani';
-            font-size: 2rem;
-            color: var(--cod-gold);
-            margin: 20px 0;
-            cursor: pointer;
-        }
-
-        /* Back Button */
-        .back-btn {
-            display: inline-flex;
-            align-items: center;
-            color: #888;
-            text-decoration: none;
-            margin-bottom: 20px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .back-btn:hover { color: white; }
-
+        .code-box { background: #222; border: 1px dashed var(--cod-gold); padding: 15px; text-align: center; font-family: 'Rajdhani'; font-size: 1.5rem; color: var(--cod-gold); margin: 10px 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .source-tag { font-size: 0.7rem; background: #333; padding: 2px 6px; border-radius: 4px; color: #aaa; text-transform: uppercase; }
     </style>
 </head>
 <body>
 
-    <!-- NAVIGATION -->
     <nav>
         <div class="logo" onclick="showPage('home')">CODMobile<span>.ORG</span></div>
-        <div style="color: var(--cod-red); font-weight: bold; font-family:'Rajdhani'" id="nav-status"></div>
+        <div class="live-indicator">
+            <span class="dot"></span> <span id="nav-status">SCANNING NET...</span>
+        </div>
     </nav>
 
-    <!-- === PAGE: HOME === -->
+    <!-- HOME -->
     <div id="home" class="page active">
         <header class="hero">
-            <div class="hero-bg" id="hero-bg-layer"></div>
             <div style="z-index:2; padding:0 20px;">
-                <div style="color:var(--cod-gold); font-family:'Rajdhani'; font-weight:700; letter-spacing:2px; margin-bottom:10px;" id="hero-subtitle"></div>
+                <div style="color:var(--cod-gold); font-family:'Rajdhani'; font-weight:700; letter-spacing:2px;" id="hero-subtitle">INITIALIZING...</div>
                 <h1 id="hero-title"></h1>
-                <p style="max-width:600px; margin-bottom:30px; font-size:1.1rem; color:#ccc;" id="hero-desc"></p>
-                <button class="cta-btn" onclick="showPage('tierlist')">View Meta Tier List</button>
+                <p style="max-width:600px; margin-bottom:30px; color:#ccc;" id="hero-desc"></p>
+                <button class="cta-btn" onclick="showPage('tierlist')">View Intel</button>
             </div>
         </header>
 
         <div class="grid-wrapper">
             <div class="bento-grid">
-                <!-- Card 1: Meta (Updated ID) -->
-                <div class="card span-2-col span-2-row" onclick="showPage('tierlist')">
-                    <img src="https://images.unsplash.com/photo-1595590424283-b8f17842773f?auto=format&fit=crop&w=800&q=80" 
-                         class="card-bg" 
-                         alt="Meta Tier List"
-                         onerror="this.onerror=null;this.src='https://placehold.co/800x600/111/FFF?text=META+TIER+LIST'">
+                <div class="card span-2" onclick="showPage('tierlist')">
+                    <img src="https://images.unsplash.com/photo-1542259685-6102717e35bb?auto=format&fit=crop&w=800&q=80" class="card-bg">
                     <div class="card-content">
-                        <span style="color:var(--cod-gold); font-weight:bold; font-size:0.8rem;" id="card-meta-date"></span>
-                        <h3>S-Tier Meta List</h3>
-                        <p style="color:#aaa; font-size:0.9rem;" id="card-meta-desc"></p>
+                        <h3>Meta Tier List</h3>
+                        <p style="color:#aaa; font-size:0.8rem;">Auto-Season Calculator</p>
                     </div>
                 </div>
-
-                <!-- Card 2: Codes (Updated ID) -->
-                <div class="card span-2-col" onclick="showPage('codes')">
-                    <img src="https://images.unsplash.com/photo-1555680202-c86f0e12f086?auto=format&fit=crop&w=800&q=80" 
-                         class="card-bg" 
-                         alt="Redeem Codes"
-                         onerror="this.onerror=null;this.src='https://placehold.co/800x400/111/FFF?text=REDEEM+CODES'">
+                <div class="card span-2" onclick="showPage('codes')">
+                    <img src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=800&q=80" class="card-bg">
                     <div class="card-content">
                         <h3>Redeem Codes</h3>
-                        <p style="color:#aaa; font-size:0.9rem;">New "Lunar" Crate Keys.</p>
-                    </div>
-                </div>
-
-                <!-- Card 3: Loadouts (New Reliable ID: Weapon closeup) -->
-                <div class="card" onclick="showPage('loadouts')">
-                    <img src="https://images.unsplash.com/photo-1599409362309-847250e7b8c2?auto=format&fit=crop&w=400&q=80" 
-                         class="card-bg" 
-                         alt="Lachmann-556"
-                         onerror="this.onerror=null;this.src='https://placehold.co/400x300/111/FFF?text=GUNSMITH'">
-                    <div class="card-content">
-                        <h3>Lachmann-556</h3>
-                    </div>
-                </div>
-
-                <!-- Card 4: Guide (New Reliable ID: Dark texture) -->
-                <div class="card" onclick="showPage('guide')">
-                    <img src="https://images.unsplash.com/photo-1616428753229-87a7a5823158?auto=format&fit=crop&w=400&q=80" 
-                         class="card-bg" 
-                         alt="Velikan Guide"
-                         onerror="this.onerror=null;this.src='https://placehold.co/400x300/111/FFF?text=BOSS+GUIDE'">
-                    <div class="card-content">
-                        <h3>Velikan Guide</h3>
+                        <p style="color:#aaa; font-size:0.8rem;">Source: r/CallOfDutyMobile</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- === PAGE: TIER LIST === -->
+    <!-- TIER LIST -->
     <div id="tierlist" class="page">
-        <div class="content-container">
-            <div class="back-btn" onclick="showPage('home')">← Back to Home</div>
-            <div class="page-header">
-                <h2>Season 2 Meta Tier List</h2>
-                <p style="color:#aaa;">Updated for Ranked Series 1 (2026)</p>
-            </div>
-
+        <div class="grid-wrapper">
+            <h2 style="font-family:'Oswald'; margin-bottom:20px; text-align:center;">Current Meta</h2>
             <table class="tier-table">
-                <thead>
-                    <tr>
-                        <th>Tier</th>
-                        <th>Weapon</th>
-                        <th>Type</th>
-                        <th>Analysis</th>
-                    </tr>
-                </thead>
-                <tbody id="tier-list-body">
-                    <!-- Populated by JS -->
-                </tbody>
+                <tbody id="tier-list-body"></tbody>
             </table>
+            <div style="text-align:center; margin-top:20px; cursor:pointer; color:#888;" onclick="showPage('home')">← Back</div>
         </div>
     </div>
 
-    <!-- === PAGE: LOADOUTS === -->
-    <div id="loadouts" class="page">
-        <div class="content-container">
-            <div class="back-btn" onclick="showPage('home')">← Back to Home</div>
-            <div class="page-header">
-                <h2>Best Gunsmith Builds</h2>
-            </div>
-
-            <!-- Loadout 1 -->
-            <div class="gunsmith-card">
-                <h3 style="color:var(--cod-gold); font-family:'Oswald'; font-size:1.5rem;">Lachmann-556 (Zero Recoil)</h3>
-                <p style="color:#ccc; margin-bottom:10px;">The meta build for Passive/Anchor playstyle.</p>
-                <div class="attachment-grid">
-                    <div class="attachment"><span>Muzzle</span>Agency Suppressor</div>
-                    <div class="attachment"><span>Barrel</span>Lachmann Nova</div>
-                    <div class="attachment"><span>Optic</span>Classic Red Dot</div>
-                    <div class="attachment"><span>Underbarrel</span>Field Agent Foregrip</div>
-                    <div class="attachment"><span>Ammunition</span>40 Round Mag</div>
-                </div>
-            </div>
-
-            <!-- Loadout 2 -->
-            <div class="gunsmith-card">
-                <h3 style="color:var(--cod-gold); font-family:'Oswald'; font-size:1.5rem;">USS 9 (Aggressive)</h3>
-                <p style="color:#ccc; margin-bottom:10px;">Maximum mobility and strafe speed.</p>
-                <div class="attachment-grid">
-                    <div class="attachment"><span>Muzzle</span>Monolithic Suppressor</div>
-                    <div class="attachment"><span>Barrel</span>Rapid Fire</div>
-                    <div class="attachment"><span>Stock</span>No Stock</div>
-                    <div class="attachment"><span>Laser</span>OWC Tactical</div>
-                    <div class="attachment"><span>Rear Grip</span>Stippled Grip Tape</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- === PAGE: REDEEM CODES === -->
+    <!-- CODES -->
     <div id="codes" class="page">
-        <div class="content-container">
-            <div class="back-btn" onclick="showPage('home')">← Back to Home</div>
-            <div class="page-header">
-                <h2>Active Redeem Codes</h2>
-                <p style="color:#aaa;">Codes verified as of February 15, 2026.</p>
-            </div>
-
-            <p style="margin-bottom:20px; color:#ccc;">Click codes to copy. Redeem at the official redemption center.</p>
-
-            <div id="codes-container">
-                <!-- Populated by JS -->
-            </div>
-
-            <div class="gunsmith-card" style="margin-top:40px; background:#2a0000; border-color:var(--cod-red);">
-                <h3 style="color:white;">⚠️ Expired Codes</h3>
-                <p style="color:#aaa;">Do not use: DAEDZBZGVB, BMRMZBZESA</p>
-            </div>
+        <div class="grid-wrapper" style="max-width:800px;">
+            <h2 style="font-family:'Oswald'; margin-bottom:20px; text-align:center;">Scraped Codes</h2>
+            <div id="codes-container"></div>
+            <div style="text-align:center; margin-top:20px; cursor:pointer; color:#888;" onclick="showPage('home')">← Back</div>
         </div>
     </div>
 
-    <!-- === PAGE: GUIDE === -->
-    <div id="guide" class="page">
-        <div class="content-container">
-            <div class="back-btn" onclick="showPage('home')">← Back to Home</div>
-            <div class="page-header">
-                <h2>Velikan Boss Guide</h2>
-                <p style="color:#aaa;">Building 21 - Solo Strategy</p>
-            </div>
-
-            <div style="background:#111; padding:30px; border-left:4px solid var(--cod-red);">
-                <h3 style="color:white; margin-bottom:15px;">Phase 1: The Approach</h3>
-                <p style="color:#ccc; margin-bottom:20px;">Velikan spawns on the 3rd floor laboratory. Do NOT engage until you clear the Shadow Company bots. He uses an RGL-80, so stay away from tight corridors.</p>
-                
-                <h3 style="color:white; margin-bottom:15px;">Phase 2: The Damage</h3>
-                <p style="color:#ccc; margin-bottom:20px;">Use the <strong>ZRG 20mm</strong> (Anti-Vehicle Mag) or thermites. He has high armor but is slow. Rotate between cover constantly.</p>
-
-                <h3 style="color:white; margin-bottom:15px;">Phase 3: The Loot</h3>
-                <p style="color:#ccc;">Defeating him drops the <strong>RGL-80 (Contraband)</strong> and the "Velikan's Keycard" which opens the Armory room on the 1st floor.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- JAVASCRIPT: HANDLES DATA & ROUTING -->
     <script>
-        lucide.createIcons();
-
-        // 1. DEFAULT DATA (Source of Truth)
-        // All content lives here. HTML is just a skeleton.
-        const defaultData = {
-            status: "SEASON 2 LIVE",
-            hero: {
-                subtitle: "YEAR OF THE HORSE UPDATE",
-                title: 'Lunar <span style="color:var(--cod-red)">Charge</span>',
-                desc: "The 2026 Meta has shifted. Master the USS 9, defeat Velikan, and claim your rewards.",
-                metaDate: "UPDATED FEB 15",
-                metaDesc: "Why the USS 9 is unbeatable."
-            },
-            tierList: [
-                { tier: "S+", name: "USS 9", type: "SMG", analysis: "Fastest TTK (180ms) up to 15m. Absolute close-range king." },
-                { tier: "S", name: "Lachmann-556", type: "AR", analysis: "Zero recoil. The new 'Beam' for mid-range." },
-                { tier: "S", name: "Oden", type: "AR", analysis: "Two-tap potential remains untouched. High skill gap." },
-                { tier: "A", name: "BP50", type: "AR", analysis: "Great fire rate, but range nerfed slightly in S2." }
-            ],
-            codes: [
-                { code: "CUOFZBZR5M", reward: "Season 2 Lunar Crate (x2)" },
-                { code: "CUKQZBZTMS", reward: "500 Credits + XP Card" }
-            ]
-        };
-
-        // 2. FETCH FUNCTION
-        async function loadSiteData() {
+        async function init() {
             try {
-                // Tries to find 'data.json' in the same folder
-                const response = await fetch('/api/data'); 
-                if (!response.ok) throw new Error("No external data found");
-                const data = await response.json();
-                renderSite(data);
-                console.log("Loaded from External JSON");
-            } catch (error) {
-                console.log("Using Default Data");
-                // Fallback to internal data if fetch fails
-                renderSite(defaultData);
+                // Fetch from Worker (Scraper)
+                const res = await fetch('/api/data');
+                const data = await res.json();
+                
+                // Visuals
+                document.getElementById('nav-status').innerText = data.status;
+                
+                // Hero
+                document.getElementById('hero-subtitle').innerText = data.hero.subtitle;
+                document.getElementById('hero-title').innerHTML = data.hero.title;
+                document.getElementById('hero-desc').innerText = data.hero.desc;
+
+                // Tiers
+                const tierBody = document.getElementById('tier-list-body');
+                data.tierList.forEach(t => {
+                    tierBody.innerHTML += `<tr>
+                        <td><span class="tier-badge">${t.tier}</span></td>
+                        <td style="font-weight:bold">${t.name}</td>
+                        <td style="color:#aaa">${t.analysis}</td>
+                    </tr>`;
+                });
+
+                // Codes
+                const codeBox = document.getElementById('codes-container');
+                if (data.codes.length === 0) {
+                     codeBox.innerHTML = "<p style='text-align:center; color:#666'>No new codes found on Reddit today.</p>";
+                } else {
+                    data.codes.forEach(c => {
+                        codeBox.innerHTML += `<div style="margin-bottom:10px">
+                            <div class="code-box" onclick="navigator.clipboard.writeText('${c.code}')">
+                                <span>${c.code}</span>
+                                <span class="source-tag">${c.source}</span>
+                            </div>
+                            <p style="text-align:center; color:#666; font-size:0.8rem">${c.reward}</p>
+                        </div>`;
+                    });
+                }
+
+            } catch (e) {
+                console.error("Auto-Scrape Failed", e);
+                document.getElementById('nav-status').innerText = "CONNECTION FAILED";
+                document.getElementById('nav-status').style.color = "red";
             }
         }
 
-        // 3. RENDER FUNCTION
-        function renderSite(data) {
-            // Update Text Elements
-            if(document.getElementById('nav-status')) document.getElementById('nav-status').innerText = data.status;
-            if(document.getElementById('hero-subtitle')) document.getElementById('hero-subtitle').innerText = data.hero.subtitle;
-            if(document.getElementById('hero-title')) document.getElementById('hero-title').innerHTML = data.hero.title;
-            if(document.getElementById('hero-desc')) document.getElementById('hero-desc').innerText = data.hero.desc;
-            
-            // Update Card Summaries
-            if(document.getElementById('card-meta-date')) document.getElementById('card-meta-date').innerText = data.hero.metaDate || "UPDATED RECENTLY";
-            if(document.getElementById('card-meta-desc')) document.getElementById('card-meta-desc').innerText = data.hero.metaDesc || "Check the latest meta.";
-
-            // Render Tier List
-            const tbody = document.getElementById('tier-list-body');
-            tbody.innerHTML = '';
-            data.tierList.forEach(item => {
-                const row = `
-                    <tr>
-                        <td><span class="tier-badge">${item.tier}</span></td>
-                        <td style="font-weight:bold; color:white;">${item.name}</td>
-                        <td>${item.type}</td>
-                        <td>${item.analysis}</td>
-                    </tr>
-                `;
-                tbody.innerHTML += row;
-            });
-
-            // Render Codes
-            const codesContainer = document.getElementById('codes-container');
-            codesContainer.innerHTML = '';
-            data.codes.forEach(item => {
-                const div = document.createElement('div');
-                div.innerHTML = `
-                    <div class="code-box" onclick="copyCode(this)">${item.code}</div>
-                    <p style="text-align:center; color:var(--cod-gold);">${item.reward}</p>
-                `;
-                codesContainer.appendChild(div);
-            });
+        function showPage(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            window.scrollTo(0,0);
         }
 
-        // 4. ROUTER & UTILS
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-            window.scrollTo(0, 0);
-        }
-
-        function copyCode(element) {
-            const code = element.innerText;
-            navigator.clipboard.writeText(code);
-            const originalText = element.innerText;
-            element.innerText = "COPIED!";
-            element.style.color = "white";
-            setTimeout(() => {
-                element.innerText = originalText;
-                element.style.color = "var(--cod-gold)";
-            }, 1000);
-        }
-
-        // 5. INIT
-        // Render immediately with default data to prevent "empty" flash
-        renderSite(defaultData);
-        // Then try to fetch fresh data
-        loadSiteData();
-
+        init();
     </script>
-
 </body>
 </html>
