@@ -3,20 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CODMobile.org | Season 2 2026 Meta & Intel</title>
-    <meta name="description" content="Season 2 'Lunar Charge' Headquarters. Updated Meta Tier Lists, USS 9 Gunsmiths, and February 2026 Redeem Codes.">
+    <title>CODMobile.org | Season 2 2026: Lunar Charge Meta & Intel</title>
+    <meta name="description" content="Official Fan Source for COD Mobile Season 2 'Lunar Charge'. Updated Feb 2026 Meta Tier List, Lachmann-556 Gunsmiths, and Active Redeem Codes.">
+    <meta name="keywords" content="CODM Season 2 2026, Lachmann-556 Loadout, USS 9 Meta, CODM Redeem Codes Feb 2026, Velikan Boss Guide">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Oswald:wght@500;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --cod-yellow: #FFD700;
-            --cod-black: #080808;
-            --cod-panel: #121212;
-            --cod-accent: #ff3b3b;
-            --text-main: #e0e0e0;
+            /* Season 2 'Lunar Charge' Palette */
+            --cod-gold: #FFD700;
+            --cod-red: #D81B1B; 
+            --cod-black: #050505;
+            --cod-panel: #111111;
+            --cod-border: #333;
+            --text-main: #EAEAEA;
+            --text-muted: #888;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -24,28 +28,29 @@
         body { 
             background-color: var(--cod-black); 
             color: var(--text-main); 
-            font-family: 'Rajdhani', sans-serif; /* The COD Menu Font */
+            font-family: 'Inter', sans-serif;
             overflow-x: hidden;
+            line-height: 1.5;
         }
 
-        /* SCANLINE OVERLAY - Makes it look like a screen */
+        /* --- UI OVERLAYS --- */
+        /* CRT Scanline Effect for 'Tactical' Vibe */
         body::after {
             content: " ";
             display: block;
             position: fixed;
             top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 9999;
-            background-size: 100% 2px, 3px 100%;
+            background: repeating-linear-gradient(0deg, rgba(0,0,0,0.15), rgba(0,0,0,0.15) 1px, transparent 1px, transparent 2px);
             pointer-events: none;
+            z-index: 9999;
         }
 
-        /* NAV */
+        /* --- NAVIGATION --- */
         nav {
             position: fixed;
             top: 0; width: 100%;
-            background: rgba(8, 8, 8, 0.9);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(5, 5, 5, 0.95);
+            border-bottom: 1px solid var(--cod-border);
             padding: 1rem 5%;
             display: flex;
             justify-content: space-between;
@@ -53,226 +58,329 @@
             z-index: 1000;
             backdrop-filter: blur(10px);
         }
-        .logo { font-family: 'Oswald', sans-serif; font-size: 1.8rem; text-transform: uppercase; letter-spacing: 1px; color: white; }
-        .logo span { color: var(--cod-yellow); }
+        
+        .logo { 
+            font-family: 'Oswald', sans-serif; 
+            font-size: 1.5rem; 
+            text-transform: uppercase; 
+            letter-spacing: -1px; 
+            color: white; 
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .logo span { color: var(--cod-gold); }
+        .nav-status {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            color: var(--cod-red);
+            font-size: 0.9rem;
+            border: 1px solid var(--cod-red);
+            padding: 2px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
 
-        /* HERO SECTION */
+        /* --- HERO SECTION --- */
         header.hero {
-            height: 85vh;
+            height: 75vh;
             position: relative;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            margin-top: 0;
-            border-bottom: 4px solid var(--cod-yellow);
+            border-bottom: 4px solid var(--cod-gold);
+            overflow: hidden;
         }
 
         .hero-bg {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            /* Reliable Unsplash Image: Dark Cyber/Military Vibe */
-            background: linear-gradient(to bottom, rgba(0,0,0,0.3), var(--cod-black)), 
-                        url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+            /* Image: Red smoke/Tactical vibe (matches Lunar Theme) */
+            background: linear-gradient(to bottom, rgba(5,5,5,0.4), var(--cod-black)), 
+                        url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
             z-index: -1;
-            filter: grayscale(20%) contrast(110%);
+            filter: saturate(1.2) contrast(1.1);
+        }
+
+        .hero-badge {
+            background: var(--cod-gold);
+            color: black;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 5px 15px;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            clip-path: polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 10px);
         }
 
         h1 { 
             font-family: 'Oswald', sans-serif;
-            font-size: clamp(3rem, 8vw, 6rem); 
+            font-size: clamp(3rem, 6vw, 6rem); 
             text-transform: uppercase; 
             line-height: 0.9;
             margin-bottom: 1rem;
-            text-shadow: 0 10px 30px rgba(0,0,0,0.8);
             letter-spacing: -2px;
-        }
-        
-        .hero-tag {
-            background: var(--cod-accent);
-            color: white;
-            padding: 5px 15px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 20px;
-            display: inline-block;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
 
-        /* UI BUTTON */
+        .hero p {
+            max-width: 600px;
+            font-size: 1.1rem;
+            color: #ccc;
+            margin-bottom: 30px;
+            background: rgba(0,0,0,0.6);
+            padding: 10px 20px;
+            border-radius: 4px;
+            border-left: 3px solid var(--cod-red);
+        }
+
         .cta-btn {
-            background: rgba(255, 215, 0, 0.1);
-            color: var(--cod-yellow);
-            border: 2px solid var(--cod-yellow);
-            padding: 15px 50px;
-            font-size: 1.2rem;
+            background: var(--cod-red);
+            color: white;
+            padding: 15px 40px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.4rem;
             font-weight: 700;
             text-decoration: none;
             text-transform: uppercase;
             letter-spacing: 1px;
-            transition: all 0.3s;
-            backdrop-filter: blur(5px);
+            transition: all 0.2s;
+            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
         }
-        .cta-btn:hover { background: var(--cod-yellow); color: black; box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
+        .cta-btn:hover { background: white; color: black; transform: scale(1.05); }
 
-        /* BENTO GRID LAYOUT */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            grid-template-rows: repeat(2, 350px);
-            gap: 20px;
-            padding: 50px 5%;
-            max-width: 1600px;
+        /* --- BENTO GRID LAYOUT --- */
+        .grid-wrapper {
+            padding: 60px 5%;
+            max-width: 1400px;
             margin: 0 auto;
+        }
+
+        .grid-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--cod-border);
+            padding-bottom: 10px;
+        }
+        .grid-header h2 { font-family: 'Oswald', sans-serif; font-size: 2rem; text-transform: uppercase; color: white; }
+        .grid-header span { color: var(--cod-gold); font-family: 'Rajdhani', sans-serif; }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 350px); /* Fixed height for consistency */
+            gap: 20px;
         }
 
         .card {
             background: var(--cod-panel);
+            border: 1px solid var(--cod-border);
             position: relative;
             overflow: hidden;
-            border: 1px solid #333;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             text-decoration: none;
-            group: card;
-        }
-        
-        /* Grid Spans */
-        .card.main { grid-column: span 8; grid-row: span 2; }
-        .card.side { grid-column: span 4; }
-        .card.wide { grid-column: span 4; }
-
-        @media (max-width: 1024px) {
-            .grid-container { display: flex; flex-direction: column; }
-            .card { height: 300px; width: 100%; }
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
         }
 
-        .card:hover { border-color: var(--cod-yellow); transform: translateY(-5px); z-index: 10; }
-        
-        .card-img {
-            width: 100%; height: 100%;
+        .card:hover { border-color: var(--cod-gold); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+
+        /* Background Images for Cards */
+        .card-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
             object-fit: cover;
-            transition: transform 0.6s;
-            opacity: 0.7;
+            transition: transform 0.5s;
+            opacity: 0.6;
+            z-index: 0;
         }
-        .card:hover .card-img { transform: scale(1.05); opacity: 0.4; }
+        .card:hover .card-bg { transform: scale(1.1); opacity: 0.4; }
 
         .card-content {
-            position: absolute;
-            bottom: 0; left: 0; width: 100%;
+            position: relative;
+            z-index: 1;
             padding: 25px;
-            background: linear-gradient(to top, black, transparent);
-        }
-
-        .card h3 { 
-            font-family: 'Oswald', sans-serif; 
-            font-size: 2rem; 
-            color: white; 
-            text-transform: uppercase;
-            margin-bottom: 5px;
-        }
-        .card p { color: var(--cod-yellow); font-weight: bold; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
-
-        /* CONTENT TABLE */
-        .meta-section {
-            padding: 50px 5%;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        .meta-table {
+            background: linear-gradient(to top, rgba(0,0,0,1), transparent);
             width: 100%;
-            border-collapse: collapse;
-            background: #111;
-            border: 1px solid #333;
         }
-        .meta-table th, .meta-table td {
-            text-align: left;
-            padding: 20px;
-            border-bottom: 1px solid #222;
+
+        .card-tag {
+            background: var(--cod-gold);
+            color: black;
+            padding: 2px 8px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 8px;
         }
-        .meta-table th { color: var(--cod-yellow); text-transform: uppercase; letter-spacing: 1px; }
+
+        .card h3 {
+            color: white;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            line-height: 1;
+        }
+
+        /* Grid Spans */
+        .span-2-col { grid-column: span 2; }
+        .span-2-row { grid-row: span 2; }
         
+        @media (max-width: 900px) {
+            .bento-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+            .span-2-col, .span-2-row { grid-column: span 1; grid-row: span 1; height: 300px; }
+        }
+
+        /* --- CONTENT SECTION --- */
+        .content-section {
+            background: #0f0f0f;
+            padding: 60px 5%;
+            margin-top: 60px;
+            border-top: 1px solid var(--cod-border);
+        }
+
+        .code-box {
+            background: #1a1a1a;
+            border: 1px dashed var(--cod-gold);
+            padding: 15px;
+            font-family: 'Rajdhani', monospace;
+            font-size: 1.5rem;
+            color: var(--cod-gold);
+            text-align: center;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+        .code-box:hover { background: #222; }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #444;
+            font-size: 0.8rem;
+            border-top: 1px solid #222;
+        }
+
+        /* --- ADSENSE PLACEHOLDERS --- */
+        .ad-slot {
+            width: 100%;
+            height: 100px;
+            background: #111;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            border: 1px solid #222;
+            font-size: 0.8rem;
+        }
+
     </style>
 </head>
 <body>
 
     <nav>
         <div class="logo">CODMobile<span>.ORG</span></div>
-        <div style="font-weight: 700; color: #666; font-size: 0.9rem;">STATUS: ONLINE // SEASON 2</div>
+        <div class="nav-status">Season 2: Live</div>
     </nav>
 
     <header class="hero">
         <div class="hero-bg"></div>
-        <div class="hero-tag">Season 2: Lunar Charge</div>
-        <h1>Meta <span style="color:var(--cod-yellow)">Snapshot</span></h1>
-        <p style="max-width: 600px; margin-bottom: 30px; font-size: 1.2rem; color: #ccc;">
-            The Year of the Horse update is live. Secure the new Lachmann-556, dominate Building 21, and optimize your loadouts for the 2026 Ranked Series.
+        <div class="hero-badge">Year of the Horse Update</div>
+        <h1>Lunar <span style="color:var(--cod-red)">Charge</span></h1>
+        <p>
+            The 2026 Meta has shifted. The USS 9 rules close-range, the Lachmann-556 is the new AR King, and Velikan has taken over Building 21.
         </p>
-        <a href="#grid" class="cta-btn">Access Data</a>
+        <a href="#loadouts" class="cta-btn">View Meta Tier List</a>
     </header>
 
-    <div class="grid-container" id="grid">
+    <div class="ad-slot">[AdSense Responsive Display Ad]</div>
+
+    <div class="grid-wrapper" id="loadouts">
         
-        <a href="/meta-tier-list" class="card main">
-            <img src="https://images.unsplash.com/photo-1595590424283-b8f17842773f?q=80&w=2070&auto=format&fit=crop" class="card-img" alt="COD Mobile Meta Tier List">
-            <div class="card-content">
-                <p>Updated Feb 15, 2026</p>
-                <h3>S-Tier Weapon List</h3>
-                <span style="color:#aaa; font-size: 0.9rem;">USS 9 • VMP • ODEN • TYPE 19</span>
-            </div>
-        </a>
+        <div class="grid-header">
+            <h2>Intel Center</h2>
+            <span>UPDATED: FEB 15, 2026</span>
+        </div>
 
-        <a href="/redeem-codes" class="card side">
-            <img src="https://images.unsplash.com/photo-1614726365723-49fa9b31a23e?q=80&w=1974&auto=format&fit=crop" class="card-img" alt="Redeem Codes">
-            <div class="card-content">
-                <p>Status: Active</p>
-                <h3>Redeem Codes</h3>
-            </div>
-        </a>
+        <div class="bento-grid">
+            
+            <a href="/meta-tier-list" class="card span-2-col span-2-row">
+                <img src="https://images.unsplash.com/photo-1595590424283-b8f17842773f?q=80&w=2070&auto=format&fit=crop" class="card-bg" alt="Season 2 Meta Tier List">
+                <div class="card-content">
+                    <span class="card-tag">Critical Intel</span>
+                    <h3>S-Tier Meta List</h3>
+                    <p style="color: #aaa; margin-top: 5px;">Why the USS 9 & Lachmann-556 are dominating Ranked.</p>
+                </div>
+            </a>
 
-        <a href="/guides/velikan" class="card side">
-            <img src="https://images.unsplash.com/photo-1542259685-6102717e35bb?q=80&w=2070&auto=format&fit=crop" class="card-img" alt="Velikan Boss Guide">
-            <div class="card-content">
-                <p>Building 21</p>
-                <h3>Velikan Boss Guide</h3>
-            </div>
-        </a>
+            <a href="/redeem-codes" class="card span-2-col">
+                <img src="https://images.unsplash.com/photo-1555680202-c86f0e12f086?q=80&w=2070&auto=format&fit=crop" class="card-bg" alt="Active Redeem Codes">
+                <div class="card-content">
+                    <span class="card-tag">Free Loot</span>
+                    <h3>Feb '26 Redeem Codes</h3>
+                    <p style="color: #aaa;">Get the "Lunar" Crate Keys.</p>
+                </div>
+            </a>
 
+            <a href="/guides/velikan" class="card">
+                <img src="https://images.unsplash.com/photo-1626262963177-85642ff152af?q=80&w=1958&auto=format&fit=crop" class="card-bg" alt="Velikan Boss Guide">
+                <div class="card-content">
+                    <span class="card-tag">Guide</span>
+                    <h3>Defeat Velikan</h3>
+                </div>
+            </a>
+
+            <a href="/loadouts/lachmann-556" class="card">
+                <img src="https://images.unsplash.com/photo-1585314062340-f1a5a7c9328d?q=80&w=2070&auto=format&fit=crop" class="card-bg" alt="Lachmann-556 Gunsmith">
+                <div class="card-content">
+                    <span class="card-tag">New Weapon</span>
+                    <h3>Lachmann-556</h3>
+                </div>
+            </a>
+
+        </div>
     </div>
 
-    <section class="meta-section">
-        <h2 style="font-family:'Oswald'; text-transform:uppercase; margin-bottom:20px; border-left:4px solid var(--cod-yellow); padding-left:15px; font-size: 2rem;">Current Ranked Meta (Feb '26)</h2>
-        <table class="meta-table">
-            <thead>
-                <tr>
-                    <th>Weapon</th>
-                    <th>Class</th>
-                    <th>Evaluation</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td style="color:var(--cod-accent); font-weight:bold;">USS 9</td>
-                    <td>SMG</td>
-                    <td>Absolute Meta. Fastest TTK up to 15m.</td>
-                </tr>
-                <tr>
-                    <td style="color:var(--cod-accent); font-weight:bold;">Lachmann-556</td>
-                    <td>AR</td>
-                    <td>New Season 2 King. Zero Recoil.</td>
-                </tr>
-                <tr>
-                    <td>HDR</td>
-                    <td>Sniper</td>
-                    <td>One-shot kill at all ranges (BR Main).</td>
-                </tr>
-            </tbody>
-        </table>
+    <section class="content-section">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <h2 style="font-family: 'Oswald'; color: var(--cod-gold); margin-bottom: 20px;">LATEST: Active Redeem Code (Feb 2026)</h2>
+            <p style="color: #ccc; margin-bottom: 10px;">Use this code immediately for the Season 2 Celebration Crate. Verified working as of Feb 15.</p>
+            
+            <div class="code-box">CUOFZBZR5M</div>
+            <div class="code-box">CUKQZBZTMS</div>
+            
+            <p style="font-size: 0.8rem; color: #666; text-align: center; margin-top: 10px;">*Codes expire Feb 28, 2026. Click to copy.</p>
+
+            <div class="ad-slot" style="margin-top: 40px;">[AdSense In-Article Ad]</div>
+
+            <h3 style="color: white; margin-top: 40px; font-family: 'Oswald';">Season 2 "Lunar Charge" Patch Notes</h3>
+            <ul style="list-style: none; margin-top: 20px; color: #ddd;">
+                <li style="margin-bottom: 15px; border-left: 2px solid var(--cod-red); padding-left: 15px;">
+                    <strong style="color: white;">New Weapon: Lachmann-556</strong><br>
+                    A high-stability Assault Rifle that rivals the Grau 5.56. Unlocks at Battle Pass Tier 21.
+                </li>
+                <li style="margin-bottom: 15px; border-left: 2px solid var(--cod-red); padding-left: 15px;">
+                    <strong style="color: white;">Building 21 Update</strong><br>
+                    Velikan has returned as the main boss. He now drops the RGL-80 Grenade Launcher (essential for final exfil).
+                </li>
+                <li style="margin-bottom: 15px; border-left: 2px solid var(--cod-red); padding-left: 15px;">
+                    <strong style="color: white;">Ranked Series Reset</strong><br>
+                    New "Grand Master" rewards include the "Year of the Horse" operator skin.
+                </li>
+            </ul>
+        </div>
     </section>
 
-    <footer style="text-align: center; padding: 40px; color: #444; font-size: 0.8rem;">
-        CODMOBILE.ORG &copy; 2026. FAN SITE.
+    <footer>
+        &copy; 2026 CODMobile.org. Fan Site. Not affiliated with Activision or TiMi Studios. <br>
+        <a href="#" style="color: #666; text-decoration: none;">Privacy Policy</a> | <a href="#" style="color: #666; text-decoration: none;">Ad Choices</a>
     </footer>
 
 </body>
