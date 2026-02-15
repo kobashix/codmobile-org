@@ -90,10 +90,12 @@
         .hero-bg {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
+            /* Default: Retro Computer Vibe */
             background: linear-gradient(to bottom, rgba(5,5,5,0.4), var(--cod-black)), 
-                        url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+                        url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
             z-index: -1;
             filter: saturate(1.2) contrast(1.1);
+            transition: opacity 0.5s;
         }
 
         h1 { 
@@ -241,55 +243,65 @@
     <!-- NAVIGATION -->
     <nav>
         <div class="logo" onclick="showPage('home')">CODMobile<span>.ORG</span></div>
-        <div style="color: var(--cod-red); font-weight: bold; font-family:'Rajdhani'" id="nav-status">SEASON 2 LIVE</div>
+        <div style="color: var(--cod-red); font-weight: bold; font-family:'Rajdhani'" id="nav-status"></div>
     </nav>
 
     <!-- === PAGE: HOME === -->
     <div id="home" class="page active">
         <header class="hero">
-            <div class="hero-bg"></div>
+            <div class="hero-bg" id="hero-bg-layer"></div>
             <div style="z-index:2; padding:0 20px;">
-                <div style="color:var(--cod-gold); font-family:'Rajdhani'; font-weight:700; letter-spacing:2px; margin-bottom:10px;" id="hero-subtitle">YEAR OF THE HORSE UPDATE</div>
-                <h1 id="hero-title">Lunar <span style="color:var(--cod-red)">Charge</span></h1>
-                <p style="max-width:600px; margin-bottom:30px; font-size:1.1rem; color:#ccc;" id="hero-desc">
-                    The 2026 Meta has shifted. Master the USS 9, defeat Velikan, and claim your rewards.
-                </p>
+                <div style="color:var(--cod-gold); font-family:'Rajdhani'; font-weight:700; letter-spacing:2px; margin-bottom:10px;" id="hero-subtitle"></div>
+                <h1 id="hero-title"></h1>
+                <p style="max-width:600px; margin-bottom:30px; font-size:1.1rem; color:#ccc;" id="hero-desc"></p>
                 <button class="cta-btn" onclick="showPage('tierlist')">View Meta Tier List</button>
             </div>
         </header>
 
         <div class="grid-wrapper">
             <div class="bento-grid">
-                <!-- Card 1: Meta -->
+                <!-- Card 1: Meta (Updated ID) -->
                 <div class="card span-2-col span-2-row" onclick="showPage('tierlist')">
-                    <img src="https://images.unsplash.com/photo-1595590424283-b8f17842773f?q=80&w=2070&auto=format&fit=crop" class="card-bg" alt="Meta Tier List">
+                    <img src="https://images.unsplash.com/photo-1595590424283-b8f17842773f?auto=format&fit=crop&w=800&q=80" 
+                         class="card-bg" 
+                         alt="Meta Tier List"
+                         onerror="this.onerror=null;this.src='https://placehold.co/800x600/111/FFF?text=META+TIER+LIST'">
                     <div class="card-content">
-                        <span style="color:var(--cod-gold); font-weight:bold; font-size:0.8rem;" id="card-meta-date">UPDATED FEB 15</span>
+                        <span style="color:var(--cod-gold); font-weight:bold; font-size:0.8rem;" id="card-meta-date"></span>
                         <h3>S-Tier Meta List</h3>
-                        <p style="color:#aaa; font-size:0.9rem;" id="card-meta-desc">Why the USS 9 is unbeatable.</p>
+                        <p style="color:#aaa; font-size:0.9rem;" id="card-meta-desc"></p>
                     </div>
                 </div>
 
-                <!-- Card 2: Codes -->
+                <!-- Card 2: Codes (Updated ID) -->
                 <div class="card span-2-col" onclick="showPage('codes')">
-                    <img src="https://images.unsplash.com/photo-1555680202-c86f0e12f086?q=80&w=2070&auto=format&fit=crop" class="card-bg" alt="Redeem Codes">
+                    <img src="https://images.unsplash.com/photo-1555680202-c86f0e12f086?auto=format&fit=crop&w=800&q=80" 
+                         class="card-bg" 
+                         alt="Redeem Codes"
+                         onerror="this.onerror=null;this.src='https://placehold.co/800x400/111/FFF?text=REDEEM+CODES'">
                     <div class="card-content">
                         <h3>Redeem Codes</h3>
                         <p style="color:#aaa; font-size:0.9rem;">New "Lunar" Crate Keys.</p>
                     </div>
                 </div>
 
-                <!-- Card 3: Loadouts -->
+                <!-- Card 3: Loadouts (New Reliable ID: Weapon closeup) -->
                 <div class="card" onclick="showPage('loadouts')">
-                    <img src="https://images.unsplash.com/photo-1585314062340-f1a5a7c9328d?q=80&w=2070&auto=format&fit=crop" class="card-bg" alt="Lachmann-556">
+                    <img src="https://images.unsplash.com/photo-1599409362309-847250e7b8c2?auto=format&fit=crop&w=400&q=80" 
+                         class="card-bg" 
+                         alt="Lachmann-556"
+                         onerror="this.onerror=null;this.src='https://placehold.co/400x300/111/FFF?text=GUNSMITH'">
                     <div class="card-content">
                         <h3>Lachmann-556</h3>
                     </div>
                 </div>
 
-                <!-- Card 4: Guide -->
+                <!-- Card 4: Guide (New Reliable ID: Dark texture) -->
                 <div class="card" onclick="showPage('guide')">
-                    <img src="https://images.unsplash.com/photo-1626262963177-85642ff152af?q=80&w=1958&auto=format&fit=crop" class="card-bg" alt="Velikan Guide">
+                    <img src="https://images.unsplash.com/photo-1616428753229-87a7a5823158?auto=format&fit=crop&w=400&q=80" 
+                         class="card-bg" 
+                         alt="Velikan Guide"
+                         onerror="this.onerror=null;this.src='https://placehold.co/400x300/111/FFF?text=BOSS+GUIDE'">
                     <div class="card-content">
                         <h3>Velikan Guide</h3>
                     </div>
@@ -407,13 +419,16 @@
     <script>
         lucide.createIcons();
 
-        // 1. DEFAULT DATA (Backup if JSON fetch fails)
+        // 1. DEFAULT DATA (Source of Truth)
+        // All content lives here. HTML is just a skeleton.
         const defaultData = {
             status: "SEASON 2 LIVE",
             hero: {
                 subtitle: "YEAR OF THE HORSE UPDATE",
                 title: 'Lunar <span style="color:var(--cod-red)">Charge</span>',
-                desc: "The 2026 Meta has shifted. Master the USS 9, defeat Velikan, and claim your rewards."
+                desc: "The 2026 Meta has shifted. Master the USS 9, defeat Velikan, and claim your rewards.",
+                metaDate: "UPDATED FEB 15",
+                metaDesc: "Why the USS 9 is unbeatable."
             },
             tierList: [
                 { tier: "S+", name: "USS 9", type: "SMG", analysis: "Fastest TTK (180ms) up to 15m. Absolute close-range king." },
@@ -431,24 +446,29 @@
         async function loadSiteData() {
             try {
                 // Tries to find 'data.json' in the same folder
-                const response = await fetch('/api/data'); // UPDATED TO FETCH FROM WORKER
+                const response = await fetch('/api/data'); 
                 if (!response.ok) throw new Error("No external data found");
                 const data = await response.json();
                 renderSite(data);
                 console.log("Loaded from External JSON");
             } catch (error) {
                 console.log("Using Default Data");
+                // Fallback to internal data if fetch fails
                 renderSite(defaultData);
             }
         }
 
         // 3. RENDER FUNCTION
         function renderSite(data) {
-            // Update Text
+            // Update Text Elements
             if(document.getElementById('nav-status')) document.getElementById('nav-status').innerText = data.status;
             if(document.getElementById('hero-subtitle')) document.getElementById('hero-subtitle').innerText = data.hero.subtitle;
             if(document.getElementById('hero-title')) document.getElementById('hero-title').innerHTML = data.hero.title;
             if(document.getElementById('hero-desc')) document.getElementById('hero-desc').innerText = data.hero.desc;
+            
+            // Update Card Summaries
+            if(document.getElementById('card-meta-date')) document.getElementById('card-meta-date').innerText = data.hero.metaDate || "UPDATED RECENTLY";
+            if(document.getElementById('card-meta-desc')) document.getElementById('card-meta-desc').innerText = data.hero.metaDesc || "Check the latest meta.";
 
             // Render Tier List
             const tbody = document.getElementById('tier-list-body');
@@ -497,7 +517,10 @@
             }, 1000);
         }
 
-        // Start
+        // 5. INIT
+        // Render immediately with default data to prevent "empty" flash
+        renderSite(defaultData);
+        // Then try to fetch fresh data
         loadSiteData();
 
     </script>
