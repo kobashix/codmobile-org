@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CODMobile.org | Auto-Intel</title>
+    <title>CODMobile.org | Auto-Intel & Archive</title>
     
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,8 +19,6 @@
         nav { position: fixed; top: 0; width: 100%; background: rgba(5,5,5,0.95); border-bottom: 1px solid #333; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; backdrop-filter: blur(10px); }
         .logo { font-family: 'Oswald'; font-size: 1.5rem; text-transform: uppercase; color: white; cursor: pointer; }
         .logo span { color: var(--cod-gold); }
-        
-        /* Live Pulse Animation */
         .live-indicator { display: flex; align-items: center; gap: 6px; font-family: 'Rajdhani'; font-weight: bold; color: var(--cod-red); font-size: 0.9rem; }
         .dot { width: 8px; height: 8px; background: var(--cod-red); border-radius: 50%; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { opacity: 1; box-shadow: 0 0 0 0 rgba(216, 27, 27, 0.7); } 70% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(216, 27, 27, 0); } 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(216, 27, 27, 0); } }
@@ -31,19 +29,7 @@
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         /* Hero */
-        header.hero { 
-            height: 60vh; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-            align-items: center; 
-            text-align: center; 
-            border-bottom: 4px solid var(--cod-gold); 
-            background-color: #050505; /* Fallback color */
-            background-image: linear-gradient(to bottom, rgba(0,0,0,0.7), #050505), url('https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=1920&q=80');
-            background-position: center;
-            background-size: cover;
-        }
+        header.hero { height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; border-bottom: 4px solid var(--cod-gold); background-color: #050505; background-image: linear-gradient(to bottom, rgba(0,0,0,0.7), #050505), url('https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=1920&q=80'); background-position: center; background-size: cover; }
         h1 { font-family: 'Oswald'; font-size: clamp(3rem, 6vw, 6rem); text-transform: uppercase; line-height: 0.9; margin-bottom: 1rem; }
         .cta-btn { background: var(--cod-red); color: white; padding: 15px 40px; font-family: 'Rajdhani'; font-weight: 700; border: none; text-transform: uppercase; cursor: pointer; clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px); }
 
@@ -71,11 +57,6 @@
         .code-box { background: #222; border: 1px dashed var(--cod-gold); padding: 15px; text-align: center; font-family: 'Rajdhani'; font-size: 1.5rem; color: var(--cod-gold); margin: 10px 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
         .source-tag { font-size: 0.7rem; background: #333; padding: 2px 6px; border-radius: 4px; color: #aaa; text-transform: uppercase; }
 
-        /* Auto SEO Footer */
-        #auto-seo { border-top: 1px solid #222; margin-top: 80px; padding-top: 40px; color: #444; font-size: 0.8rem; line-height: 1.6; }
-        #auto-seo strong { color: #666; }
-        #auto-seo em { font-style: normal; color: #555; }
-
         /* Patch Notes List */
         .patch-list { list-style: none; padding: 0; }
         .patch-list li { background: #151515; border-left: 3px solid var(--cod-gold); padding: 15px; margin-bottom: 10px; }
@@ -88,22 +69,25 @@
         #search-input { width: 100%; background: #111; border: 1px solid #333; padding: 20px; font-size: 1.2rem; color: white; font-family: 'Rajdhani'; padding-left: 50px; outline: none; transition: border-color 0.3s; }
         #search-input:focus { border-color: var(--cod-gold); }
         .search-icon-input { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #666; }
-        
-        .result-item { background: #1a1a1a; padding: 20px; border-left: 4px solid #333; margin-bottom: 15px; animation: fadeIn 0.2s; }
-        .result-item.tier { border-color: var(--cod-gold); }
-        .result-item.code { border-color: var(--cod-red); }
-        .result-item.patch { border-color: #0088ff; }
-        
+        .result-item { background: #1a1a1a; padding: 20px; border-left: 4px solid #333; margin-bottom: 15px; animation: fadeIn 0.2s; cursor: pointer; transition: background 0.2s; }
+        .result-item:hover { background: #222; }
+        .result-item.archive { border-color: #666; opacity: 0.8; }
         .result-type { font-size: 0.7rem; text-transform: uppercase; color: #888; margin-bottom: 5px; font-weight: bold; font-family: 'Rajdhani'; }
         .result-title { color: white; font-family: 'Oswald'; font-size: 1.2rem; margin-bottom: 5px; }
         .result-desc { color: #aaa; font-size: 0.9rem; }
 
-        .search-nav-btn { cursor: pointer; padding: 8px; border-radius: 4px; transition: background 0.3s; color: white; display: flex; align-items: center; justify-content: center; }
-        .search-nav-btn:hover { background: rgba(255,255,255,0.1); }
-
         /* Video Player Page */
         .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: black; border: 1px solid #333; margin-bottom: 20px; }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        .video-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; border-top: 1px solid #222; padding-top: 20px; }
+        .meta-box { background: #111; padding: 15px; border-left: 2px solid var(--cod-gold); }
+        .meta-label { font-family: 'Rajdhani'; color: #666; font-size: 0.8rem; text-transform: uppercase; display: block; margin-bottom: 5px; }
+        .meta-value { color: white; font-weight: bold; }
+        .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+        .video-tag { background: #222; color: #aaa; padding: 4px 10px; font-size: 0.8rem; border-radius: 4px; }
+        
+        /* HIDDEN SEO ARCHIVE (Visible to Bots) */
+        #seo-archive-data { display: none; }
     </style>
 </head>
 <body>
@@ -111,12 +95,8 @@
     <nav>
         <div class="logo" onclick="showPage('home')">CODMobile<span>.ORG</span></div>
         <div style="display: flex; align-items: center; gap: 20px;">
-            <div class="search-nav-btn" onclick="showPage('search')" title="Tactical Search">
-                <i data-lucide="search" style="width: 20px; height: 20px;"></i>
-            </div>
-            <div class="live-indicator">
-                <span class="dot"></span> <span id="nav-status">INITIALIZING...</span>
-            </div>
+            <div class="search-nav-btn" onclick="showPage('search')" title="Tactical Search"><i data-lucide="search" style="width: 20px; height: 20px;"></i></div>
+            <div class="live-indicator"><span class="dot"></span> <span id="nav-status">INITIALIZING...</span></div>
         </div>
     </nav>
 
@@ -136,100 +116,41 @@
 
         <div class="grid-wrapper">
             <div class="bento-grid">
-                <!-- Meta Tier List -->
-                <div class="card span-2" onclick="showPage('tierlist')">
-                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80" 
-                         class="card-bg"
-                         onerror="this.onerror=null;this.src='https://placehold.co/800x600/111/FFF?text=META+DATA'">
-                    <div class="card-content">
-                        <h3>Meta Tier List</h3>
-                        <p style="color:#aaa; font-size:0.8rem;">Auto-Season Calculator</p>
-                    </div>
-                </div>
-
-                <!-- Redeem Codes -->
-                <div class="card span-2" onclick="showPage('codes')">
-                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80" 
-                         class="card-bg"
-                         onerror="this.onerror=null;this.src='https://placehold.co/800x600/111/FFF?text=REDEEM+CODES'">
-                    <div class="card-content">
-                        <h3>Redeem Codes</h3>
-                        <p style="color:#aaa; font-size:0.8rem;">Source: Backup Database</p>
-                    </div>
-                </div>
-
-                <!-- VIDEO INTEL CARD (Span 2) -->
-                <div class="card span-2" id="video-card" onclick="openVideoPlayer()">
-                    <div class="play-icon">▶</div>
-                    <img id="video-thumb" src="" class="card-bg" style="opacity: 0.4;">
-                    <div class="card-content">
-                        <span style="color:var(--cod-gold); font-weight:bold; font-size:0.8rem;">TACTICAL BRIEFING</span>
-                        <h3 id="video-title">Loading Intel...</h3>
-                    </div>
-                </div>
-
-                 <!-- PATCH NOTES CARD (Span 2) -->
-                 <div class="card span-2" onclick="showPage('patchnotes')">
-                    <img src="https://images.unsplash.com/photo-1616428753229-87a7a5823158?auto=format&fit=crop&w=800&q=80" 
-                         class="card-bg"
-                         onerror="this.onerror=null;this.src='https://placehold.co/800x600/111/FFF?text=PATCH+NOTES'">
-                    <div class="card-content">
-                        <h3>Patch Notes</h3>
-                        <p style="color:#aaa; font-size:0.8rem;">Activision Source: Verified</p>
-                    </div>
-                </div>
-
+                <div class="card span-2" onclick="showPage('tierlist')"><img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80" class="card-bg" onerror="this.onerror=null;this.src='https://placehold.co/800x600/111/FFF?text=META+DATA'"><div class="card-content"><h3>Meta Tier List</h3><p style="color:#aaa; font-size:0.8rem;">Auto-Season Calculator</p></div></div>
+                <div class="card span-2" onclick="showPage('codes')"><img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80" class="card-bg" onerror="this.onerror=null;this.src='https://placehold.co/800x600/111/FFF?text=REDEEM+CODES'"><div class="card-content"><h3>Redeem Codes</h3><p style="color:#aaa; font-size:0.8rem;">Source: Backup Database</p></div></div>
+                <div class="card span-2" id="video-card" onclick="openVideoPlayer()"><div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3rem; color: white; opacity: 0.8; text-shadow: 0 0 20px black; z-index: 2; pointer-events: none;">▶</div><img id="video-thumb" src="" class="card-bg" style="opacity: 0.4;"><div class="card-content"><span style="color:var(--cod-gold); font-weight:bold; font-size:0.8rem;">TACTICAL BRIEFING</span><h3 id="video-title">Loading Intel...</h3></div></div>
+                <div class="card span-2" onclick="showPage('patchnotes')"><img src="https://images.unsplash.com/photo-1616428753229-87a7a5823158?auto=format&fit=crop&w=800&q=80" class="card-bg" onerror="this.onerror=null;this.src='https://placehold.co/800x600/111/FFF?text=PATCH+NOTES'"><div class="card-content"><h3>Patch Notes</h3><p style="color:#aaa; font-size:0.8rem;">Activision Source: Verified</p></div></div>
             </div>
         </div>
-
-        <!-- SEO FOOTER GENERATED HERE -->
-        <section id="auto-seo" class="grid-wrapper" style="max-width: 800px;"></section>
-
+        
+        <!-- HIDDEN SEO ARCHIVE FOR BOTS -->
+        <div id="seo-archive-data"></div>
     </div>
 
     <!-- TIER LIST -->
-    <div id="tierlist" class="page">
-        <div class="grid-wrapper">
-            <h2 style="font-family:'Oswald'; margin-bottom:20px; text-align:center;">Current Meta</h2>
-            <table class="tier-table">
-                <tbody id="tier-list-body"></tbody>
-            </table>
-            <div style="text-align:center; margin-top:20px; cursor:pointer; color:#888;" onclick="showPage('home')">← Back</div>
-        </div>
-    </div>
+    <div id="tierlist" class="page"><div class="grid-wrapper"><h2 style="font-family:'Oswald'; margin-bottom:20px; text-align:center;">Current Meta</h2><table class="tier-table"><tbody id="tier-list-body"></tbody></table><div style="text-align:center; margin-top:20px; cursor:pointer; color:#888;" onclick="showPage('home')">← Back</div></div></div>
 
     <!-- CODES -->
-    <div id="codes" class="page">
-        <div class="grid-wrapper" style="max-width:800px;">
-            <h2 style="font-family:'Oswald'; margin-bottom:20px; text-align:center;">Verified Codes</h2>
-            <div id="codes-container"></div>
-            <div style="text-align:center; margin-top:20px; cursor:pointer; color:#888;" onclick="showPage('home')">← Back</div>
-        </div>
-    </div>
+    <div id="codes" class="page"><div class="grid-wrapper" style="max-width:800px;"><h2 style="font-family:'Oswald'; margin-bottom:20px; text-align:center;">Verified Codes</h2><div id="codes-container"></div><div style="text-align:center; margin-top:20px; cursor:pointer; color:#888;" onclick="showPage('home')">← Back</div></div></div>
 
     <!-- PATCH NOTES -->
-    <div id="patchnotes" class="page">
-        <div class="grid-wrapper" style="max-width:800px;">
-            <h2 style="font-family:'Oswald'; margin-bottom:20px; text-align:center;">Latest Patch Notes</h2>
-            <div style="margin-bottom: 20px; text-align: center; color: #666; font-size: 0.8rem;">
-                Source: support.activision.com/cod-mobile
-            </div>
-            <ul class="patch-list" id="patch-container">
-                <!-- Populated by JS -->
-            </ul>
-            <div style="text-align:center; margin-top:20px; cursor:pointer; color:#888;" onclick="showPage('home')">← Back</div>
-        </div>
-    </div>
+    <div id="patchnotes" class="page"><div class="grid-wrapper" style="max-width:800px;"><h2 style="font-family:'Oswald'; margin-bottom:20px; text-align:center;">Latest Patch Notes</h2><div style="margin-bottom: 20px; text-align: center; color: #666; font-size: 0.8rem;">Source: support.activision.com/cod-mobile</div><ul class="patch-list" id="patch-container"></ul><div style="text-align:center; margin-top:20px; cursor:pointer; color:#888;" onclick="showPage('home')">← Back</div></div></div>
 
     <!-- INTERNAL VIDEO PLAYER -->
     <div id="player" class="page">
         <div class="grid-wrapper" style="max-width:1000px;">
             <h2 style="font-family:'Oswald'; margin-bottom:10px;">Tactical Briefing</h2>
-            <div class="video-container">
-                <iframe id="main-video-embed" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <div class="video-container"><iframe id="main-video-embed" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+            <h1 id="player-title" style="color:white; font-family:'Oswald'; font-size:1.8rem;"></h1>
+            <div class="video-meta">
+                <div class="meta-box"><span class="meta-label">Operator / Channel</span><div class="meta-value" id="vid-author">-</div></div>
+                <div class="meta-box"><span class="meta-label">Intel Views</span><div class="meta-value" id="vid-views">-</div></div>
+                <div class="meta-box"><span class="meta-label">Briefing Date</span><div class="meta-value" id="vid-date">-</div></div>
             </div>
-            <h3 id="player-title" style="color:white;"></h3>
-            <p id="player-desc" style="color:#aaa; font-size:0.9rem; margin-top:10px;"></p>
+            <div style="background:#111; padding:20px; margin-top:20px; border:1px solid #333; color:#ccc; line-height:1.6; font-size:0.9rem;">
+                <strong style="color:var(--cod-gold);">MISSION DEBRIEF:</strong><br><br><div id="player-desc"></div>
+            </div>
+            <div class="tag-cloud" id="vid-tags"></div>
             <div style="text-align:center; margin-top:40px; cursor:pointer; color:#888;" onclick="showPage('home')">← Return to Base</div>
         </div>
     </div>
@@ -238,74 +159,44 @@
     <div id="search" class="page">
         <div class="grid-wrapper search-container">
             <h2 style="font-family:'Oswald'; margin-bottom:10px; text-align:center;">DATABASE SEARCH</h2>
-            <p style="text-align:center; color:#666; margin-bottom: 30px; font-family:'Rajdhani';">Querying Auto-Scraped Intel...</p>
-            
-            <div class="search-input-wrapper">
-                <i data-lucide="search" class="search-icon-input"></i>
-                <input type="text" id="search-input" placeholder="Type a weapon, code, or keyword..." onkeyup="performSearch()">
-            </div>
-            
-            <div id="search-results">
-                <!-- Results populated via JS -->
-                <div style="text-align:center; color:#444; margin-top:50px;">
-                    <i data-lucide="terminal" style="margin-bottom:10px; width:40px; height:40px; opacity:0.3;"></i>
-                    <p>SYSTEM READY. AWAITING INPUT.</p>
-                </div>
-            </div>
-            
+            <p style="text-align:center; color:#666; margin-bottom: 30px; font-family:'Rajdhani';">Querying Archive & Live Intel...</p>
+            <div class="search-input-wrapper"><i data-lucide="search" class="search-icon-input"></i><input type="text" id="search-input" placeholder="Type a weapon, code, or keyword..." onkeyup="performSearch()"></div>
+            <div id="search-results"><div style="text-align:center; color:#444; margin-top:50px;"><i data-lucide="terminal" style="margin-bottom:10px; width:40px; height:40px; opacity:0.3;"></i><p>SYSTEM READY. AWAITING INPUT.</p></div></div>
             <div style="text-align:center; margin-top:40px; cursor:pointer; color:#888;" onclick="showPage('home')">← Return to Base</div>
         </div>
     </div>
 
     <script>
-        // Global var to hold the current video Data
         let globalData = null;
 
         function openVideoPlayer() {
             if (globalData && globalData.video) {
                 document.getElementById('main-video-embed').src = globalData.video.url;
                 document.getElementById('player-title').innerText = globalData.video.title;
-                document.getElementById('player-desc').innerText = globalData.video.desc || "Scraped from YouTube/Reddit #codmobile_partner";
+                document.getElementById('player-desc').innerText = globalData.video.description || "No briefing available.";
+                document.getElementById('vid-author').innerText = globalData.video.author || "Unknown";
+                document.getElementById('vid-views').innerText = globalData.video.views || "N/A";
+                document.getElementById('vid-date').innerText = new Date(globalData.video.uploadDate).toLocaleDateString();
+                const tagBox = document.getElementById('vid-tags'); tagBox.innerHTML = '';
+                if(globalData.video.tags) globalData.video.tags.forEach(tag => { tagBox.innerHTML += `<span class="video-tag">${tag}</span>`; });
                 showPage('player');
             }
         }
 
-        // CLIENT-SIDE FALLBACK LOGIC
         function getBackupData() {
             const today = new Date();
-            const currentMonth = today.getMonth() + 1;
-            const calculatedSeason = (currentMonth % 12) + 1; 
-            
+            const calculatedSeason = (today.getMonth() % 12) + 1; 
             return {
                 status: `SEASON ${calculatedSeason} LIVE`,
-                hero: {
-                    subtitle: `AUTOMATED INTEL // ${today.toLocaleDateString()}`,
-                    title: `META <span style="color:var(--cod-red)">WATCH</span>`,
-                    desc: `Real-time surveillance of the CODM Meta. Automatically scanning for Season ${calculatedSeason} intel.`,
-                },
-                tierList: [
-                    { tier: "S+", name: "BP50", type: "AR", analysis: "High Fire Rate. Consistent Meta." },
-                    { tier: "S", name: "LAG 53", type: "AR", analysis: "New Season Favorite." },
-                    { tier: "S", name: "USS 9", type: "SMG", analysis: "Close Range King." },
-                    { tier: "A", name: "Tundra", type: "Sniper", analysis: "Aggressive Sniping." }
-                ],
-                codes: [
-                    { code: "BVRPZBZJ53", reward: "Verified Code (Backup)", source: "Backup" },
-                    { code: "BMRMZBZESA", reward: "Verified Code (Backup)", source: "Backup" }
-                ],
-                // BACKUP VIDEO DATA (Embed URL format)
-                video: {
-                    title: "SEASON 2 META: Top 10 Weapons",
-                    url: "https://www.youtube.com/embed/TNN631X8JDo?autoplay=1",
-                    thumbnail: "https://img.youtube.com/vi/TNN631X8JDo/maxresdefault.jpg",
-                    desc: "Community analysis of the new Lachmann-556 and USS 9 buffs. Watch for the gunsmith breakdown at 2:30."
-                },
-                // BACKUP PATCH NOTES (Aligned with Activision Screenshot)
-                patchNotes: [
-                    { title: "Version 35.0 — December 8, 2025", desc: "Overall app optimizations to reduce storage space and improve download speeds." },
-                    { title: "Storage Optimization", desc: "Android size reduced to ~1.6 GB. iOS size reduced to ~3.3 GB." },
-                    { title: "DMZ Recon", desc: "The new DMZ Recon game mode will be downloaded as part of Version 35.0." },
-                    { title: "Battle Royale", desc: "Isolated map requires new high-definition audio assets download." }
+                hero: { subtitle: `AUTOMATED INTEL // ${today.toLocaleDateString()}`, title: `META <span style="color:var(--cod-red)">WATCH</span>`, desc: `Real-time surveillance of the CODM Meta. Automatically scanning for Season ${calculatedSeason} intel.` },
+                tierList: [ { tier: "S+", name: "BP50", type: "AR", analysis: "High Fire Rate. Consistent Meta." }, { tier: "S", name: "LAG 53", type: "AR", analysis: "New Season Favorite." }, { tier: "S", name: "USS 9", type: "SMG", analysis: "Close Range King." }, { tier: "A", name: "Tundra", type: "Sniper", analysis: "Aggressive Sniping." } ],
+                codes: [ { code: "BVRPZBZJ53", reward: "Verified Code (Backup)", source: "Backup" }, { code: "BMRMZBZESA", reward: "Verified Code (Backup)", source: "Backup" } ],
+                video: { title: "SEASON 2 META: Top 10 Weapons", url: "https://www.youtube.com/embed/TNN631X8JDo?autoplay=1", thumbnail: "https://img.youtube.com/vi/TNN631X8JDo/maxresdefault.jpg", author: "CODM Community", views: "1.2M", uploadDate: "2026-02-14", description: "Community analysis of the new Lachmann-556 and USS 9 buffs.", tags: ["CODM", "Meta", "Loadout", "Season 2"] },
+                patchNotes: [ { title: "Version 35.0 — December 8, 2025", desc: "Overall app optimizations to reduce storage space." }, { title: "Storage Optimization", desc: "Android size reduced to ~1.6 GB. iOS size reduced to ~3.3 GB." }, { title: "DMZ Recon", desc: "The new DMZ Recon game mode will be downloaded as part of Version 35.0." }, { title: "Battle Royale", desc: "Isolated map requires new high-definition audio assets download." } ],
+                history: [
+                    { title: "Season 1 2026 Meta Analysis", date: "1/15/2026", type: "ARCHIVE" },
+                    { title: "Best BR Classes for Isolated", date: "11/05/2025", type: "ARCHIVE" },
+                    { title: "World Championship 2025 Winners", date: "09/15/2025", type: "ARCHIVE" }
                 ]
             };
         }
@@ -315,203 +206,60 @@
                 const res = await fetch('/api/data');
                 if (!res.ok) throw new Error("API Route Not Found");
                 globalData = await res.json();
-                console.log("Using LIVE Data from Cloudflare");
-
-                // SANITY CHECK: If Scrape Failed, use Backup Patch Notes
-                if (!globalData.patchNotes || globalData.patchNotes.length === 0 || (globalData.patchNotes[0] && globalData.patchNotes[0].title === "Manual Override")) {
-                    console.warn("Backend reported scrape failure. Swapping in Backup Patch Notes.");
-                    globalData.patchNotes = getBackupData().patchNotes;
-                }
-
+                if (!globalData.patchNotes || globalData.patchNotes.length === 0 || (globalData.patchNotes[0] && globalData.patchNotes[0].title === "Manual Override")) globalData.patchNotes = getBackupData().patchNotes;
             } catch (e) {
-                console.warn("API Fetch Failed, switching to Offline Mode:", e);
+                console.warn("Offline Mode:", e);
                 globalData = getBackupData();
                 document.getElementById('nav-status').innerText = globalData.status + " (OFFLINE)";
             }
 
-            // UI RENDER
-            if (document.getElementById('nav-status').innerText === "INITIALIZING...") {
-                 document.getElementById('nav-status').innerText = globalData.status;
-            }
-            
-            // Hero
+            if (document.getElementById('nav-status').innerText === "INITIALIZING...") document.getElementById('nav-status').innerText = globalData.status;
             document.getElementById('hero-subtitle').innerText = globalData.hero.subtitle;
             document.getElementById('hero-title').innerHTML = globalData.hero.title;
             document.getElementById('hero-desc').innerText = globalData.hero.desc;
 
-            // Video Card
-            if (globalData.video) {
-                document.getElementById('video-title').innerText = globalData.video.title;
-                document.getElementById('video-thumb').src = globalData.video.thumbnail;
-            } else {
-                document.getElementById('video-card').style.display = 'none';
+            if (globalData.video) { document.getElementById('video-title').innerText = globalData.video.title; document.getElementById('video-thumb').src = globalData.video.thumbnail; } else { document.getElementById('video-card').style.display = 'none'; }
+
+            const tierBody = document.getElementById('tier-list-body'); tierBody.innerHTML = ""; 
+            globalData.tierList.forEach(t => { tierBody.innerHTML += `<tr><td><span class="tier-badge">${t.tier}</span></td><td style="font-weight:bold">${t.name}</td><td style="color:#aaa">${t.analysis}</td></tr>`; });
+
+            const codeBox = document.getElementById('codes-container'); codeBox.innerHTML = ""; 
+            if (globalData.codes.length === 0) { codeBox.innerHTML = "<p style='text-align:center; color:#666'>No new codes found today.</p>"; } else { globalData.codes.forEach(c => { codeBox.innerHTML += `<div style="margin-bottom:10px"><div class="code-box" onclick="navigator.clipboard.writeText('${c.code}')"><span>${c.code}</span><span class="source-tag">${c.source}</span></div><p style="text-align:center; color:#666; font-size:0.8rem">${c.reward}</p></div>`; }); }
+
+            const patchBox = document.getElementById('patch-container'); patchBox.innerHTML = "";
+            if (globalData.patchNotes) { globalData.patchNotes.forEach(p => { patchBox.innerHTML += `<li><strong>${p.title}</strong><p>${p.desc}</p></li>`; }); }
+
+            // Inject SEO History
+            if(globalData.history) {
+                const archive = document.getElementById('seo-archive-data');
+                globalData.history.forEach(h => { archive.innerHTML += `<div><h3>${h.title}</h3><p>Archived: ${h.date}</p></div>`; });
             }
 
-            // Tiers
-            const tierBody = document.getElementById('tier-list-body');
-            tierBody.innerHTML = ""; 
-            globalData.tierList.forEach(t => {
-                tierBody.innerHTML += `<tr>
-                    <td><span class="tier-badge">${t.tier}</span></td>
-                    <td style="font-weight:bold">${t.name}</td>
-                    <td style="color:#aaa">${t.analysis}</td>
-                </tr>`;
-            });
-
-            // Codes
-            const codeBox = document.getElementById('codes-container');
-            codeBox.innerHTML = ""; 
-            if (globalData.codes.length === 0) {
-                    codeBox.innerHTML = "<p style='text-align:center; color:#666'>No new codes found today.</p>";
-            } else {
-                globalData.codes.forEach(c => {
-                    codeBox.innerHTML += `<div style="margin-bottom:10px">
-                        <div class="code-box" onclick="navigator.clipboard.writeText('${c.code}')">
-                            <span>${c.code}</span>
-                            <span class="source-tag">${c.source}</span>
-                        </div>
-                        <p style="text-align:center; color:#666; font-size:0.8rem">${c.reward}</p>
-                    </div>`;
-                });
-            }
-
-            // Patch Notes
-            const patchBox = document.getElementById('patch-container');
-            patchBox.innerHTML = "";
-            if (globalData.patchNotes) {
-                globalData.patchNotes.forEach(p => {
-                    patchBox.innerHTML += `<li>
-                        <strong>${p.title}</strong>
-                        <p>${p.desc}</p>
-                    </li>`;
-                });
-            }
-
-            generateAutoSeo(globalData);
-            
-            // Re-init icons
             lucide.createIcons();
         }
 
-        // SEARCH FUNCTION
-        function performSearch() {
-            const input = document.getElementById('search-input').value.toLowerCase();
-            const resultsContainer = document.getElementById('search-results');
-            
-            if (input.length < 2) {
-                resultsContainer.innerHTML = `<div style="text-align:center; color:#444; margin-top:50px;">
-                    <i data-lucide="terminal" style="margin-bottom:10px; width:40px; height:40px; opacity:0.3;"></i>
-                    <p>SYSTEM READY. AWAITING INPUT.</p>
-                </div>`;
-                lucide.createIcons();
-                return;
-            }
-
-            resultsContainer.innerHTML = '';
-            let foundCount = 0;
-
-            // Search Tier List
-            globalData.tierList.forEach(item => {
-                if (item.name.toLowerCase().includes(input) || item.analysis.toLowerCase().includes(input)) {
-                    resultsContainer.innerHTML += `
-                        <div class="result-item tier" onclick="showPage('tierlist')">
-                            <div class="result-type">WEAPON INTEL • TIER ${item.tier}</div>
-                            <div class="result-title">${item.name}</div>
-                            <div class="result-desc">${item.analysis}</div>
-                        </div>
-                    `;
-                    foundCount++;
-                }
-            });
-
-            // Search Codes
-            globalData.codes.forEach(item => {
-                if (item.code.toLowerCase().includes(input) || item.reward.toLowerCase().includes(input)) {
-                    resultsContainer.innerHTML += `
-                        <div class="result-item code" onclick="showPage('codes')">
-                            <div class="result-type">REDEEM CODE • ${item.source}</div>
-                            <div class="result-title">${item.code}</div>
-                            <div class="result-desc">Reward: ${item.reward}</div>
-                        </div>
-                    `;
-                    foundCount++;
-                }
-            });
-
-            // Search Patch Notes
-            if (globalData.patchNotes) {
-                globalData.patchNotes.forEach(item => {
-                    if (item.title.toLowerCase().includes(input) || item.desc.toLowerCase().includes(input)) {
-                        resultsContainer.innerHTML += `
-                            <div class="result-item patch" onclick="showPage('patchnotes')">
-                                <div class="result-type">PATCH NOTE • OFFICIAL</div>
-                                <div class="result-title">${item.title}</div>
-                                <div class="result-desc">${item.desc}</div>
-                            </div>
-                        `;
-                        foundCount++;
-                    }
-                });
-            }
-
-            if (foundCount === 0) {
-                resultsContainer.innerHTML = `<div style="text-align:center; color:#666; margin-top:30px;">
-                    <p>No internal intel found for "${input}".</p>
-                </div>`;
-            }
-        }
-
-        function generateAutoSeo(data) {
-            const date = new Date();
-            const month = date.toLocaleString('default', { month: 'long' });
-            const year = date.getFullYear();
-            const seasonNum = data.status.match(/\d+/) ? data.status.match(/\d+/)[0] : "X";
-            
-            const topMeta = data.tierList[0] ? data.tierList[0].name : "High-tier Weaponry";
-            const topAnalysis = data.tierList[0] ? data.tierList[0].analysis.toLowerCase() : "performance metrics";
-            const secMeta = data.tierList[1] ? data.tierList[1].name : "Alternative Loadouts";
-
-            const seoHTML = `
-                <h3 style="font-family:'Oswald'; color:#444; margin-bottom:10px; text-transform:uppercase; font-size:0.9rem;">System Log: ${month} ${year} Analytics</h3>
-                <p style="margin-bottom:15px;">
-                    <strong>Mission Brief:</strong> Automated analysis for <em>Call of Duty: Mobile Season ${seasonNum}</em> indicates a shift in the Ranked Series meta. 
-                    Operators are currently favoring the <strong>${topMeta}</strong> due to its ${topAnalysis}.
-                </p>
-                <p style="margin-bottom:15px;">
-                    <strong>Patch Cycle Integrity:</strong> As of ${month} ${date.getDate()}, the redemption database lists ${data.codes.length} active entry points. 
-                    Common search vectors include "CODM redeem codes ${month} ${year}", "free cp glitches 2026" (flagged: unsafe), and "Velikan boss guide".
-                </p>
-                <p>
-                    <strong>Tactical Summary:</strong> Deployment of the <em>${secMeta}</em> is recommended for mid-range engagements. 
-                    Verify local cache for update 2.${date.getMonth() + 1}.0.${date.getDate()}. 
-                    End of log.
-                </p>
-            `;
-            
-            document.getElementById('auto-seo').innerHTML = seoHTML;
-        }
-
         function showPage(id) {
-            // Stop video if leaving player page
-            if (id !== 'player') {
-                const iframe = document.getElementById('main-video-embed');
-                const src = iframe.src;
-                iframe.src = ''; // Kill video
-                iframe.src = src; // Reset for next time (optional, or leave blank)
-            }
-
+            if (id !== 'player') { const iframe = document.getElementById('main-video-embed'); const src = iframe.src; iframe.src = ''; iframe.src = src; }
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             window.scrollTo(0,0);
-            
             if(id !== 'search') {
                 document.getElementById('search-input').value = ''; 
-                document.getElementById('search-results').innerHTML = `<div style="text-align:center; color:#444; margin-top:50px;">
-                    <i data-lucide="terminal" style="margin-bottom:10px; width:40px; height:40px; opacity:0.3;"></i>
-                    <p>SYSTEM READY. AWAITING INPUT.</p>
-                </div>`;
+                document.getElementById('search-results').innerHTML = `<div style="text-align:center; color:#444; margin-top:50px;"><i data-lucide="terminal" style="margin-bottom:10px; width:40px; height:40px; opacity:0.3;"></i><p>SYSTEM READY. AWAITING INPUT.</p></div>`;
                 lucide.createIcons();
             }
+        }
+
+        function performSearch() {
+            const input = document.getElementById('search-input').value.toLowerCase();
+            const resultsContainer = document.getElementById('search-results');
+            if (input.length < 2) return;
+            resultsContainer.innerHTML = '';
+            let foundCount = 0;
+            globalData.tierList.forEach(item => { if (item.name.toLowerCase().includes(input) || item.analysis.toLowerCase().includes(input)) { resultsContainer.innerHTML += `<div class="result-item tier" onclick="showPage('tierlist')"><div class="result-type">WEAPON INTEL • TIER ${item.tier}</div><div class="result-title">${item.name}</div><div class="result-desc">${item.analysis}</div></div>`; foundCount++; } });
+            globalData.codes.forEach(item => { if (item.code.toLowerCase().includes(input) || item.reward.toLowerCase().includes(input)) { resultsContainer.innerHTML += `<div class="result-item code" onclick="showPage('codes')"><div class="result-type">REDEEM CODE • ${item.source}</div><div class="result-title">${item.code}</div><div class="result-desc">Reward: ${item.reward}</div></div>`; foundCount++; } });
+            if (globalData.history) { globalData.history.forEach(item => { if (item.title.toLowerCase().includes(input)) { resultsContainer.innerHTML += `<div class="result-item archive"><div class="result-type">ARCHIVED INTEL • ${item.date}</div><div class="result-title">${item.title}</div><div class="result-desc">Stored in database history.</div></div>`; foundCount++; } }); }
+            if (foundCount === 0) { resultsContainer.innerHTML = `<div style="text-align:center; color:#666; margin-top:30px;"><p>No internal intel found for "${input}".</p></div>`; }
         }
 
         init();
