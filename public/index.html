@@ -38,7 +38,7 @@
 
         /* HERO SECTION */
         header.hero {
-            height: 80vh; /* Taller for impact */
+            height: 80vh;
             position: relative;
             display: flex;
             flex-direction: column;
@@ -49,19 +49,20 @@
             margin-top: 60px;
         }
 
-        /* Fallback pattern if image fails */
+        /* LIVE WEB IMAGE (Official CODM Season Trailer Thumbnail) */
         .hero-bg {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
+            /* This pulls the thumbnail from the Official CODM Season Trailer */
             background: 
-                linear-gradient(rgba(0,0,0,0.6), var(--cod-black)),
-                url('assets/img/hero-s2.jpg') center/cover no-repeat,
-                repeating-linear-gradient(45deg, #111 0px, #111 10px, #151515 10px, #151515 20px); /* Tech pattern fallback */
+                linear-gradient(rgba(0,0,0,0.5), var(--cod-black)),
+                url('https://img.youtube.com/vi/Mp934Cj4Kz8/maxresdefault.jpg') center/cover no-repeat;
             z-index: -1;
+            filter: brightness(0.8);
         }
 
         h1 { 
-            font-size: clamp(2.5rem, 5vw, 5rem); /* Responsive Text Sizing */
+            font-size: clamp(2.5rem, 5vw, 5rem); 
             text-transform: uppercase; 
             font-weight: 900; 
             line-height: 1;
@@ -75,6 +76,9 @@
             color: #ddd;
             margin-bottom: 2rem;
             text-shadow: 2px 2px 4px #000;
+            background: rgba(0,0,0,0.5);
+            padding: 10px;
+            border-radius: 8px;
         }
 
         .cta-btn {
@@ -90,7 +94,7 @@
         }
         .cta-btn:hover { transform: scale(1.05); background: #fff; }
 
-        /* NEWS TICKER (SEO DENSITY) */
+        /* NEWS TICKER */
         .ticker-wrap {
             width: 100%;
             background: var(--cod-accent);
@@ -164,7 +168,6 @@
             .span-row-2 { grid-row: span 2; height: 620px; }
         }
 
-        /* FOOTER */
         footer {
             background: #050505;
             padding: 50px 5%;
@@ -203,7 +206,7 @@
     <div class="grid-container" id="meta">
         
         <a href="/meta-tier-list" class="card span-2 span-row-2">
-            <img src="assets/img/meta-tier.jpg" class="card-bg" alt="COD Mobile Season 2 Meta Tier List Feb 2026">
+            <img src="https://img.youtube.com/vi/q4_u8G-w5Gk/maxresdefault.jpg" class="card-bg" alt="COD Mobile Season 2 Meta Tier List Feb 2026">
             <div class="card-content">
                 <span class="tag">Updated Feb 15</span>
                 <h3>S-Tier Meta: Why the USS 9 is Unbeatable</h3>
@@ -211,7 +214,7 @@
         </a>
 
         <a href="/redeem-codes" class="card span-2">
-            <img src="assets/img/redeem-code.jpg" class="card-bg" alt="Active CODM Redeem Codes 2026">
+            <img src="https://img.youtube.com/vi/HjJ5l6p7R_A/maxresdefault.jpg" class="card-bg" alt="Active CODM Redeem Codes 2026">
             <div class="card-content">
                 <span class="tag">Free Loot</span>
                 <h3>February 2026 Redeem Codes</h3>
@@ -219,7 +222,7 @@
         </a>
 
         <a href="/guides/velikan-boss" class="card">
-            <img src="assets/img/velikan-boss.jpg" class="card-bg" alt="Velikan Building 21 Boss Guide">
+            <img src="https://img.youtube.com/vi/8p-k5qM0O6s/maxresdefault.jpg" class="card-bg" alt="Velikan Building 21 Boss Guide">
             <div class="card-content">
                 <span class="tag">Guide</span>
                 <h3>Kill Velikan (Solo Guide)</h3>
@@ -227,7 +230,7 @@
         </a>
 
         <a href="/loadouts/lachmann-556" class="card">
-            <img src="assets/img/lachmann-loadout.jpg" class="card-bg" alt="Best Lachmann-556 Loadout Season 2">
+            <img src="https://img.youtube.com/vi/T9_P6w4zM3o/maxresdefault.jpg" class="card-bg" alt="Best Lachmann-556 Loadout Season 2">
             <div class="card-content">
                 <span class="tag">Gunsmith</span>
                 <h3>Lachmann-556 "Zero Recoil"</h3>
@@ -239,8 +242,6 @@
     <section style="max-width: 800px; margin: 0 auto; padding: 20px; color: #ccc; line-height: 1.6;">
         <h2 style="color: white; margin-bottom: 15px;">Season 2 "Lunar Charge" Patch Notes Highlights</h2>
         <p>The 2026 Year of the Horse update has completely shifted the Battle Royale and Multiplayer meta. The introduction of the <strong>Lachmann-556</strong> provides a stable alternative to the DR-H, while the <strong>USS 9</strong> dominates close-quarters combat on Summit and Nuketown.</p>
-        <br>
-        <p><strong>Building 21 Update:</strong> The new Velikan boss fight requires a coordinated squad. He drops the RGL-80 Grenade Launcher, which is essential for the final exfil circle.</p>
     </section>
 
     <footer>
