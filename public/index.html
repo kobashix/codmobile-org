@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CODMobile.org | Auto-Intel & Archive</title>
+    <title>CODMobile.org | Auto-Intel & Meta Archive</title>
+    
+    <!-- Meta Tags for Social SEO -->
+    <meta name="description" content="Live Call of Duty Mobile Season Meta, active redeem codes, and automated patch notes. The ultimate CODM intelligence hub.">
+    <meta property="og:title" content="CODMobile.org | Tactical Intelligence Hub">
+    <meta property="og:description" content="Automated meta tracking and redemption code database.">
+    <meta property="og:type" content="website">
     
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,15 +19,19 @@
     <style>
         :root { --cod-gold: #FFD700; --cod-red: #D81B1B; --cod-black: #050505; --cod-panel: #111; --text-main: #EAEAEA; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: var(--cod-black); color: var(--text-main); font-family: 'Inter', sans-serif; padding-bottom: 50px; display: flex; flex-direction: column; min-height: 100vh; }
+        body { background-color: var(--cod-black); color: var(--text-main); font-family: 'Inter', sans-serif; padding-bottom: 0; display: flex; flex-direction: column; min-height: 100vh; }
 
         /* Nav */
         nav { position: fixed; top: 0; width: 100%; background: rgba(5,5,5,0.95); border-bottom: 1px solid #333; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; backdrop-filter: blur(10px); }
-        .logo { font-family: 'Oswald'; font-size: 1.5rem; text-transform: uppercase; color: white; cursor: pointer; }
+        .logo { font-family: 'Oswald'; font-size: 1.5rem; text-transform: uppercase; color: white; cursor: pointer; text-decoration: none; }
         .logo span { color: var(--cod-gold); }
         .live-indicator { display: flex; align-items: center; gap: 6px; font-family: 'Rajdhani'; font-weight: bold; color: var(--cod-red); font-size: 0.9rem; }
         .dot { width: 8px; height: 8px; background: var(--cod-red); border-radius: 50%; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { opacity: 1; box-shadow: 0 0 0 0 rgba(216, 27, 27, 0.7); } 70% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(216, 27, 27, 0); } 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(216, 27, 27, 0); } }
+
+        /* Breadcrumbs */
+        .breadcrumbs { padding: 10px 5%; font-size: 0.7rem; color: #666; text-transform: uppercase; letter-spacing: 1px; font-family: 'Rajdhani'; font-weight: bold; }
+        .breadcrumbs span { color: var(--cod-gold); }
 
         /* Page System */
         .page { display: none; padding-top: 80px; flex: 1; animation: fadeIn 0.3s; }
@@ -31,217 +41,200 @@
         /* Hero */
         header.hero { height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; border-bottom: 4px solid var(--cod-gold); background-color: #050505; background-image: linear-gradient(to bottom, rgba(0,0,0,0.7), #050505), url('https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=1920&q=80'); background-position: center; background-size: cover; }
         h1 { font-family: 'Oswald'; font-size: clamp(3rem, 6vw, 6rem); text-transform: uppercase; line-height: 0.9; margin-bottom: 1rem; }
-        .cta-btn { background: var(--cod-red); color: white; padding: 15px 40px; font-family: 'Rajdhani'; font-weight: 700; border: none; text-transform: uppercase; cursor: pointer; clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px); text-decoration: none; display: inline-block; }
+        .cta-btn { background: var(--cod-red); color: white; padding: 15px 40px; font-family: 'Rajdhani'; font-weight: 700; border: none; text-transform: uppercase; cursor: pointer; clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px); text-decoration: none; display: inline-block; transition: transform 0.2s; }
+        .cta-btn:hover { transform: scale(1.05); }
 
         /* Grid */
         .grid-wrapper { padding: 40px 5%; max-width: 1400px; margin: 0 auto; }
         .bento-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-        .card { background: var(--cod-panel); border: 1px solid #333; height: 300px; position: relative; overflow: hidden; cursor: pointer; display: flex; flex-direction: column; justify-content: flex-end; }
+        .card { background: var(--cod-panel); border: 1px solid #333; height: 300px; position: relative; overflow: hidden; cursor: pointer; display: flex; flex-direction: column; justify-content: flex-end; text-decoration: none; }
         .card:hover { border-color: var(--cod-gold); }
         .card-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.5; transition: 0.5s; }
         .card:hover .card-bg { transform: scale(1.1); opacity: 0.3; }
         .card-content { position: relative; z-index: 1; padding: 20px; background: linear-gradient(to top, black, transparent); width: 100%; }
         .span-2 { grid-column: span 2; }
-        .span-4 { grid-column: span 4; }
-        @media (max-width: 900px) { .bento-grid { grid-template-columns: 1fr; } .span-2, .span-4 { grid-column: span 1; } }
-
-        /* Play Button Overlay */
-        .play-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3rem; color: white; opacity: 0.8; text-shadow: 0 0 20px black; z-index: 2; pointer-events: none; }
+        @media (max-width: 900px) { .bento-grid { grid-template-columns: 1fr; } .span-2 { grid-column: span 1; } }
 
         /* Tier Table */
-        .tier-table { width: 100%; border-collapse: collapse; max-width: 800px; margin: 0 auto; }
+        .tier-table { width: 100%; border-collapse: collapse; max-width: 900px; margin: 0 auto; }
         .tier-table td { padding: 15px; border-bottom: 1px solid #222; }
-        .tier-badge { background: var(--cod-red); padding: 2px 8px; font-weight: bold; }
+        .tier-badge { background: var(--cod-red); padding: 2px 8px; font-weight: bold; border-radius: 2px; }
 
         /* Code Box */
         .code-box { background: #222; border: 1px dashed var(--cod-gold); padding: 15px; text-align: center; font-family: 'Rajdhani'; font-size: 1.5rem; color: var(--cod-gold); margin: 10px 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
         .source-tag { font-size: 0.7rem; background: #333; padding: 2px 6px; border-radius: 4px; color: #aaa; text-transform: uppercase; }
 
-        /* Patch Notes List */
-        .patch-list { list-style: none; padding: 0; }
-        .patch-list li { background: #151515; border-left: 3px solid var(--cod-gold); padding: 15px; margin-bottom: 10px; }
-        .patch-list strong { color: white; display: block; margin-bottom: 5px; font-family: 'Oswald'; text-transform: uppercase; }
-        .patch-list p { color: #aaa; font-size: 0.9rem; margin: 0; }
-
         /* Search UI */
         .search-container { max-width: 800px; margin: 0 auto; }
-        .search-input-wrapper { position: relative; margin-bottom: 40px; }
         #search-input { width: 100%; background: #111; border: 1px solid #333; padding: 20px; font-size: 1.2rem; color: white; font-family: 'Rajdhani'; padding-left: 50px; outline: none; transition: border-color 0.3s; }
         #search-input:focus { border-color: var(--cod-gold); }
-        .search-icon-input { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #666; }
-        
-        /* Updated Result Item to support Anchor tags */
-        .result-item { display: block; text-decoration: none; background: #1a1a1a; padding: 20px; border-left: 4px solid #333; margin-bottom: 15px; animation: fadeIn 0.2s; cursor: pointer; transition: background 0.2s; position: relative; }
+        .result-item { display: block; text-decoration: none; background: #1a1a1a; padding: 20px; border-left: 4px solid #333; margin-bottom: 15px; transition: background 0.2s; position: relative; }
         .result-item:hover { background: #222; border-color: var(--cod-gold); }
-        .result-item.archive { border-color: #444; }
-        .result-item.archive:hover { border-color: var(--cod-gold); }
-        
-        .result-type { font-size: 0.7rem; text-transform: uppercase; color: #888; margin-bottom: 5px; font-weight: bold; font-family: 'Rajdhani'; }
         .result-title { color: white; font-family: 'Oswald'; font-size: 1.2rem; margin-bottom: 5px; }
-        .result-desc { color: #aaa; font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .external-icon { position: absolute; right: 20px; top: 20px; color: #666; }
+
+        /* Archive Feed */
+        .archive-feed { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; }
+        .archive-card { background: #111; padding: 20px; border: 1px solid #222; text-decoration: none; transition: 0.2s; border-radius: 4px; }
+        .archive-card:hover { background: #1a1a1a; border-color: var(--cod-gold); }
+        .archive-tag { color: var(--cod-gold); font-size: 0.6rem; font-weight: bold; text-transform: uppercase; margin-bottom: 10px; display: block; }
 
         /* Video Player Page */
-        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: black; border: 1px solid #333; margin-bottom: 20px; }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: black; border: 1px solid #333; }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-        .video-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; border-top: 1px solid #222; padding-top: 20px; }
-        .meta-box { background: #111; padding: 15px; border-left: 2px solid var(--cod-gold); }
-        .meta-label { font-family: 'Rajdhani'; color: #666; font-size: 0.8rem; text-transform: uppercase; display: block; margin-bottom: 5px; }
-        .meta-value { color: white; font-weight: bold; }
-        .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
-        .video-tag { background: #222; color: #aaa; padding: 4px 10px; font-size: 0.8rem; border-radius: 4px; }
         
-        /* HIDDEN SEO ARCHIVE (Visible to Bots) */
-        #seo-archive-data { display: none; }
-
         /* Global Footer */
         footer { border-top: 1px solid #222; background: #050505; margin-top: auto; }
-        .footer-content { max-width: 1400px; margin: 0 auto; padding: 40px 5%; text-align: center; color: #444; font-size: 0.8rem; }
-        .footer-links a { color: #666; text-decoration: none; margin: 0 10px; transition: color 0.2s; cursor: pointer; }
+        .footer-content { max-width: 1400px; margin: 0 auto; padding: 60px 5%; text-align: center; color: #444; font-size: 0.8rem; }
+        .footer-links a { color: #666; text-decoration: none; margin: 0 10px; cursor: pointer; font-weight: 600; }
         .footer-links a:hover { color: var(--cod-gold); }
+
+        #seo-archive-data { display: none; }
     </style>
 </head>
 <body>
 
+    <!-- SCHEMA INJECTION POINT -->
+    <script type="application/ld+json" id="structured-data"></script>
+
     <nav>
         <div class="logo" onclick="showPage('home')">CODMobile<span>.ORG</span></div>
         <div style="display: flex; align-items: center; gap: 20px;">
-            <div class="search-nav-btn" onclick="showPage('search')" title="Tactical Search"><i data-lucide="search" style="width: 20px; height: 20px;"></i></div>
-            <div class="live-indicator"><span class="dot"></span> <span id="nav-status">INITIALIZING...</span></div>
+            <div onclick="showPage('search')" style="cursor:pointer; color:white;"><i data-lucide="search"></i></div>
+            <div class="live-indicator"><span class="dot"></span> <span id="nav-status">SURVEILLANCE LIVE</span></div>
         </div>
     </nav>
 
-    <!-- HOME -->
+    <!-- PAGE: HOME -->
     <div id="home" class="page active">
         <header class="hero">
             <div style="z-index:2; padding:0 20px;">
-                <div style="color:var(--cod-gold); font-family:'Rajdhani'; font-weight:700; letter-spacing:2px;" id="hero-subtitle">LOADING...</div>
+                <div style="color:var(--cod-gold); font-family:'Rajdhani'; font-weight:700; letter-spacing:3px;" id="hero-subtitle">INTEL FEED ACTIVE</div>
                 <h1 id="hero-title"></h1>
-                <p style="max-width:600px; margin-bottom:30px; color:#ccc;" id="hero-desc"></p>
+                <p style="max-width:750px; margin: 0 auto 30px; color:#ccc; line-height:1.6;" id="hero-desc"></p>
                 <div style="display: flex; gap: 15px; justify-content: center;">
-                    <button class="cta-btn" onclick="showPage('tierlist')">View Intel</button>
-                    <button class="cta-btn" style="background: transparent; border: 1px solid white;" onclick="showPage('search')">Search DB</button>
+                    <button class="cta-btn" onclick="showPage('tierlist')">Meta Intelligence</button>
+                    <button class="cta-btn" style="background: transparent; border: 1px solid white;" onclick="showPage('codes')">Redeem Codes</button>
                 </div>
             </div>
         </header>
 
         <div class="grid-wrapper">
             <div class="bento-grid">
-                <div class="card span-2" onclick="showPage('tierlist')"><img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80" class="card-bg" onerror="this.onerror=null;this.src='https://placehold.co/800x600/111/FFF?text=META+DATA'"><div class="card-content"><h3>Meta Tier List</h3><p style="color:#aaa; font-size:0.8rem;">Auto-Season Calculator</p></div></div>
-                <div class="card span-2" onclick="showPage('codes')"><img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80" class="card-bg" onerror="this.onerror=null;this.src='https://placehold.co/800x600/111/FFF?text=REDEEM+CODES'"><div class="card-content"><h3>Redeem Codes</h3><p style="color:#aaa; font-size:0.8rem;">Source: Backup Database</p></div></div>
-                <div class="card span-2" id="video-card" onclick="openVideoPlayer()"><div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3rem; color: white; opacity: 0.8; text-shadow: 0 0 20px black; z-index: 2; pointer-events: none;">▶</div><img id="video-thumb" src="" class="card-bg" style="opacity: 0.4;"><div class="card-content"><span style="color:var(--cod-gold); font-weight:bold; font-size:0.8rem;">TACTICAL BRIEFING</span><h3 id="video-title">Loading Intel...</h3></div></div>
-                <div class="card span-2" onclick="showPage('patchnotes')"><img src="https://images.unsplash.com/photo-1616428753229-87a7a5823158?auto=format&fit=crop&w=800&q=80" class="card-bg" onerror="this.onerror=null;this.src='https://placehold.co/800x600/111/FFF?text=PATCH+NOTES'"><div class="card-content"><h3>Patch Notes</h3><p style="color:#aaa; font-size:0.8rem;">Activision Source: Verified</p></div></div>
+                <div class="card span-2" onclick="showPage('tierlist')">
+                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80" class="card-bg">
+                    <div class="card-content"><h3>Ranked Tier List</h3><p style="color:#aaa; font-size:0.8rem;">S-Tier Gunsmith Breakdown</p></div>
+                </div>
+                <div class="card" onclick="showPage('codes')">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=400&q=80" class="card-bg">
+                    <div class="card-content"><h3>Secret Codes</h3><p style="color:#aaa; font-size:0.8rem;">Live Database</p></div>
+                </div>
+                <div class="card" onclick="showPage('archive')">
+                    <img src="https://images.unsplash.com/photo-1555680202-c86f0e12f086?auto=format&fit=crop&w=400&q=80" class="card-bg">
+                    <div class="card-content"><h3>Archive</h3><p style="color:#aaa; font-size:0.8rem;">Intelligence History</p></div>
+                </div>
+                <div class="card span-2" id="video-card" onclick="openVideoPlayer()">
+                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3rem; color: white; opacity: 0.8; z-index: 2;">▶</div>
+                    <img id="video-thumb" src="" class="card-bg" style="opacity: 0.4;">
+                    <div class="card-content"><h3>Tactical Briefing</h3><p id="video-title" style="color:#aaa; font-size:0.8rem;">Loading...</p></div>
+                </div>
+                <div class="card span-2" onclick="showPage('patchnotes')">
+                    <img src="https://images.unsplash.com/photo-1616428753229-87a7a5823158?auto=format&fit=crop&w=800&q=80" class="card-bg">
+                    <div class="card-content"><h3>Patch Notes</h3><p style="color:#aaa; font-size:0.8rem;">Official Version Logs</p></div>
+                </div>
             </div>
         </div>
-        
-        <section id="auto-seo" class="grid-wrapper" style="max-width: 800px; padding-bottom: 20px;"></section>
-        
-        <!-- HIDDEN SEO ARCHIVE (Visible to Bots) -->
-        <div id="seo-archive-data"></div>
+
+        <section id="auto-seo" class="grid-wrapper" style="max-width: 900px; padding-top: 0; color: #444; font-size: 0.85rem;"></section>
     </div>
 
-    <!-- TIER LIST -->
-    <div id="tierlist" class="page"><div class="grid-wrapper"><h2 style="font-family:'Oswald'; margin-bottom:20px; text-align:center;">Current Meta</h2><table class="tier-table"><tbody id="tier-list-body"></tbody></table><div style="text-align:center; margin-top:20px; cursor:pointer; color:#888;" onclick="showPage('home')">← Back</div></div></div>
+    <!-- PAGE: TIER LIST -->
+    <div id="tierlist" class="page">
+        <div class="grid-wrapper">
+            <div class="breadcrumbs">Command Center / Intelligence / <span>Weapon Meta</span></div>
+            <h2 style="font-family:'Oswald'; margin: 20px 0; text-align:center; font-size: 3rem;">CURRENT META</h2>
+            <table class="tier-table"><tbody id="tier-list-body"></tbody></table>
+            <div style="text-align:center; margin-top:40px; cursor:pointer; color:#888;" onclick="showPage('home')">← Return Home</div>
+        </div>
+    </div>
 
-    <!-- CODES -->
-    <div id="codes" class="page"><div class="grid-wrapper" style="max-width:800px;"><h2 style="font-family:'Oswald'; margin-bottom:20px; text-align:center;">Verified Codes</h2><div id="codes-container"></div><div style="text-align:center; margin-top:20px; cursor:pointer; color:#888;" onclick="showPage('home')">← Back</div></div></div>
+    <!-- PAGE: CODES -->
+    <div id="codes" class="page">
+        <div class="grid-wrapper" style="max-width:800px;">
+            <div class="breadcrumbs">Command Center / Logistics / <span>Redemption</span></div>
+            <h2 style="font-family:'Oswald'; margin: 20px 0; text-align:center; font-size: 3rem;">ACTIVE CODES</h2>
+            <div id="codes-container"></div>
+            <div style="text-align:center; margin-top:40px; cursor:pointer; color:#888;" onclick="showPage('home')">← Return Home</div>
+        </div>
+    </div>
 
-    <!-- PATCH NOTES -->
-    <div id="patchnotes" class="page"><div class="grid-wrapper" style="max-width:800px;"><h2 style="font-family:'Oswald'; margin-bottom:20px; text-align:center;">Latest Patch Notes</h2><div style="margin-bottom: 20px; text-align: center; color: #666; font-size: 0.8rem;">Source: support.activision.com/cod-mobile</div><ul class="patch-list" id="patch-container"></ul><div style="text-align:center; margin-top:20px; cursor:pointer; color:#888;" onclick="showPage('home')">← Back</div></div></div>
+    <!-- PAGE: ARCHIVE (New Content Hub) -->
+    <div id="archive" class="page">
+        <div class="grid-wrapper">
+            <div class="breadcrumbs">Command Center / Files / <span>Intel Archive</span></div>
+            <h2 style="font-family:'Oswald'; margin: 20px 0; text-align:center; font-size: 3rem;">INTELLIGENCE ARCHIVE</h2>
+            <div class="archive-feed" id="archive-container"></div>
+            <div style="text-align:center; margin-top:40px; cursor:pointer; color:#888;" onclick="showPage('home')">← Return Home</div>
+        </div>
+    </div>
 
-    <!-- INTERNAL VIDEO PLAYER -->
+    <!-- PAGE: PATCH NOTES -->
+    <div id="patchnotes" class="page">
+        <div class="grid-wrapper" style="max-width:900px;">
+            <div class="breadcrumbs">Command Center / Engineering / <span>System Logs</span></div>
+            <h2 style="font-family:'Oswald'; margin: 20px 0; text-align:center; font-size: 3rem;">PATCH NOTES</h2>
+            <ul class="patch-list" id="patch-container"></ul>
+            <div style="text-align:center; margin-top:40px; cursor:pointer; color:#888;" onclick="showPage('home')">← Return Home</div>
+        </div>
+    </div>
+
+    <!-- PAGE: PLAYER -->
     <div id="player" class="page">
-        <div class="grid-wrapper" style="max-width:1000px;">
-            <div class="viewer-header">
-                <h2 style="font-family:'Oswald'; margin-bottom:5px;">Tactical Briefing</h2>
-                <span style="color:#666; font-size:0.8rem;">INTERNAL SECURE FEED</span>
-            </div>
-            <div class="viewer-container"><iframe id="main-video-embed" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
-            <h1 id="player-title" style="color:white; font-family:'Oswald'; font-size:1.8rem;"></h1>
+        <div class="grid-wrapper" style="max-width:1100px;">
+            <div class="video-container"><iframe id="main-video-embed" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+            <h1 id="player-title" style="color:white; font-family:'Oswald'; font-size:2rem; margin-top:20px;"></h1>
             <div class="video-meta">
-                <div class="meta-box"><span class="meta-label">Operator / Channel</span><div class="meta-value" id="vid-author">-</div></div>
-                <div class="meta-box"><span class="meta-label">Intel Views</span><div class="meta-value" id="vid-views">-</div></div>
-                <div class="meta-box"><span class="meta-label">Briefing Date</span><div class="meta-value" id="vid-date">-</div></div>
+                <div class="meta-box"><span class="meta-label">Operator</span><div class="meta-value" id="vid-author">-</div></div>
+                <div class="meta-box"><span class="meta-label">Intel Level</span><div class="meta-value" id="vid-views">-</div></div>
+                <div class="meta-box"><span class="meta-label">Date</span><div class="meta-value" id="vid-date">-</div></div>
             </div>
-            <div style="background:#111; padding:20px; margin-top:20px; border:1px solid #333; color:#ccc; line-height:1.6; font-size:0.9rem;">
-                <strong style="color:var(--cod-gold);">MISSION DEBRIEF:</strong><br><br><div id="player-desc"></div>
-            </div>
-            <div class="tag-cloud" id="vid-tags"></div>
-            <div style="text-align:center; margin-top:40px; cursor:pointer; color:#888;" onclick="showPage('home')">← Return to Base</div>
+            <div id="player-desc" style="background:#111; padding:25px; border:1px solid #222; margin-top:20px; color:#aaa; line-height:1.7;"></div>
+            <div class="tag-cloud" id="vid-tags" style="margin-top: 20px;"></div>
+            <div style="text-align:center; margin-top:40px; cursor:pointer; color:#888;" onclick="showPage('home')">← Return Home</div>
         </div>
     </div>
 
-    <!-- TACTICAL SEARCH -->
+    <!-- PAGE: SEARCH -->
     <div id="search" class="page">
         <div class="grid-wrapper search-container">
-            <h2 style="font-family:'Oswald'; margin-bottom:10px; text-align:center;">DATABASE SEARCH</h2>
-            <p style="text-align:center; color:#666; margin-bottom: 30px; font-family:'Rajdhani';">Querying Auto-Scraped Intel...</p>
-            <div class="search-input-wrapper"><i data-lucide="search" class="search-icon-input"></i><input type="text" id="search-input" placeholder="Type a weapon, code, or keyword..." onkeyup="performSearch()"></div>
-            <div id="search-results"><div style="text-align:center; color:#444; margin-top:50px;"><i data-lucide="terminal" style="margin-bottom:10px; width:40px; height:40px; opacity:0.3;"></i><p>SYSTEM READY. AWAITING INPUT.</p></div></div>
-            <div style="text-align:center; margin-top:40px; cursor:pointer; color:#888;" onclick="showPage('home')">← Return to Base</div>
-        </div>
-    </div>
-
-    <!-- PRIVACY POLICY -->
-    <div id="privacy" class="page">
-        <div class="grid-wrapper" style="max-width:800px;">
-            <h2 style="font-family:'Oswald'; margin-bottom:20px;">Privacy Policy</h2>
-            <div style="background:#111; padding:30px; border:1px solid #333; color:#ccc; line-height:1.6;">
-                <p><strong>Effective Date:</strong> February 16, 2026</p>
-                <p>CODMobile.org ("we", "us") respects your privacy. This policy explains how we handle information.</p>
-                
-                <h3 style="color:white; margin-top:20px;">1. Information Collection</h3>
-                <p>We do not collect personal data like names or emails unless you voluntarily contact us. We may automatically log non-personal info like IP addresses and browser types for security and analytics.</p>
-
-                <h3 style="color:white; margin-top:20px;">2. Cookies & Third-Party Ads</h3>
-                <p>We use third-party vendors, including Google, to serve ads based on prior visits. Google's use of advertising cookies enables it and its partners to serve ads to you based on your visit to this site and/or other sites on the Internet.</p>
-
-                <h3 style="color:white; margin-top:20px;">3. External Links</h3>
-                <p>This site contains links to other websites (Reddit, YouTube, Activision). We are not responsible for the privacy practices of these external sites.</p>
+            <h2 style="font-family:'Oswald'; text-align:center; font-size: 2.5rem;">TACTICAL SEARCH</h2>
+            <div style="position:relative; margin: 30px 0;">
+                <i data-lucide="search" style="position:absolute; left:15px; top:50%; transform:translateY(-50%); color:#555;"></i>
+                <input type="text" id="search-input" placeholder="Query keywords (e.g., BP50 gunsmith, redeem codes)..." onkeyup="performSearch()">
             </div>
-            <div style="text-align:center; margin-top:40px; cursor:pointer; color:#888;" onclick="showPage('home')">← Back to Home</div>
-        </div>
-    </div>
-
-    <!-- CONTACT -->
-    <div id="contact" class="page">
-        <div class="grid-wrapper" style="max-width:800px; text-align:center;">
-            <h2 style="font-family:'Oswald'; margin-bottom:20px;">Contact Command</h2>
-            <div style="background:#111; padding:40px; border:1px solid #333; color:#ccc;">
-                <i data-lucide="mail" style="width:40px; height:40px; color:var(--cod-gold); margin-bottom:15px;"></i>
-                <p>For bug reports, takedown requests, or partnership inquiries:</p>
-                <a href="mailto:admin@codmobile.org" style="color:var(--cod-red); font-weight:bold; font-size:1.2rem; text-decoration:none;">admin@codmobile.org</a>
-                <p style="margin-top:20px; font-size:0.8rem; color:#666;">Response time: 24-48 hours via secure channel.</p>
+            <div id="search-results"></div>
+            <div style="margin-top:40px; border-top:1px solid #222; padding-top:20px;">
+                <p style="color:#555; font-size:0.7rem; font-weight:bold; margin-bottom:10px;">TRENDING QUERIES:</p>
+                <div class="tag-cloud">
+                    <span class="video-tag" style="cursor:pointer;" onclick="setSearch('Garena codes')">Garena codes</span>
+                    <span class="video-tag" style="cursor:pointer;" onclick="setSearch('Nail Gun unlock')">Nail Gun unlock</span>
+                    <span class="video-tag" style="cursor:pointer;" onclick="setSearch('Best AR Season 3')">Best AR Season 3</span>
+                    <span class="video-tag" style="cursor:pointer;" onclick="setSearch('Mythic Grau')">Mythic Grau</span>
+                </div>
             </div>
-            <div style="text-align:center; margin-top:40px; cursor:pointer; color:#888;" onclick="showPage('home')">← Back to Home</div>
         </div>
     </div>
 
-    <!-- ADCHOICES -->
-    <div id="adchoices" class="page">
-        <div class="grid-wrapper" style="max-width:800px;">
-            <h2 style="font-family:'Oswald'; margin-bottom:20px;">AdChoices & Compliance</h2>
-            <div style="background:#111; padding:30px; border:1px solid #333; color:#ccc; line-height:1.6;">
-                <p>This site is supported by programmatic advertising. We strive to show relevant and safe ads.</p>
-                
-                <h3 style="color:white; margin-top:20px;">Control Your Experience</h3>
-                <ul style="padding-left:20px; margin-top:10px;">
-                    <li>Users may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" style="color:var(--cod-gold);">Google Ads Settings</a>.</li>
-                    <li>You can opt out of a third-party vendor's use of cookies for personalized advertising by visiting <a href="http://www.aboutads.info/choices/" target="_blank" style="color:var(--cod-gold);">aboutads.info</a>.</li>
-                </ul>
-            </div>
-            <div style="text-align:center; margin-top:40px; cursor:pointer; color:#888;" onclick="showPage('home')">← Back to Home</div>
-        </div>
-    </div>
+    <!-- COMPLIANCE PAGES -->
+    <div id="privacy" class="page"><div class="grid-wrapper" style="max-width:800px;"><h2 style="font-family:'Oswald';">Privacy Policy</h2><div id="privacy-content" style="color:#888; line-height:1.6; margin-top:20px;"></div><div onclick="showPage('home')" style="cursor:pointer; margin-top:30px; color:var(--cod-red);">← Return</div></div></div>
+    <div id="contact" class="page"><div class="grid-wrapper" style="max-width:800px; text-align:center;"><h2 style="font-family:'Oswald';">Contact Center</h2><p style="margin-top:20px; color:#888;">Secure Inquiries: admin@codmobile.org</p><div onclick="showPage('home')" style="cursor:pointer; margin-top:30px; color:var(--cod-red);">← Return</div></div></div>
 
-    <!-- GLOBAL FOOTER -->
     <footer>
         <div class="footer-content">
-            <p>&copy; 2026 CODMobile.org. This site is a fan project and is not affiliated with Activision Publishing, Inc.</p>
-            <p class="footer-links" style="margin-top: 10px;">
-                <a onclick="showPage('privacy'); return false;">Privacy</a> • 
-                <a onclick="showPage('contact'); return false;">Contact</a> • 
-                <a onclick="showPage('adchoices'); return false;">AdChoices</a>
+            <p>&copy; 2026 CODMobile.org. Independent Data Hub.</p>
+            <p class="footer-links" style="margin-top: 15px;">
+                <a onclick="showPage('privacy')">Privacy</a> • 
+                <a onclick="showPage('contact')">Contact</a> • 
+                <a onclick="showPage('search')">Search</a>
             </p>
         </div>
     </footer>
@@ -249,16 +242,44 @@
     <script>
         let globalData = null;
 
+        function setSearch(val) { document.getElementById('search-input').value = val; performSearch(); }
+
+        function updateSchema(pageId, data) {
+            const schemaEl = document.getElementById('structured-data');
+            let schema = { "@context": "https://schema.org", "@type": "WebSite", "name": "CODMobile.org", "url": "https://codmobile.org" };
+            
+            if(pageId === 'tierlist') {
+                schema = { "@context": "https://schema.org", "@type": "ItemList", "itemListElement": data.tierList.map((t, i) => ({ "@type": "ListItem", "position": i+1, "name": t.name })) };
+            } else if (pageId === 'codes') {
+                schema = { "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{ "@type": "Question", "name": "How to redeem COD Mobile codes?", "acceptedAnswer": { "@type": "Answer", "text": "Visit the official Call of Duty Redemption Center." }}]};
+            }
+            schemaEl.text = JSON.stringify(schema);
+        }
+
+        function showPage(id) {
+            // Document Title SEO
+            const titles = { home: "Auto-Intel & Meta Archive", tierlist: "Season 3 Meta Tier List", codes: "Active Redeem Codes 2026", patchnotes: "Official Patch Notes & Logs", archive: "Intelligence Archive", search: "Tactical Intelligence Search" };
+            document.title = `CODMobile.org | ${titles[id] || "Intel Hub"}`;
+            
+            if (id !== 'player') { const vFrame = document.getElementById('main-video-embed'); if(vFrame) vFrame.src = ''; }
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            const target = document.getElementById(id);
+            if(target) target.classList.add('active');
+            window.scrollTo(0,0);
+            if(globalData) updateSchema(id, globalData);
+            lucide.createIcons();
+        }
+
         function openVideoPlayer() {
             if (globalData && globalData.video) {
                 document.getElementById('main-video-embed').src = globalData.video.url;
                 document.getElementById('player-title').innerText = globalData.video.title;
-                document.getElementById('player-desc').innerText = globalData.video.description || "No briefing available.";
-                document.getElementById('vid-author').innerText = globalData.video.author || "Unknown";
-                document.getElementById('vid-views').innerText = globalData.video.views || "N/A";
+                document.getElementById('player-desc').innerText = globalData.video.description || "Briefing pending...";
+                document.getElementById('vid-author').innerText = globalData.video.author || "Field Operator";
+                document.getElementById('vid-views').innerText = globalData.video.views || "Live Stream";
                 document.getElementById('vid-date').innerText = new Date(globalData.video.uploadDate).toLocaleDateString();
                 const tagBox = document.getElementById('vid-tags'); tagBox.innerHTML = '';
-                if(globalData.video.tags) globalData.video.tags.forEach(tag => { tagBox.innerHTML += `<span class="video-tag">${tag}</span>`; });
+                if(globalData.video.tags) globalData.video.tags.forEach(tag => { tagBox.innerHTML += `<span class="source-tag" style="margin-right:5px;">#${tag}</span>`; });
                 showPage('player');
             }
         }
@@ -268,100 +289,81 @@
             const calculatedSeason = (today.getMonth() % 12) + 1; 
             return {
                 status: `SEASON ${calculatedSeason} LIVE`,
-                hero: { subtitle: `AUTOMATED INTEL // ${today.toLocaleDateString()}`, title: `META <span style="color:var(--cod-red)">WATCH</span>`, desc: `Real-time surveillance of the CODM Meta. Automatically scanning for Season ${calculatedSeason} intel.` },
-                tierList: [ { tier: "S+", name: "BP50", type: "AR", analysis: "High Fire Rate. Consistent Meta." }, { tier: "S", name: "LAG 53", type: "AR", analysis: "New Season Favorite." }, { tier: "S", name: "USS 9", type: "SMG", analysis: "Close Range King." }, { tier: "A", name: "Tundra", type: "Sniper", analysis: "Aggressive Sniping." } ],
-                codes: [ { code: "BVRPZBZJ53", reward: "Verified Code (Backup)", source: "Backup" }, { code: "BMRMZBZESA", reward: "Verified Code (Backup)", source: "Backup" } ],
-                video: { title: "SEASON 2 META: Top 10 Weapons", url: "https://www.youtube.com/embed/TNN631X8JDo?autoplay=1", thumbnail: "https://img.youtube.com/vi/TNN631X8JDo/maxresdefault.jpg", author: "CODM Community", views: "1.2M", uploadDate: "2026-02-14", description: "Community analysis of the new Lachmann-556 and USS 9 buffs.", tags: ["CODM", "Meta", "Loadout", "Season 2"] },
-                patchNotes: [ { title: "Version 35.0 — December 8, 2025", desc: "Overall app optimizations to reduce storage space." }, { title: "Storage Optimization", desc: "Android size reduced to ~1.6 GB. iOS size reduced to ~3.3 GB." }, { title: "DMZ Recon", desc: "The new DMZ Recon game mode will be downloaded as part of Version 35.0." }, { title: "Battle Royale", desc: "Isolated map requires new high-definition audio assets download." } ],
-                history: [
-                    { title: "Season 1 2026 Meta Analysis", date: "1/15/2026", type: "ARCHIVE" },
-                    { title: "Best BR Classes for Isolated", date: "11/05/2025", type: "ARCHIVE" },
-                    { title: "World Championship 2025 Winners", date: "09/15/2025", type: "ARCHIVE" }
-                ]
+                hero: { subtitle: `INTEL STREAM ACTIVE`, title: `LUNAR <span style="color:var(--cod-red)">CHARGE</span>`, desc: `Surveillance of the CODM Meta is live. We are currently tracking Season ${calculatedSeason} data points, active redemption codes, and official Activision system logs.` },
+                tierList: [ { tier: "S+", name: "BP50", type: "AR", analysis: "Superior TTK and fire rate. Dominates mid-range ranked play." }, { tier: "S", name: "LAG 53", type: "AR", analysis: "Versatile new favorite with high mobility stats." }, { tier: "S", name: "USS 9", type: "SMG", analysis: "Close-range eraser. High strafe speed." } ],
+                codes: [ { code: "BVRPZBZJ53", reward: "Verified Intel Card", source: "Backup" } ],
+                video: { title: "2026 Meta: Top 10 Weapons Breakdown", url: "https://www.youtube.com/embed/TNN631X8JDo?autoplay=1", thumbnail: "https://img.youtube.com/vi/TNN631X8JDo/maxresdefault.jpg", author: "Andrew Intelligence", views: "1.2M", uploadDate: "2026-02-14", description: "Comprehensive gunsmith breakdown for the current ranked series." },
+                patchNotes: [ { title: "Version 35.0 Optimization", desc: "Storage footprint reduced. Android size ~1.6 GB. New DMZ Recon mode injected." } ],
+                history: [ { title: "Season 1 2026 Meta Analysis", date: "1/15/2026", url: "https://reddit.com/r/callofdutymobile", source: "Reddit" } ]
             };
         }
 
         async function init() {
             try {
                 const res = await fetch('/api/data');
-                if (!res.ok) throw new Error("API Route Not Found");
-                globalData = await res.json();
-                if (!globalData.patchNotes || globalData.patchNotes.length === 0 || (globalData.patchNotes[0] && globalData.patchNotes[0].title === "Manual Override")) globalData.patchNotes = getBackupData().patchNotes;
-            } catch (e) {
-                console.warn("Offline Mode:", e);
-                globalData = getBackupData();
-                document.getElementById('nav-status').innerText = globalData.status + " (OFFLINE)";
-            }
+                globalData = res.ok ? await res.json() : getBackupData();
+                if (!globalData.patchNotes?.length) globalData.patchNotes = getBackupData().patchNotes;
+            } catch (e) { globalData = getBackupData(); }
 
-            if (document.getElementById('nav-status').innerText === "INITIALIZING...") document.getElementById('nav-status').innerText = globalData.status;
+            document.getElementById('nav-status').innerText = globalData.status;
             document.getElementById('hero-subtitle').innerText = globalData.hero.subtitle;
             document.getElementById('hero-title').innerHTML = globalData.hero.title;
             document.getElementById('hero-desc').innerText = globalData.hero.desc;
 
-            if (globalData.video) { document.getElementById('video-title').innerText = globalData.video.title; document.getElementById('video-thumb').src = globalData.video.thumbnail; } else { document.getElementById('video-card').style.display = 'none'; }
-
+            if (globalData.video) { document.getElementById('video-title').innerText = globalData.video.title; document.getElementById('video-thumb').src = globalData.video.thumbnail; }
+            
             const tierBody = document.getElementById('tier-list-body'); tierBody.innerHTML = ""; 
             globalData.tierList.forEach(t => { tierBody.innerHTML += `<tr><td><span class="tier-badge">${t.tier}</span></td><td style="font-weight:bold">${t.name}</td><td style="color:#aaa">${t.analysis}</td></tr>`; });
 
             const codeBox = document.getElementById('codes-container'); codeBox.innerHTML = ""; 
-            if (globalData.codes.length === 0) { codeBox.innerHTML = "<p style='text-align:center; color:#666'>No new codes found today.</p>"; } else { globalData.codes.forEach(c => { codeBox.innerHTML += `<div style="margin-bottom:10px"><div class="code-box" onclick="navigator.clipboard.writeText('${c.code}')"><span>${c.code}</span><span class="source-tag">${c.source}</span></div><p style="text-align:center; color:#666; font-size:0.8rem">${c.reward}</p></div>`; }); }
+            globalData.codes.forEach(c => { codeBox.innerHTML += `<div style="margin-bottom:15px"><div class="code-box" onclick="navigator.clipboard.writeText('${c.code}')"><span>${c.code}</span><span class="source-tag">${c.source}</span></div><p style="text-align:center; color:#666; font-size:0.8rem">${c.reward}</p></div>`; });
 
             const patchBox = document.getElementById('patch-container'); patchBox.innerHTML = "";
-            if (globalData.patchNotes) { globalData.patchNotes.forEach(p => { patchBox.innerHTML += `<li><strong>${p.title}</strong><p>${p.desc}</p></li>`; }); }
+            globalData.patchNotes.forEach(p => { patchBox.innerHTML += `<li><strong>${p.title}</strong><p>${p.desc}</p></li>`; });
 
-            // Inject SEO History
+            const arcBox = document.getElementById('archive-container'); arcBox.innerHTML = "";
             if(globalData.history) {
-                const archive = document.getElementById('seo-archive-data');
-                globalData.history.forEach(h => { archive.innerHTML += `<div><h3>${h.title}</h3><p>Archived: ${h.date}</p></div>`; });
+                globalData.history.forEach(h => { arcBox.innerHTML += `<a href="${h.url || '#'}" target="_blank" class="archive-card"><span class="archive-tag">${h.source || 'INTEL'}</span><h4 style="color:white; font-family:'Oswald';">${h.title}</h4><p style="color:#555; font-size:0.7rem; margin-top:10px;">LOG DATE: ${h.date}</p></a>`; });
             }
 
+            generateAutoSeo(globalData);
             lucide.createIcons();
         }
 
-        function showPage(id) {
-            // Kill IFrames to stop background audio/video
-            if (id !== 'player') { const vFrame = document.getElementById('main-video-embed'); const vSrc = vFrame.src; vFrame.src = ''; vFrame.src = vSrc; }
-
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            window.scrollTo(0,0);
-            
-            if(id !== 'search') {
-                document.getElementById('search-input').value = ''; 
-                document.getElementById('search-results').innerHTML = `<div style="text-align:center; color:#444; margin-top:50px;"><i data-lucide="terminal" style="margin-bottom:10px; width:40px; height:40px; opacity:0.3;"></i><p>SYSTEM READY. AWAITING INPUT.</p></div>`;
-                lucide.createIcons();
-            }
+        function generateAutoSeo(data) {
+            const date = new Date();
+            const month = date.toLocaleString('default', { month: 'long' });
+            const topMeta = data.tierList[0]?.name || "Meta";
+            document.getElementById('auto-seo').innerHTML = `
+                <h3 style="font-family:'Oswald'; margin-bottom:10px; text-transform:uppercase;">Tactical Analytics: ${month} ${date.getFullYear()}</h3>
+                <p>The current <strong>Season Meta</strong> shift favors high-mobility assault rifles like the <strong>${topMeta}</strong>. Redemption database analysis currently monitors <strong>${data.codes.length} active entry points</strong> for operator rewards. This intel hub automatically scrapes Reddit, Activision, and YouTube to maintain real-time accuracy for Call of Duty Mobile enthusiasts. Search our database for specific weapon gunsmiths or verified Garena redeem codes.</p>
+            `;
         }
 
         function performSearch() {
             const input = document.getElementById('search-input').value.toLowerCase();
             const resultsContainer = document.getElementById('search-results');
-            if (input.length < 2) return;
+            if (input.length < 2) { resultsContainer.innerHTML = ""; return; }
             resultsContainer.innerHTML = '';
-            let foundCount = 0;
-            globalData.tierList.forEach(item => { if (item.name.toLowerCase().includes(input) || item.analysis.toLowerCase().includes(input)) { resultsContainer.innerHTML += `<div class="result-item tier" onclick="showPage('tierlist')"><div class="result-type">WEAPON INTEL • TIER ${item.tier}</div><div class="result-title">${item.name}</div><div class="result-desc">${item.analysis}</div></div>`; foundCount++; } });
-            globalData.codes.forEach(item => { if (item.code.toLowerCase().includes(input) || item.reward.toLowerCase().includes(input)) { resultsContainer.innerHTML += `<div class="result-item code" onclick="showPage('codes')"><div class="result-type">REDEEM CODE • ${item.source}</div><div class="result-title">${item.code}</div><div class="result-desc">Reward: ${item.reward}</div></div>`; foundCount++; } });
-            if (globalData.patchNotes) { globalData.patchNotes.forEach(item => { if (item.title.toLowerCase().includes(input) || item.desc.toLowerCase().includes(input)) { resultsContainer.innerHTML += `<div class="result-item patch" onclick="showPage('patchnotes')"><div class="result-type">PATCH NOTE • OFFICIAL</div><div class="result-title">${item.title}</div><div class="result-desc">${item.desc}</div></div>`; foundCount++; } }); }
-            
-            // ARCHIVE / WEB INTEL SEARCH - DIRECT LINKS
-            if (globalData.history) { 
-                globalData.history.forEach(item => { 
-                    if (item.title.toLowerCase().includes(input)) { 
-                        resultsContainer.innerHTML += `
-                            <a href="${item.url}" target="_blank" class="result-item archive">
-                                <div class="result-type">${item.type} • ${item.date}</div>
-                                <div class="result-title">${item.title}</div>
-                                <div class="result-desc">${item.source || "Database History"}</div>
-                                <i data-lucide="external-link" class="external-icon" style="width:16px;"></i>
-                            </a>
-                        `; 
-                        foundCount++; 
-                    } 
-                }); 
-            }
-            
-            if (foundCount === 0) { resultsContainer.innerHTML = `<div style="text-align:center; color:#666; margin-top:30px;"><p>No internal intel found for "${input}".</p></div>`; }
-            lucide.createIcons();
+            let found = 0;
+            const searchPool = [
+                ...globalData.tierList.map(t => ({ type: "WEAPON TIER", title: t.name, desc: t.analysis, id: 'tierlist' })),
+                ...globalData.codes.map(c => ({ type: "REDEEM CODE", title: c.code, desc: c.reward, id: 'codes' })),
+                ...(globalData.history || []).map(h => ({ type: "ARCHIVE", title: h.title, desc: h.date, url: h.url }))
+            ];
+            searchPool.forEach(item => {
+                if (item.title.toLowerCase().includes(input) || item.desc.toLowerCase().includes(input)) {
+                    resultsContainer.innerHTML += `
+                        <a ${item.url ? `href="${item.url}" target="_blank"` : `onclick="showPage('${item.id}')"`} class="result-item">
+                            <div class="result-type">${item.type}</div>
+                            <div class="result-title">${item.title}</div>
+                            <div class="result-desc">${item.desc}</div>
+                        </a>
+                    `;
+                    found++;
+                }
+            });
+            if (!found) resultsContainer.innerHTML = `<p style="text-align:center; color:#555; margin-top:20px;">NO INTEL MATCHES QUERY.</p>`;
         }
 
         init();
