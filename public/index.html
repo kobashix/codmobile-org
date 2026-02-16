@@ -3,10 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CODMobile.org | Auto-Intel & Archive</title>
+    <title>CODMobile.org | Auto-Intel & Meta Archive</title>
     
-    <!-- Meta Tags for SEO -->
+    <!-- SEO & Social Meta -->
     <meta name="description" content="Live Call of Duty Mobile Season Meta, active redeem codes, and automated patch notes. The ultimate CODM intelligence hub.">
+    <meta property="og:title" content="CODMobile.org | Tactical Intelligence Hub">
+    <meta property="og:description" content="Automated meta tracking and redemption code database.">
+    <meta property="og:type" content="website">
+    
+    <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Oswald:wght@500;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -14,7 +19,7 @@
     <style>
         :root { --cod-gold: #FFD700; --cod-red: #D81B1B; --cod-black: #050505; --cod-panel: #111; --text-main: #EAEAEA; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: var(--cod-black); color: var(--text-main); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; }
+        body { background-color: var(--cod-black); color: var(--text-main); font-family: 'Inter', sans-serif; padding-bottom: 0; display: flex; flex-direction: column; min-height: 100vh; }
 
         /* Navigation */
         nav { position: fixed; top: 0; width: 100%; background: rgba(5,5,5,0.95); border-bottom: 1px solid #333; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; backdrop-filter: blur(10px); }
@@ -24,17 +29,18 @@
         .dot { width: 8px; height: 8px; background: var(--cod-red); border-radius: 50%; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { opacity: 1; box-shadow: 0 0 0 0 rgba(216, 27, 27, 0.7); } 70% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(216, 27, 27, 0); } 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(216, 27, 27, 0); } }
 
-        /* Layout */
+        /* Page Layout */
         .page { display: none; padding-top: 80px; flex: 1; animation: fadeIn 0.3s; }
         .page.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* Sections */
+        /* Hero Section */
         header.hero { height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; border-bottom: 4px solid var(--cod-gold); background-color: #050505; background-image: linear-gradient(to bottom, rgba(0,0,0,0.7), #050505), url('https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=1920&q=80'); background-position: center; background-size: cover; }
         h1 { font-family: 'Oswald'; font-size: clamp(3rem, 6vw, 6rem); text-transform: uppercase; line-height: 0.9; margin-bottom: 1rem; }
-        .cta-btn { background: var(--cod-red); color: white; padding: 15px 40px; font-family: 'Rajdhani'; font-weight: 700; border: none; text-transform: uppercase; cursor: pointer; clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px); text-decoration: none; display: inline-block; transition: transform 0.2s; }
+        .cta-btn { background: var(--cod-red); color: white; padding: 15px 40px; font-family: 'Rajdhani'; font-weight: 700; border: none; text-transform: uppercase; cursor: pointer; clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px); text-decoration: none; display: inline-block; transition: 0.2s; }
         .cta-btn:hover { background: white; color: black; transform: scale(1.05); }
 
+        /* Components */
         .grid-wrapper { padding: 40px 5%; max-width: 1400px; margin: 0 auto; }
         .bento-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
         .card { background: var(--cod-panel); border: 1px solid #333; height: 300px; position: relative; overflow: hidden; cursor: pointer; display: flex; flex-direction: column; justify-content: flex-end; text-decoration: none; }
@@ -45,7 +51,7 @@
         .span-2 { grid-column: span 2; }
         @media (max-width: 900px) { .bento-grid { grid-template-columns: 1fr; } .span-2 { grid-column: span 1; } }
 
-        /* Tables & UI Items */
+        /* Tables & Lists */
         .tier-table { width: 100%; border-collapse: collapse; max-width: 900px; margin: 0 auto; }
         .tier-table td { padding: 15px; border-bottom: 1px solid #222; }
         .tier-badge { background: var(--cod-red); padding: 2px 8px; font-weight: bold; border-radius: 2px; }
@@ -54,16 +60,19 @@
         .patch-list { list-style: none; padding: 0; }
         .patch-list li { background: #151515; border-left: 3px solid var(--cod-gold); padding: 15px; margin-bottom: 10px; }
         .patch-list strong { color: white; display: block; margin-bottom: 5px; font-family: 'Oswald'; text-transform: uppercase; }
+        .patch-img { width: 100%; margin-top: 15px; border-radius: 4px; border: 1px solid #333; display: block; }
 
-        /* Search UI */
-        #search-input { width: 100%; background: #111; border: 1px solid #333; padding: 20px; font-size: 1.2rem; color: white; font-family: 'Rajdhani'; padding-left: 50px; outline: none; }
+        /* Search & Archive */
+        .search-container { max-width: 800px; margin: 0 auto; }
+        #search-input { width: 100%; background: #111; border: 1px solid #333; padding: 20px; font-size: 1.2rem; color: white; font-family: 'Rajdhani'; padding-left: 50px; outline: none; transition: border-color 0.3s; }
         .result-item { display: block; text-decoration: none; background: #1a1a1a; padding: 20px; border-left: 4px solid #333; margin-bottom: 15px; transition: background 0.2s; position: relative; }
         .result-item:hover { background: #222; border-color: var(--cod-gold); }
+        .result-title { color: white; font-family: 'Oswald'; font-size: 1.2rem; margin-bottom: 5px; }
         .archive-feed { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; }
         .archive-card { background: #111; padding: 20px; border: 1px solid #222; text-decoration: none; transition: 0.2s; border-radius: 4px; }
         .archive-card:hover { background: #1a1a1a; border-color: var(--cod-gold); }
 
-        /* Player & Meta */
+        /* Video Player Block */
         .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: black; border: 1px solid #333; }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
         .video-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; border-top: 1px solid #222; padding-top: 20px; }
@@ -73,15 +82,15 @@
         .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
         .video-tag { background: #222; color: #aaa; padding: 4px 10px; font-size: 0.8rem; border-radius: 4px; }
 
-        /* Compliance Restored */
+        /* Compliance Content */
         .compliance-box { background: #111; padding: 30px; border: 1px solid #333; color: #ccc; line-height: 1.8; }
         .compliance-box h3 { color: white; margin: 25px 0 10px; font-family: 'Oswald'; text-transform: uppercase; }
         .compliance-box a { color: var(--cod-gold); text-decoration: underline; cursor: pointer; }
 
-        /* Footer */
+        /* Global Footer */
         footer { border-top: 1px solid #222; background: #050505; margin-top: auto; }
         .footer-content { max-width: 1400px; margin: 0 auto; padding: 60px 5%; text-align: center; color: #444; font-size: 0.8rem; }
-        .footer-links a { color: #666; text-decoration: none; margin: 0 10px; cursor: pointer; font-weight: 600; }
+        .footer-links a { color: #666; text-decoration: none; margin: 0 10px; cursor: pointer; font-weight: 600; transition: color 0.2s; }
         .footer-links a:hover { color: var(--cod-gold); }
 
         #seo-archive-data { display: none; }
@@ -99,7 +108,7 @@
         </div>
     </nav>
 
-    <!-- HOME -->
+    <!-- PAGE: HOME -->
     <div id="home" class="page active">
         <header class="hero">
             <div style="z-index:2; padding:0 20px;">
@@ -213,7 +222,18 @@
                 tierList: [ { tier: "S+", name: "BP50", type: "AR", analysis: "Superior TTK. Dominates mid-range ranked play." } ],
                 codes: [ { code: "BVRPZBZJ53", reward: "Verified Card", source: "Backup" } ],
                 video: { title: "Season Meta Breakdown", url: "https://www.youtube.com/embed/TNN631X8JDo?autoplay=1", thumbnail: "https://img.youtube.com/vi/TNN631X8JDo/maxresdefault.jpg", author: "Andrew", views: "1M", uploadDate: today.toISOString(), description: "Full gunsmith breakdown for the current ranked series.", tags: ["CODM", "Meta"] },
-                patchNotes: [ { title: "Version 35.0 — December 8, 2025", desc: "Overall app optimizations to reduce storage space." }, { title: "Storage Optimization", desc: "Android size reduced to ~1.6 GB. iOS size reduced to ~3.3 GB." } ],
+                patchNotes: [ 
+                    { 
+                        title: "Version 35.0 — December 8, 2025", 
+                        desc: "Overall app optimizations to reduce storage space and improve download speeds. Android size reduced to ~1.6 GB. iOS size reduced to ~3.3 GB.",
+                        image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80"
+                    }, 
+                    { 
+                        title: "DMZ Recon", 
+                        desc: "The new DMZ Recon game mode will be downloaded as part of Version 35.0.",
+                        image: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?auto=format&fit=crop&w=800&q=80"
+                    } 
+                ],
                 history: [ { title: "Season 1 Meta Analysis", date: "1/15/2026", url: "https://reddit.com/r/callofdutymobile", source: "Reddit" } ]
             };
         }
@@ -238,7 +258,13 @@
             globalData.codes.forEach(c => { codeBox.innerHTML += `<div style="margin-bottom:15px"><div class="code-box" onclick="navigator.clipboard.writeText('${c.code}')"><span>${c.code}</span><span class="source-tag">${c.source}</span></div><p style="text-align:center; color:#666; font-size:0.8rem">${c.reward}</p></div>`; });
 
             const patchBox = document.getElementById('patch-container'); patchBox.innerHTML = "";
-            globalData.patchNotes.forEach(p => { patchBox.innerHTML += `<li><strong>${p.title}</strong><p>${p.desc}</p></li>`; });
+            globalData.patchNotes.forEach(p => { 
+                patchBox.innerHTML += `<li>
+                    <strong>${p.title}</strong>
+                    <p>${p.desc}</p>
+                    ${p.image ? `<img src="${p.image}" class="patch-img" onerror="this.style.display='none'">` : ''}
+                </li>`; 
+            });
 
             const arcBox = document.getElementById('archive-container'); arcBox.innerHTML = "";
             if(globalData.history) globalData.history.forEach(h => { arcBox.innerHTML += `<a href="${h.url || '#'}" target="_blank" class="archive-card"><span class="archive-tag">${h.source || 'WEB INTEL'}</span><h4 style="color:white; font-family:'Oswald';">${h.title}</h4><p style="color:#555; font-size:0.7rem; margin-top:10px;">DATE: ${h.date}</p></a>`; });
