@@ -13,7 +13,7 @@
     <style>
         :root { --cod-gold: #FFD700; --cod-red: #D81B1B; --cod-black: #050505; --cod-panel: #111; --text-main: #EAEAEA; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: var(--cod-black); color: var(--text-main); font-family: 'Inter', sans-serif; padding-bottom: 50px; }
+        body { background-color: var(--cod-black); color: var(--text-main); font-family: 'Inter', sans-serif; padding-bottom: 50px; display: flex; flex-direction: column; min-height: 100vh; }
 
         /* Nav */
         nav { position: fixed; top: 0; width: 100%; background: rgba(5,5,5,0.95); border-bottom: 1px solid #333; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; backdrop-filter: blur(10px); }
@@ -24,7 +24,7 @@
         @keyframes pulse { 0% { opacity: 1; box-shadow: 0 0 0 0 rgba(216, 27, 27, 0.7); } 70% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(216, 27, 27, 0); } 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(216, 27, 27, 0); } }
 
         /* Page System */
-        .page { display: none; padding-top: 80px; min-height: 100vh; animation: fadeIn 0.3s; }
+        .page { display: none; padding-top: 80px; flex: 1; animation: fadeIn 0.3s; }
         .page.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
@@ -93,6 +93,12 @@
         
         /* HIDDEN SEO ARCHIVE (Visible to Bots) */
         #seo-archive-data { display: none; }
+
+        /* Global Footer */
+        footer { border-top: 1px solid #222; background: #050505; margin-top: auto; }
+        .footer-content { max-width: 1400px; margin: 0 auto; padding: 40px 5%; text-align: center; color: #444; font-size: 0.8rem; }
+        .footer-links a { color: #666; text-decoration: none; margin: 0 10px; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--cod-gold); }
     </style>
 </head>
 <body>
@@ -128,6 +134,9 @@
             </div>
         </div>
         
+        <section id="auto-seo" class="grid-wrapper" style="max-width: 800px; padding-bottom: 20px;"></section>
+        
+        <!-- HIDDEN SEO ARCHIVE (Visible to Bots) -->
         <div id="seo-archive-data"></div>
     </div>
 
@@ -172,6 +181,18 @@
             <div style="text-align:center; margin-top:40px; cursor:pointer; color:#888;" onclick="showPage('home')">← Return to Base</div>
         </div>
     </div>
+
+    <!-- GLOBAL FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 CODMobile.org. This site is a fan project and is not affiliated with Activision Publishing, Inc.</p>
+            <p class="footer-links" style="margin-top: 10px;">
+                <a href="#">Privacy</a> • 
+                <a href="#">Contact</a> • 
+                <a href="#">AdChoices</a>
+            </p>
+        </div>
+    </footer>
 
     <script>
         let globalData = null;
