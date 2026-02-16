@@ -3,15 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CODMobile.org | Auto-Intel & Meta Archive</title>
+    <title>CODMobile.org | Auto-Intel & Archive</title>
     
-    <!-- SEO & Social Meta -->
+    <!-- Meta Tags for SEO -->
     <meta name="description" content="Live Call of Duty Mobile Season Meta, active redeem codes, and automated patch notes. The ultimate CODM intelligence hub.">
-    <meta property="og:title" content="CODMobile.org | Tactical Intelligence Hub">
-    <meta property="og:description" content="Automated meta tracking and redemption code database.">
-    <meta property="og:type" content="website">
-    
-    <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Oswald:wght@500;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -19,7 +14,7 @@
     <style>
         :root { --cod-gold: #FFD700; --cod-red: #D81B1B; --cod-black: #050505; --cod-panel: #111; --text-main: #EAEAEA; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: var(--cod-black); color: var(--text-main); font-family: 'Inter', sans-serif; padding-bottom: 0; display: flex; flex-direction: column; min-height: 100vh; }
+        body { background-color: var(--cod-black); color: var(--text-main); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; }
 
         /* Navigation */
         nav { position: fixed; top: 0; width: 100%; background: rgba(5,5,5,0.95); border-bottom: 1px solid #333; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; backdrop-filter: blur(10px); }
@@ -29,18 +24,17 @@
         .dot { width: 8px; height: 8px; background: var(--cod-red); border-radius: 50%; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { opacity: 1; box-shadow: 0 0 0 0 rgba(216, 27, 27, 0.7); } 70% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(216, 27, 27, 0); } 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(216, 27, 27, 0); } }
 
-        /* Page Layout */
+        /* Layout */
         .page { display: none; padding-top: 80px; flex: 1; animation: fadeIn 0.3s; }
         .page.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* Hero Section */
+        /* Sections */
         header.hero { height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; border-bottom: 4px solid var(--cod-gold); background-color: #050505; background-image: linear-gradient(to bottom, rgba(0,0,0,0.7), #050505), url('https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=1920&q=80'); background-position: center; background-size: cover; }
         h1 { font-family: 'Oswald'; font-size: clamp(3rem, 6vw, 6rem); text-transform: uppercase; line-height: 0.9; margin-bottom: 1rem; }
-        .cta-btn { background: var(--cod-red); color: white; padding: 15px 40px; font-family: 'Rajdhani'; font-weight: 700; border: none; text-transform: uppercase; cursor: pointer; clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px); text-decoration: none; display: inline-block; transition: 0.2s; }
+        .cta-btn { background: var(--cod-red); color: white; padding: 15px 40px; font-family: 'Rajdhani'; font-weight: 700; border: none; text-transform: uppercase; cursor: pointer; clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px); text-decoration: none; display: inline-block; transition: transform 0.2s; }
         .cta-btn:hover { background: white; color: black; transform: scale(1.05); }
 
-        /* Components */
         .grid-wrapper { padding: 40px 5%; max-width: 1400px; margin: 0 auto; }
         .bento-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
         .card { background: var(--cod-panel); border: 1px solid #333; height: 300px; position: relative; overflow: hidden; cursor: pointer; display: flex; flex-direction: column; justify-content: flex-end; text-decoration: none; }
@@ -51,7 +45,7 @@
         .span-2 { grid-column: span 2; }
         @media (max-width: 900px) { .bento-grid { grid-template-columns: 1fr; } .span-2 { grid-column: span 1; } }
 
-        /* Tables & Lists */
+        /* Tables & UI Items */
         .tier-table { width: 100%; border-collapse: collapse; max-width: 900px; margin: 0 auto; }
         .tier-table td { padding: 15px; border-bottom: 1px solid #222; }
         .tier-badge { background: var(--cod-red); padding: 2px 8px; font-weight: bold; border-radius: 2px; }
@@ -61,17 +55,15 @@
         .patch-list li { background: #151515; border-left: 3px solid var(--cod-gold); padding: 15px; margin-bottom: 10px; }
         .patch-list strong { color: white; display: block; margin-bottom: 5px; font-family: 'Oswald'; text-transform: uppercase; }
 
-        /* Search & Archive */
-        .search-container { max-width: 800px; margin: 0 auto; }
-        #search-input { width: 100%; background: #111; border: 1px solid #333; padding: 20px; font-size: 1.2rem; color: white; font-family: 'Rajdhani'; padding-left: 50px; outline: none; transition: border-color 0.3s; }
+        /* Search UI */
+        #search-input { width: 100%; background: #111; border: 1px solid #333; padding: 20px; font-size: 1.2rem; color: white; font-family: 'Rajdhani'; padding-left: 50px; outline: none; }
         .result-item { display: block; text-decoration: none; background: #1a1a1a; padding: 20px; border-left: 4px solid #333; margin-bottom: 15px; transition: background 0.2s; position: relative; }
         .result-item:hover { background: #222; border-color: var(--cod-gold); }
-        .result-title { color: white; font-family: 'Oswald'; font-size: 1.2rem; margin-bottom: 5px; }
         .archive-feed { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; }
         .archive-card { background: #111; padding: 20px; border: 1px solid #222; text-decoration: none; transition: 0.2s; border-radius: 4px; }
         .archive-card:hover { background: #1a1a1a; border-color: var(--cod-gold); }
 
-        /* Video Player Block */
+        /* Player & Meta */
         .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: black; border: 1px solid #333; }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
         .video-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; border-top: 1px solid #222; padding-top: 20px; }
@@ -81,15 +73,15 @@
         .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
         .video-tag { background: #222; color: #aaa; padding: 4px 10px; font-size: 0.8rem; border-radius: 4px; }
 
-        /* Compliance Content */
+        /* Compliance Restored */
         .compliance-box { background: #111; padding: 30px; border: 1px solid #333; color: #ccc; line-height: 1.8; }
         .compliance-box h3 { color: white; margin: 25px 0 10px; font-family: 'Oswald'; text-transform: uppercase; }
-        .compliance-box a { color: var(--cod-gold); text-decoration: underline; }
+        .compliance-box a { color: var(--cod-gold); text-decoration: underline; cursor: pointer; }
 
-        /* Global Footer */
+        /* Footer */
         footer { border-top: 1px solid #222; background: #050505; margin-top: auto; }
         .footer-content { max-width: 1400px; margin: 0 auto; padding: 60px 5%; text-align: center; color: #444; font-size: 0.8rem; }
-        .footer-links a { color: #666; text-decoration: none; margin: 0 10px; cursor: pointer; font-weight: 600; transition: color 0.2s; }
+        .footer-links a { color: #666; text-decoration: none; margin: 0 10px; cursor: pointer; font-weight: 600; }
         .footer-links a:hover { color: var(--cod-gold); }
 
         #seo-archive-data { display: none; }
@@ -103,15 +95,15 @@
         <div class="logo" onclick="showPage('home')">CODMobile<span>.ORG</span></div>
         <div style="display: flex; align-items: center; gap: 20px;">
             <div onclick="showPage('search')" style="cursor:pointer; color:white;"><i data-lucide="search"></i></div>
-            <div class="live-indicator"><span class="dot"></span> <span id="nav-status">SURVEILLANCE LIVE</span></div>
+            <div class="live-indicator"><span class="dot"></span> <span id="nav-status">CONNECTED</span></div>
         </div>
     </nav>
 
-    <!-- PAGE: HOME -->
+    <!-- HOME -->
     <div id="home" class="page active">
         <header class="hero">
             <div style="z-index:2; padding:0 20px;">
-                <div style="color:var(--cod-gold); font-family:'Rajdhani'; font-weight:700; letter-spacing:3px;" id="hero-subtitle">SYSTEM INITIALIZING...</div>
+                <div style="color:var(--cod-gold); font-family:'Rajdhani'; font-weight:700; letter-spacing:3px;" id="hero-subtitle">INTEL STREAM ACTIVE</div>
                 <h1 id="hero-title"></h1>
                 <p style="max-width:750px; margin: 0 auto 30px; color:#ccc; line-height:1.6;" id="hero-desc"></p>
                 <div style="display: flex; gap: 15px; justify-content: center;">
@@ -123,147 +115,61 @@
 
         <div class="grid-wrapper">
             <div class="bento-grid">
-                <div class="card span-2" onclick="showPage('tierlist')">
-                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80" class="card-bg">
-                    <div class="card-content"><h3>Ranked Tier List</h3><p style="color:#aaa; font-size:0.8rem;">S-Tier Gunsmith Breakdown</p></div>
-                </div>
-                <div class="card" onclick="showPage('codes')">
-                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=400&q=80" class="card-bg">
-                    <div class="card-content"><h3>Live Codes</h3><p style="color:#aaa; font-size:0.8rem;">Community Database</p></div>
-                </div>
-                <div class="card" onclick="showPage('archive')">
-                    <img src="https://images.unsplash.com/photo-1555680202-c86f0e12f086?auto=format&fit=crop&w=400&q=80" class="card-bg">
-                    <div class="card-content"><h3>Web Archive</h3><p style="color:#aaa; font-size:0.8rem;">Global Search Feed</p></div>
-                </div>
-                <div class="card span-2" id="video-card" onclick="openVideoPlayer()">
-                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3rem; color: white; opacity: 0.8; z-index: 2;">▶</div>
-                    <img id="video-thumb" src="" class="card-bg" style="opacity: 0.4;">
-                    <div class="card-content"><h3>Tactical Briefing</h3><p id="video-title" style="color:#aaa; font-size:0.8rem;">Scanned Content</p></div>
-                </div>
-                <div class="card span-2" onclick="showPage('patchnotes')">
-                    <img src="https://images.unsplash.com/photo-1616428753229-87a7a5823158?auto=format&fit=crop&w=800&q=80" class="card-bg">
-                    <div class="card-content"><h3>Patch Notes</h3><p style="color:#aaa; font-size:0.8rem;">Activision Version Logs</p></div>
-                </div>
+                <div class="card span-2" onclick="showPage('tierlist')"><img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80" class="card-bg"><div class="card-content"><h3>Ranked Tier List</h3><p style="color:#aaa; font-size:0.8rem;">S-Tier Gunsmith Breakdown</p></div></div>
+                <div class="card" onclick="showPage('codes')"><img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=400&q=80" class="card-bg"><div class="card-content"><h3>Live Codes</h3><p style="color:#aaa; font-size:0.8rem;">Redemption Database</p></div></div>
+                <div class="card" onclick="showPage('archive')"><img src="https://images.unsplash.com/photo-1555680202-c86f0e12f086?auto=format&fit=crop&w=400&q=80" class="card-bg"><div class="card-content"><h3>History</h3><p style="color:#aaa; font-size:0.8rem;">Web Intel Feed</p></div></div>
+                <div class="card span-2" id="video-card" onclick="openVideoPlayer()"><div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3rem; color: white; opacity: 0.8; z-index: 2;">▶</div><img id="video-thumb" src="" class="card-bg" style="opacity: 0.4;"><div class="card-content"><h3>Tactical Briefing</h3><p id="video-title" style="color:#aaa; font-size:0.8rem;">Loading...</p></div></div>
+                <div class="card span-2" onclick="showPage('patchnotes')"><img src="https://images.unsplash.com/photo-1616428753229-87a7a5823158?auto=format&fit=crop&w=800&q=80" class="card-bg"><div class="card-content"><h3>Patch Notes</h3><p style="color:#aaa; font-size:0.8rem;">Official Version Logs</p></div></div>
             </div>
         </div>
+        
         <section id="auto-seo" class="grid-wrapper" style="max-width: 900px; padding-top: 0; color: #444; font-size: 0.85rem;"></section>
+        <div id="seo-archive-data"></div>
     </div>
 
-    <!-- PAGE: TIER LIST -->
-    <div id="tierlist" class="page">
-        <div class="grid-wrapper">
-            <h2 style="font-family:'Oswald'; margin: 20px 0; text-align:center; font-size: 3rem;">CURRENT META</h2>
-            <table class="tier-table"><tbody id="tier-list-body"></tbody></table>
-            <div style="text-align:center; margin-top:40px; cursor:pointer; color:#888;" onclick="showPage('home')">← Return Home</div>
-        </div>
-    </div>
+    <!-- TIER LIST -->
+    <div id="tierlist" class="page"><div class="grid-wrapper"><h2 style="font-family:'Oswald'; margin: 20px 0; text-align:center; font-size: 3rem;">CURRENT META</h2><table class="tier-table"><tbody id="tier-list-body"></tbody></table><div style="text-align:center; margin-top:40px; cursor:pointer; color:#888;" onclick="showPage('home')">← Return</div></div></div>
 
-    <!-- PAGE: CODES -->
-    <div id="codes" class="page">
-        <div class="grid-wrapper" style="max-width:800px;">
-            <h2 style="font-family:'Oswald'; margin: 20px 0; text-align:center; font-size: 3rem;">ACTIVE CODES</h2>
-            <div id="codes-container"></div>
-            <div style="text-align:center; margin-top:40px; cursor:pointer; color:#888;" onclick="showPage('home')">← Return Home</div>
-        </div>
-    </div>
+    <!-- CODES -->
+    <div id="codes" class="page"><div class="grid-wrapper" style="max-width:800px;"><h2 style="font-family:'Oswald'; margin: 20px 0; text-align:center; font-size: 3rem;">ACTIVE CODES</h2><div id="codes-container"></div><div style="text-align:center; margin-top:40px; cursor:pointer; color:#888;" onclick="showPage('home')">← Return</div></div></div>
 
-    <!-- PAGE: ARCHIVE -->
-    <div id="archive" class="page">
-        <div class="grid-wrapper">
-            <h2 style="font-family:'Oswald'; margin: 20px 0; text-align:center; font-size: 3rem;">INTEL ARCHIVE</h2>
-            <div class="archive-feed" id="archive-container"></div>
-            <div style="text-align:center; margin-top:40px; cursor:pointer; color:#888;" onclick="showPage('home')">← Return Home</div>
-        </div>
-    </div>
+    <!-- ARCHIVE -->
+    <div id="archive" class="page"><div class="grid-wrapper"><h2 style="font-family:'Oswald'; margin: 20px 0; text-align:center; font-size: 3rem;">INTEL ARCHIVE</h2><div class="archive-feed" id="archive-container"></div><div style="text-align:center; margin-top:40px; cursor:pointer; color:#888;" onclick="showPage('home')">← Return</div></div></div>
 
-    <!-- PAGE: PATCH NOTES -->
-    <div id="patchnotes" class="page">
-        <div class="grid-wrapper" style="max-width:900px;">
-            <h2 style="font-family:'Oswald'; margin: 20px 0; text-align:center; font-size: 3rem;">PATCH NOTES</h2>
-            <ul class="patch-list" id="patch-container"></ul>
-            <div style="text-align:center; margin-top:40px; cursor:pointer; color:#888;" onclick="showPage('home')">← Return Home</div>
-        </div>
-    </div>
+    <!-- PATCH NOTES -->
+    <div id="patchnotes" class="page"><div class="grid-wrapper" style="max-width:900px;"><h2 style="font-family:'Oswald'; margin: 20px 0; text-align:center; font-size: 3rem;">PATCH NOTES</h2><ul class="patch-list" id="patch-container"></ul><div style="text-align:center; margin-top:40px; cursor:pointer; color:#888;" onclick="showPage('home')">← Return</div></div></div>
 
-    <!-- PAGE: PLAYER -->
+    <!-- PLAYER -->
     <div id="player" class="page">
         <div class="grid-wrapper" style="max-width:1100px;">
             <div class="video-container"><iframe id="main-video-embed" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
             <h1 id="player-title" style="color:white; font-family:'Oswald'; font-size:2rem; margin-top:20px;"></h1>
             <div class="video-meta">
                 <div class="meta-box"><span class="meta-label">Operator</span><div class="meta-value" id="vid-author">-</div></div>
-                <div class="meta-box"><span class="meta-label">Intel Views</span><div class="meta-value" id="vid-views">-</div></div>
+                <div class="meta-box"><span class="meta-label">Intel Level</span><div class="meta-value" id="vid-views">-</div></div>
                 <div class="meta-box"><span class="meta-label">Date</span><div class="meta-value" id="vid-date">-</div></div>
             </div>
             <div id="player-desc" style="background:#111; padding:25px; border:1px solid #222; margin-top:20px; color:#aaa; line-height:1.7;"></div>
-            <div class="tag-cloud" id="vid-tags"></div>
-            <div style="text-align:center; margin-top:40px; cursor:pointer; color:#888;" onclick="showPage('home')">← Return Home</div>
+            <div class="tag-cloud" id="vid-tags" style="margin-top: 20px;"></div>
+            <div style="text-align:center; margin-top:40px; cursor:pointer; color:#888;" onclick="showPage('home')">← Return</div>
         </div>
     </div>
 
-    <!-- PAGE: SEARCH -->
-    <div id="search" class="page">
-        <div class="grid-wrapper search-container">
-            <h2 style="font-family:'Oswald'; text-align:center; font-size: 2.5rem;">TACTICAL SEARCH</h2>
-            <div style="position:relative; margin: 30px 0;">
-                <i data-lucide="search" style="position:absolute; left:15px; top:50%; transform:translateY(-50%); color:#555;"></i>
-                <input type="text" id="search-input" placeholder="Query keywords..." onkeyup="performSearch()">
-            </div>
-            <div id="search-results"></div>
-        </div>
-    </div>
+    <!-- SEARCH -->
+    <div id="search" class="page"><div class="grid-wrapper search-container"><h2 style="font-family:'Oswald'; text-align:center; font-size: 2.5rem;">TACTICAL SEARCH</h2><div style="position:relative; margin: 30px 0;"><i data-lucide="search" style="position:absolute; left:15px; top:50%; transform:translateY(-50%); color:#555;"></i><input type="text" id="search-input" placeholder="Query keywords..." onkeyup="performSearch()"></div><div id="search-results"></div></div></div>
 
-    <!-- PAGE: PRIVACY -->
-    <div id="privacy" class="page">
-        <div class="grid-wrapper" style="max-width:800px;">
-            <h2 style="font-family:'Oswald';">Privacy Policy</h2>
-            <div class="compliance-box">
-                <p><strong>Last Modified: February 2026</strong></p>
-                <h3>1. Overview</h3>
-                <p>CODMobile.org is an independent fan project. We do not require account registration or collect personal identifiable information (PII) for general use. </p>
-                <h3>2. Cookies & Advertising</h3>
-                <p>We use third-party vendors, including Google, to serve ads. Google uses cookies to serve ads based on your visit to this site. You may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank">Ads Settings</a>.</p>
-                <h3>3. Data Analytics</h3>
-                <p>We use automated scripts to log non-personal data (IP, browser type, pages visited) to improve our intelligence feed accuracy.</p>
-            </div>
-            <div onclick="showPage('home')" style="cursor:pointer; margin-top:30px; color:var(--cod-red);">← Return</div>
-        </div>
-    </div>
+    <!-- PRIVACY -->
+    <div id="privacy" class="page"><div class="grid-wrapper" style="max-width:800px;"><h2 style="font-family:'Oswald';">Privacy Policy</h2><div class="compliance-box"><p><strong>Last Modified: February 2026</strong></p><h3>1. Information Log</h3><p>CODMobile.org handles non-PII tactical logs for meta accuracy. We do not store email data unless voluntarily provided for command inquiries.</p><h3>2. Ad Tracking</h3><p>Third-party vendors (Google) use cookies to serve ads based on prior visits to this site. See AdChoices for opt-out.</p></div><div onclick="showPage('home')" style="cursor:pointer; margin-top:30px; color:var(--cod-red);">← Return</div></div></div>
 
-    <!-- PAGE: ADCHOICES -->
-    <div id="adchoices" class="page">
-        <div class="grid-wrapper" style="max-width:800px;">
-            <h2 style="font-family:'Oswald';">AdChoices & Opt-Out</h2>
-            <div class="compliance-box">
-                <h3>About Our Ads</h3>
-                <p>Advertising allows us to provide this intelligence feed for free. We work with third-party networks to display relevant content.</p>
-                <h3>Your Choices</h3>
-                <p>You can choose to opt out of interest-based advertising across the web via the following official channels:</p>
-                <ul style="margin-left: 20px; margin-top: 15px;">
-                    <li><a href="http://www.aboutads.info/choices/" target="_blank">Digital Advertising Alliance (DAA)</a></li>
-                    <li><a href="https://www.networkadvertising.org/choices/" target="_blank">Network Advertising Initiative (NAI)</a></li>
-                </ul>
-            </div>
-            <div onclick="showPage('home')" style="cursor:pointer; margin-top:30px; color:var(--cod-red);">← Return</div>
-        </div>
-    </div>
+    <!-- ADCHOICES -->
+    <div id="adchoices" class="page"><div class="grid-wrapper" style="max-width:800px;"><h2 style="font-family:'Oswald';">AdChoices & Opt-Out</h2><div class="compliance-box"><h3>Transparency</h3><p>We use interest-based advertising to maintain this hub. You can manage your preferences below:</p><ul style="margin-top: 15px; margin-left: 20px;"><li><a href="https://www.google.com/settings/ads" target="_blank">Google Ads Preferences</a></li><li><a href="http://www.aboutads.info/choices/" target="_blank">DAA Opt-Out Portal</a></li></ul></div><div onclick="showPage('home')" style="cursor:pointer; margin-top:30px; color:var(--cod-red);">← Return</div></div></div>
 
-    <!-- PAGE: CONTACT -->
-    <div id="contact" class="page">
-        <div class="grid-wrapper" style="max-width:800px; text-align:center;">
-            <h2 style="font-family:'Oswald';">Contact Center</h2>
-            <div class="compliance-box" style="margin-top: 20px;">
-                <p>For tactical inquiries, partnership requests, or DMCA notices, please contact the administrators via the secure channel below:</p>
-                <p style="font-size: 1.5rem; margin-top: 20px; color: var(--cod-gold); font-weight: bold;">admin@codmobile.org</p>
-                <p style="margin-top: 20px; font-size: 0.8rem; color: #666;">Note: We are not Activision. For game support, visit support.activision.com.</p>
-            </div>
-            <div onclick="showPage('home')" style="cursor:pointer; margin-top:30px; color:var(--cod-red);">← Return</div>
-        </div>
-    </div>
+    <!-- CONTACT -->
+    <div id="contact" class="page"><div class="grid-wrapper" style="max-width:800px; text-align:center;"><h2 style="font-family:'Oswald';">Contact Command</h2><div class="compliance-box" style="margin-top:20px;"><p>Inquiries / Partnership / Takedowns:</p><p style="font-size: 1.5rem; margin: 20px 0; color: var(--cod-gold); font-weight: bold;">admin@codmobile.org</p><p style="font-size: 0.8rem; color: #555;">Note: Fan hub. Not Activision support.</p></div><div onclick="showPage('home')" style="cursor:pointer; margin-top:30px; color:var(--cod-red);">← Return</div></div></div>
 
     <footer>
         <div class="footer-content">
-            <p>&copy; 2026 CODMobile.org. Independent Data Hub.</p>
+            <p>&copy; 2026 CODMobile.org. Independent Analytics Hub.</p>
             <p class="footer-links" style="margin-top: 15px;">
                 <a onclick="showPage('privacy')">Privacy</a> • 
                 <a onclick="showPage('adchoices')">AdChoices</a> • 
@@ -277,42 +183,38 @@
         let globalData = null;
 
         function showPage(id) {
-            const titles = { home: "Live Intel", tierlist: "Weapon Meta", codes: "Redeem Codes", patchnotes: "Patch Logs", archive: "Archive", search: "Tactical Search" };
+            const titles = { home: "Auto-Intel", tierlist: "Weapon Meta", codes: "Redeem Codes", patchnotes: "Patch Logs", archive: "Archive", search: "Search" };
             document.title = `CODMobile.org | ${titles[id] || "Hub"}`;
-            
             if (id !== 'player') { const vFrame = document.getElementById('main-video-embed'); if(vFrame) vFrame.src = ''; }
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            const target = document.getElementById(id);
-            if(target) target.classList.add('active');
-            window.scrollTo(0,0);
-            lucide.createIcons();
+            const target = document.getElementById(id); if(target) target.classList.add('active');
+            window.scrollTo(0,0); lucide.createIcons();
         }
 
         function openVideoPlayer() {
             if (globalData && globalData.video) {
                 document.getElementById('main-video-embed').src = globalData.video.url;
                 document.getElementById('player-title').innerText = globalData.video.title;
-                document.getElementById('player-desc').innerText = globalData.video.description || "Briefing pending...";
-                document.getElementById('vid-author').innerText = globalData.video.author || "Field Operator";
-                document.getElementById('vid-views').innerText = globalData.video.views || "Scanned";
+                document.getElementById('player-desc').innerText = globalData.video.description || "Briefing active.";
+                document.getElementById('vid-author').innerText = globalData.video.author || "Operator";
+                document.getElementById('vid-views').innerText = globalData.video.views || "Live Feed";
                 document.getElementById('vid-date').innerText = new Date(globalData.video.uploadDate).toLocaleDateString();
                 const tagBox = document.getElementById('vid-tags'); tagBox.innerHTML = '';
-                if(globalData.video.tags) globalData.video.tags.forEach(tag => { tagBox.innerHTML += `<span class="video-tag">#${tag}</span>`; });
+                if(globalData.video.tags) globalData.video.tags.forEach(t => { tagBox.innerHTML += `<span class="video-tag">#${t}</span>`; });
                 showPage('player');
             }
         }
 
         function getBackupData() {
             const today = new Date();
-            const calculatedSeason = (today.getMonth() % 12) + 1; 
             return {
-                status: `SEASON ${calculatedSeason} LIVE`,
-                hero: { subtitle: `INTEL STREAM ACTIVE`, title: `LUNAR <span style="color:var(--cod-red)">CHARGE</span>`, desc: `Tactical monitoring of CODM Season ${calculatedSeason}. Active tracking of Weapon Meta, Redemption Codes, and Official Patch Logs.` },
-                tierList: [ { tier: "S+", name: "BP50", type: "AR", analysis: "Superior TTK. Dominates mid-range ranked play." }, { tier: "S", name: "LAG 53", type: "AR", analysis: "Versatile new favorite with high mobility." }, { tier: "S", name: "USS 9", type: "SMG", analysis: "Close-range eraser. High strafe speed." } ],
+                status: "SEASON LIVE",
+                hero: { subtitle: "STREAM ACTIVE", title: "LUNAR <span style='color:var(--cod-red)'>CHARGE</span>", desc: "Automated Season intelligence active. Monitoring Meta, Codes, and Version Logs." },
+                tierList: [ { tier: "S+", name: "BP50", type: "AR", analysis: "Superior TTK. Dominates mid-range ranked play." } ],
                 codes: [ { code: "BVRPZBZJ53", reward: "Verified Card", source: "Backup" } ],
-                video: { title: "Season Meta Breakdown", url: "https://www.youtube.com/embed/TNN631X8JDo?autoplay=1", thumbnail: "https://img.youtube.com/vi/TNN631X8JDo/maxresdefault.jpg", author: "Operator X", views: "1.2M", uploadDate: today.toISOString(), description: "Full gunsmith breakdown for the current ranked series." },
-                patchNotes: [ { title: "Version 35.0 Optimization", desc: "Storage footprint reduced. iOS size reduced to ~3.3 GB." }, { title: "DMZ Recon", desc: "New DMZ Recon game mode injected in Version 35.0." } ],
-                history: [ { title: "Season 1 Meta Analysis", date: "1/15/2026", url: "https://reddit.com/r/callofdutymobile", source: "Reddit", type: "WEB INTEL" } ]
+                video: { title: "Season Meta Breakdown", url: "https://www.youtube.com/embed/TNN631X8JDo?autoplay=1", thumbnail: "https://img.youtube.com/vi/TNN631X8JDo/maxresdefault.jpg", author: "Andrew", views: "1M", uploadDate: today.toISOString(), description: "Full gunsmith breakdown for the current ranked series.", tags: ["CODM", "Meta"] },
+                patchNotes: [ { title: "Version 35.0 — December 8, 2025", desc: "Overall app optimizations to reduce storage space." }, { title: "Storage Optimization", desc: "Android size reduced to ~1.6 GB. iOS size reduced to ~3.3 GB." } ],
+                history: [ { title: "Season 1 Meta Analysis", date: "1/15/2026", url: "https://reddit.com/r/callofdutymobile", source: "Reddit" } ]
             };
         }
 
@@ -320,7 +222,6 @@
             try {
                 const res = await fetch('/api/data');
                 globalData = res.ok ? await res.json() : getBackupData();
-                // Patch Note Integrity Check
                 if (!globalData.patchNotes?.length || globalData.patchNotes[0].title === "Manual Override") globalData.patchNotes = getBackupData().patchNotes;
             } catch (e) { globalData = getBackupData(); }
 
@@ -328,7 +229,6 @@
             document.getElementById('hero-subtitle').innerText = globalData.hero.subtitle;
             document.getElementById('hero-title').innerHTML = globalData.hero.title;
             document.getElementById('hero-desc').innerText = globalData.hero.desc;
-
             if (globalData.video) { document.getElementById('video-title').innerText = globalData.video.title; document.getElementById('video-thumb').src = globalData.video.thumbnail; }
             
             const tierBody = document.getElementById('tier-list-body'); tierBody.innerHTML = ""; 
@@ -341,43 +241,24 @@
             globalData.patchNotes.forEach(p => { patchBox.innerHTML += `<li><strong>${p.title}</strong><p>${p.desc}</p></li>`; });
 
             const arcBox = document.getElementById('archive-container'); arcBox.innerHTML = "";
-            if(globalData.history) {
-                globalData.history.forEach(h => { arcBox.innerHTML += `<a href="${h.url || '#'}" target="_blank" class="archive-card"><span class="archive-tag">${h.source || 'WEB INTEL'}</span><h4 style="color:white; font-family:'Oswald';">${h.title}</h4><p style="color:#555; font-size:0.7rem; margin-top:10px;">DATE: ${h.date}</p></a>`; });
-            }
+            if(globalData.history) globalData.history.forEach(h => { arcBox.innerHTML += `<a href="${h.url || '#'}" target="_blank" class="archive-card"><span class="archive-tag">${h.source || 'WEB INTEL'}</span><h4 style="color:white; font-family:'Oswald';">${h.title}</h4><p style="color:#555; font-size:0.7rem; margin-top:10px;">DATE: ${h.date}</p></a>`; });
 
-            generateAutoSeo(globalData);
-            lucide.createIcons();
+            generateAutoSeo(globalData); lucide.createIcons();
         }
 
         function generateAutoSeo(data) {
-            const date = new Date();
             const topMeta = data.tierList[0]?.name || "Meta";
-            document.getElementById('auto-seo').innerHTML = `
-                <h3 style="font-family:'Oswald'; margin-bottom:10px; text-transform:uppercase;">Tactical Analytics: ${date.getFullYear()}</h3>
-                <p>Current <strong>Season Meta</strong> shifts favor the <strong>${topMeta}</strong>. Redemption database analysis monitors <strong>${data.codes.length} active entry points</strong>. This intel hub scrapes Reddit, Activision, and YouTube to maintain real-time accuracy for Call of Duty Mobile enthusiasts.</p>
-            `;
+            document.getElementById('auto-seo').innerHTML = `<h3 style="font-family:'Oswald'; margin-bottom:10px; text-transform:uppercase;">Tactical Analytics: ${new Date().getFullYear()}</h3><p>Current <strong>Season Meta</strong> shifts favor the <strong>${topMeta}</strong>. Redemption database analysis monitors <strong>${data.codes.length} active entry points</strong>. This intel hub scrapes Reddit, Activision, and YouTube for real-time accuracy.</p>`;
         }
 
         function performSearch() {
             const input = document.getElementById('search-input').value.toLowerCase();
-            const resBox = document.getElementById('search-results');
-            if (input.length < 2) { resBox.innerHTML = ""; return; }
-            resBox.innerHTML = '';
-            let found = 0;
-            const pool = [
-                ...globalData.tierList.map(t => ({ type: "WEAPON", title: t.name, desc: t.analysis, id: 'tierlist' })),
-                ...globalData.codes.map(c => ({ type: "CODE", title: c.code, desc: c.reward, id: 'codes' })),
-                ...(globalData.history || []).map(h => ({ type: "WEB", title: h.title, desc: h.date, url: h.url }))
-            ];
-            pool.forEach(item => {
-                if (item.title.toLowerCase().includes(input) || item.desc.toLowerCase().includes(input)) {
-                    resBox.innerHTML += `<a ${item.url ? `href="${item.url}" target="_blank"` : `onclick="showPage('${item.id}')"`} class="result-item"><div class="result-type">${item.type}</div><div class="result-title">${item.title}</div><div class="result-desc">${item.desc}</div></a>`;
-                    found++;
-                }
-            });
-            if (!found) resBox.innerHTML = `<p style="text-align:center; color:#555; margin-top:20px;">NO INTEL MATCHES QUERY.</p>`;
+            const resBox = document.getElementById('search-results'); if (input.length < 2) { resBox.innerHTML = ""; return; }
+            resBox.innerHTML = ''; let found = 0;
+            const pool = [ ...globalData.tierList.map(t => ({ type: "WEAPON", title: t.name, desc: t.analysis, id: 'tierlist' })), ...globalData.codes.map(c => ({ type: "CODE", title: c.code, desc: c.reward, id: 'codes' })), ...(globalData.history || []).map(h => ({ type: "WEB", title: h.title, desc: h.date, url: h.url })) ];
+            pool.forEach(item => { if (item.title.toLowerCase().includes(input) || item.desc.toLowerCase().includes(input)) { resBox.innerHTML += `<a ${item.url ? `href="${item.url}" target="_blank"` : `onclick="showPage('${item.id}')"`} class="result-item"><div class="result-type">${item.type}</div><div class="result-title">${item.title}</div><div class="result-desc">${item.desc}</div></a>`; found++; } });
+            if (!found) resBox.innerHTML = `<p style="text-align:center; color:#555; margin-top:20px;">NO INTEL FOUND.</p>`;
         }
-
         init();
     </script>
 </body>
