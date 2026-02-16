@@ -19,7 +19,7 @@
     <style>
         :root { --cod-gold: #FFD700; --cod-red: #D81B1B; --cod-black: #050505; --cod-panel: #111; --text-main: #EAEAEA; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: var(--cod-black); color: var(--text-main); font-family: 'Inter', sans-serif; padding-bottom: 0; display: flex; flex-direction: column; min-height: 100vh; }
+        body { background-color: var(--cod-black); color: var(--text-main); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; }
 
         /* Navigation */
         nav { position: fixed; top: 0; width: 100%; background: rgba(5,5,5,0.95); border-bottom: 1px solid #333; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; backdrop-filter: blur(10px); }
@@ -60,7 +60,7 @@
         .patch-list { list-style: none; padding: 0; }
         .patch-list li { background: #151515; border-left: 3px solid var(--cod-gold); padding: 15px; margin-bottom: 10px; }
         .patch-list strong { color: white; display: block; margin-bottom: 5px; font-family: 'Oswald'; text-transform: uppercase; }
-        .patch-img { width: 100%; margin-top: 15px; border-radius: 4px; border: 1px solid #333; display: block; }
+        .patch-img { width: 100%; margin: 20px 0; border-radius: 4px; border: 1px solid #333; display: block; background: #000; }
 
         /* Search & Archive */
         .search-container { max-width: 800px; margin: 0 auto; }
@@ -217,7 +217,7 @@
         function getBackupData() {
             const today = new Date();
             return {
-                status: "SEASON LIVE",
+                status: "SEASON 3 LIVE",
                 hero: { subtitle: "STREAM ACTIVE", title: "LUNAR <span style='color:var(--cod-red)'>CHARGE</span>", desc: "Automated Season intelligence active. Monitoring Meta, Codes, and Version Logs." },
                 tierList: [ { tier: "S+", name: "BP50", type: "AR", analysis: "Superior TTK. Dominates mid-range ranked play." } ],
                 codes: [ { code: "BVRPZBZJ53", reward: "Verified Card", source: "Backup" } ],
@@ -229,9 +229,14 @@
                         image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80"
                     }, 
                     { 
-                        title: "DMZ Recon", 
-                        desc: "The new DMZ Recon game mode will be downloaded as part of Version 35.0.",
+                        title: "Visual Intel: Download Manager", 
+                        desc: "Android players can access the Download Manager by tapping the Down Arrow icon at the bottom of the main lobby screen to re-download HD assets.",
                         image: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?auto=format&fit=crop&w=800&q=80"
+                    },
+                    { 
+                        title: "DMZ Recon & Map Intel", 
+                        desc: "DMZ Recon game mode downloaded with Version 35.0. Isolated map requires high-definition audio assets for optimal performance.",
+                        image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80"
                     } 
                 ],
                 history: [ { title: "Season 1 Meta Analysis", date: "1/15/2026", url: "https://reddit.com/r/callofdutymobile", source: "Reddit" } ]
@@ -261,8 +266,8 @@
             globalData.patchNotes.forEach(p => { 
                 patchBox.innerHTML += `<li>
                     <strong>${p.title}</strong>
-                    <p>${p.desc}</p>
-                    ${p.image ? `<img src="${p.image}" class="patch-img" onerror="this.style.display='none'">` : ''}
+                    <p style="margin-bottom:10px;">${p.desc}</p>
+                    ${p.image ? `<img src="${p.image}" class="patch-img" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80'">` : ''}
                 </li>`; 
             });
 
