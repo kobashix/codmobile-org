@@ -31,7 +31,7 @@
         /* Hero */
         header.hero { height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; border-bottom: 4px solid var(--cod-gold); background-color: #050505; background-image: linear-gradient(to bottom, rgba(0,0,0,0.7), #050505), url('https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=1920&q=80'); background-position: center; background-size: cover; }
         h1 { font-family: 'Oswald'; font-size: clamp(3rem, 6vw, 6rem); text-transform: uppercase; line-height: 0.9; margin-bottom: 1rem; }
-        .cta-btn { background: var(--cod-red); color: white; padding: 15px 40px; font-family: 'Rajdhani'; font-weight: 700; border: none; text-transform: uppercase; cursor: pointer; clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px); }
+        .cta-btn { background: var(--cod-red); color: white; padding: 15px 40px; font-family: 'Rajdhani'; font-weight: 700; border: none; text-transform: uppercase; cursor: pointer; clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px); text-decoration: none; display: inline-block; }
 
         /* Grid */
         .grid-wrapper { padding: 40px 5%; max-width: 1400px; margin: 0 auto; }
@@ -69,16 +69,20 @@
         #search-input { width: 100%; background: #111; border: 1px solid #333; padding: 20px; font-size: 1.2rem; color: white; font-family: 'Rajdhani'; padding-left: 50px; outline: none; transition: border-color 0.3s; }
         #search-input:focus { border-color: var(--cod-gold); }
         .search-icon-input { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #666; }
-        .result-item { background: #1a1a1a; padding: 20px; border-left: 4px solid #333; margin-bottom: 15px; animation: fadeIn 0.2s; cursor: pointer; transition: background 0.2s; }
-        .result-item:hover { background: #222; }
-        .result-item.archive { border-color: #666; opacity: 0.8; }
+        
+        .result-item { background: #1a1a1a; padding: 20px; border-left: 4px solid #333; margin-bottom: 15px; animation: fadeIn 0.2s; cursor: pointer; transition: background 0.2s; position: relative; }
+        .result-item:hover { background: #222; border-color: var(--cod-gold); }
+        .result-item.archive { border-color: #444; }
         .result-type { font-size: 0.7rem; text-transform: uppercase; color: #888; margin-bottom: 5px; font-weight: bold; font-family: 'Rajdhani'; }
         .result-title { color: white; font-family: 'Oswald'; font-size: 1.2rem; margin-bottom: 5px; }
-        .result-desc { color: #aaa; font-size: 0.9rem; }
+        .result-desc { color: #aaa; font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .external-icon { position: absolute; right: 20px; top: 20px; color: #666; }
 
-        /* Video Player Page */
-        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: black; border: 1px solid #333; margin-bottom: 20px; }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        /* Video Player & Web Viewer Page */
+        .viewer-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: black; border: 1px solid #333; margin-bottom: 20px; }
+        .viewer-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        .viewer-header { margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 15px; }
+        
         .video-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; border-top: 1px solid #222; padding-top: 20px; }
         .meta-box { background: #111; padding: 15px; border-left: 2px solid var(--cod-gold); }
         .meta-label { font-family: 'Rajdhani'; color: #666; font-size: 0.8rem; text-transform: uppercase; display: block; margin-bottom: 5px; }
@@ -123,7 +127,6 @@
             </div>
         </div>
         
-        <!-- HIDDEN SEO ARCHIVE FOR BOTS -->
         <div id="seo-archive-data"></div>
     </div>
 
@@ -139,8 +142,11 @@
     <!-- INTERNAL VIDEO PLAYER -->
     <div id="player" class="page">
         <div class="grid-wrapper" style="max-width:1000px;">
-            <h2 style="font-family:'Oswald'; margin-bottom:10px;">Tactical Briefing</h2>
-            <div class="video-container"><iframe id="main-video-embed" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+            <div class="viewer-header">
+                <h2 style="font-family:'Oswald'; margin-bottom:5px;">Tactical Briefing</h2>
+                <span style="color:#666; font-size:0.8rem;">INTERNAL SECURE FEED</span>
+            </div>
+            <div class="viewer-container"><iframe id="main-video-embed" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
             <h1 id="player-title" style="color:white; font-family:'Oswald'; font-size:1.8rem;"></h1>
             <div class="video-meta">
                 <div class="meta-box"><span class="meta-label">Operator / Channel</span><div class="meta-value" id="vid-author">-</div></div>
@@ -155,11 +161,35 @@
         </div>
     </div>
 
+    <!-- WEB VIEWER (New for Search Results) -->
+    <div id="webview" class="page">
+        <div class="grid-wrapper" style="max-width:1200px; height: 85vh; display:flex; flex-direction:column;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                <div>
+                    <h2 style="font-family:'Oswald'; margin:0; line-height:1;" id="webview-title">External Intel</h2>
+                    <span style="color:#666; font-size:0.8rem;">SECURE CONNECTION ESTABLISHED</span>
+                </div>
+                <div style="cursor:pointer; color:#888; font-weight:bold;" onclick="showPage('search')">✖ CLOSE VIEWER</div>
+            </div>
+            
+            <div class="viewer-container" style="flex-grow:1; padding-bottom:0; height:auto; margin-bottom:10px;">
+                <iframe id="main-web-embed" src="" style="width:100%; height:100%; border:0;"></iframe>
+            </div>
+            
+            <div style="text-align:center; background:#111; padding:10px; border:1px solid #333;">
+                <p style="color:#666; font-size:0.8rem; margin-bottom:10px;">
+                    Connection unstable? Some intel sources (Reddit, Official News) may block internal viewing protocols.
+                </p>
+                <a id="webview-external-link" href="#" target="_blank" class="cta-btn" style="font-size:0.8rem; padding:8px 20px;">OPEN SOURCE DIRECTLY ↗</a>
+            </div>
+        </div>
+    </div>
+
     <!-- TACTICAL SEARCH -->
     <div id="search" class="page">
         <div class="grid-wrapper search-container">
             <h2 style="font-family:'Oswald'; margin-bottom:10px; text-align:center;">DATABASE SEARCH</h2>
-            <p style="text-align:center; color:#666; margin-bottom: 30px; font-family:'Rajdhani';">Querying Archive & Live Intel...</p>
+            <p style="text-align:center; color:#666; margin-bottom: 30px; font-family:'Rajdhani';">Querying Auto-Scraped Intel...</p>
             <div class="search-input-wrapper"><i data-lucide="search" class="search-icon-input"></i><input type="text" id="search-input" placeholder="Type a weapon, code, or keyword..." onkeyup="performSearch()"></div>
             <div id="search-results"><div style="text-align:center; color:#444; margin-top:50px;"><i data-lucide="terminal" style="margin-bottom:10px; width:40px; height:40px; opacity:0.3;"></i><p>SYSTEM READY. AWAITING INPUT.</p></div></div>
             <div style="text-align:center; margin-top:40px; cursor:pointer; color:#888;" onclick="showPage('home')">← Return to Base</div>
@@ -181,6 +211,13 @@
                 if(globalData.video.tags) globalData.video.tags.forEach(tag => { tagBox.innerHTML += `<span class="video-tag">${tag}</span>`; });
                 showPage('player');
             }
+        }
+
+        function openWebView(url, title) {
+            document.getElementById('webview-title').innerText = title || "External Intel";
+            document.getElementById('main-web-embed').src = url;
+            document.getElementById('webview-external-link').href = url;
+            showPage('webview');
         }
 
         function getBackupData() {
@@ -239,10 +276,14 @@
         }
 
         function showPage(id) {
-            if (id !== 'player') { const iframe = document.getElementById('main-video-embed'); const src = iframe.src; iframe.src = ''; iframe.src = src; }
+            // Kill IFrames to stop background audio/video
+            if (id !== 'player') { const vFrame = document.getElementById('main-video-embed'); const vSrc = vFrame.src; vFrame.src = ''; vFrame.src = vSrc; }
+            if (id !== 'webview') { document.getElementById('main-web-embed').src = ''; }
+
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             window.scrollTo(0,0);
+            
             if(id !== 'search') {
                 document.getElementById('search-input').value = ''; 
                 document.getElementById('search-results').innerHTML = `<div style="text-align:center; color:#444; margin-top:50px;"><i data-lucide="terminal" style="margin-bottom:10px; width:40px; height:40px; opacity:0.3;"></i><p>SYSTEM READY. AWAITING INPUT.</p></div>`;
@@ -258,8 +299,35 @@
             let foundCount = 0;
             globalData.tierList.forEach(item => { if (item.name.toLowerCase().includes(input) || item.analysis.toLowerCase().includes(input)) { resultsContainer.innerHTML += `<div class="result-item tier" onclick="showPage('tierlist')"><div class="result-type">WEAPON INTEL • TIER ${item.tier}</div><div class="result-title">${item.name}</div><div class="result-desc">${item.analysis}</div></div>`; foundCount++; } });
             globalData.codes.forEach(item => { if (item.code.toLowerCase().includes(input) || item.reward.toLowerCase().includes(input)) { resultsContainer.innerHTML += `<div class="result-item code" onclick="showPage('codes')"><div class="result-type">REDEEM CODE • ${item.source}</div><div class="result-title">${item.code}</div><div class="result-desc">Reward: ${item.reward}</div></div>`; foundCount++; } });
-            if (globalData.history) { globalData.history.forEach(item => { if (item.title.toLowerCase().includes(input)) { resultsContainer.innerHTML += `<div class="result-item archive"><div class="result-type">ARCHIVED INTEL • ${item.date}</div><div class="result-title">${item.title}</div><div class="result-desc">Stored in database history.</div></div>`; foundCount++; } }); }
+            if (globalData.patchNotes) { globalData.patchNotes.forEach(item => { if (item.title.toLowerCase().includes(input) || item.desc.toLowerCase().includes(input)) { resultsContainer.innerHTML += `<div class="result-item patch" onclick="showPage('patchnotes')"><div class="result-type">PATCH NOTE • OFFICIAL</div><div class="result-title">${item.title}</div><div class="result-desc">${item.desc}</div></div>`; foundCount++; } }); }
+            
+            // ARCHIVE / WEB INTEL SEARCH
+            if (globalData.history) { 
+                globalData.history.forEach(item => { 
+                    if (item.title.toLowerCase().includes(input)) { 
+                        let clickAction = "";
+                        // Make items with URLs clickable via the Web Viewer
+                        if(item.url) {
+                            const safeUrl = item.url.replace(/'/g, "\\'");
+                            const safeTitle = item.title.replace(/'/g, "\\'");
+                            clickAction = `onclick="openWebView('${safeUrl}', '${safeTitle}')"`;
+                        }
+                        
+                        resultsContainer.innerHTML += `
+                            <div class="result-item archive" ${clickAction}>
+                                <div class="result-type">${item.type} • ${item.date}</div>
+                                <div class="result-title">${item.title}</div>
+                                <div class="result-desc">${item.source || "Database History"}</div>
+                                ${item.url ? '<i data-lucide="external-link" class="external-icon" style="width:16px;"></i>' : ''}
+                            </div>
+                        `; 
+                        foundCount++; 
+                    } 
+                }); 
+            }
+            
             if (foundCount === 0) { resultsContainer.innerHTML = `<div style="text-align:center; color:#666; margin-top:30px;"><p>No internal intel found for "${input}".</p></div>`; }
+            lucide.createIcons();
         }
 
         init();
