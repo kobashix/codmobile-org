@@ -4,27 +4,54 @@ export async function onRequest(context) {
   const calculatedSeason = (currentMonth % 12) + 1; 
   const seasonName = `SEASON ${calculatedSeason} LIVE`;
 
-  // EXPANDED SCRAPE CONFIGURATION
-  // We now fetch 'New' for live updates AND 'Top' for history/SEO
+  // CONFIGURATION
   const redditNew = "https://www.reddit.com/r/CallOfDutyMobile/search.json?q=flair%3A%22Redeem+Code%22&restrict_sr=1&sort=new&limit=10";
   const redditTop = "https://www.reddit.com/r/CallOfDutyMobile/search.json?q=flair%3A%22Community+Highlight%22&restrict_sr=1&sort=top&t=year&limit=25";
   const activisionUrl = "https://support.activision.com/cod-mobile/articles/call-of-duty-mobile-updates";
   const youtubeUrl = "https://www.youtube.com/hashtag/codmobile_partner";
+  // NEW: Google News RSS for Broad Web Scraping
+  const googleNewsUrl = "https://news.google.com/rss/search?q=Call+of+Duty+Mobile+updates+loadouts+guides&hl=en-US&gl=US&ceid=US:en";
   
   let codes = [];
   let patchNotes = [];
   let videoIntel = null;
-  let history = []; // NEW: Stores historical posts for Search/SEO
+  let history = []; 
 
   try {
-    const [redNewRes, redTopRes, activisionRes, youtubeRes] = await Promise.all([
+    const [redNewRes, redTopRes, activisionRes, youtubeRes, newsRes] = await Promise.all([
       fetch(redditNew, { headers: { 'User-Agent': 'CODMobileOrg-Bot/1.0' } }),
       fetch(redditTop, { headers: { 'User-Agent': 'CODMobileOrg-Bot/1.0' } }),
       fetch(activisionUrl, { headers: { 'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1)' } }),
-      fetch(youtubeUrl, { headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0)' } })
+      fetch(youtubeUrl, { headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0)' } }),
+      fetch(googleNewsUrl, { headers: { 'User-Agent': 'Mozilla/5.0' } })
     ]);
 
-    // A. PROCESS YOUTUBE (Deep Scrape)
+    // A. PROCESS GOOGLE NEWS (WEB LINKS)
+    if (newsRes.ok) {
+        const xml = await newsRes.text();
+        // Regex XML Parser for Worker Environment
+        const items = xml.match(/<item>[\s\S]*?<\/item>/g);
+        if (items) {
+            items.slice(0, 40).forEach(item => {
+                const title = item.match(/<title>(.*?)<\/title>/)?.[1];
+                const link = item.match(/<link>(.*?)<\/link>/)?.[1];
+                const dateStr = item.match(/<pubDate>(.*?)<\/pubDate>/)?.[1];
+                const source = item.match(/<source.*?>(.*?)<\/source>/)?.[1] || "Web News";
+
+                if (title && link) {
+                    history.push({
+                        title: title.replace(" - " + source, ""), // Clean title
+                        url: link,
+                        date: new Date(dateStr).toLocaleDateString(),
+                        type: "WEB INTEL", // Search Category
+                        source: source
+                    });
+                }
+            });
+        }
+    }
+
+    // B. PROCESS YOUTUBE
     if (youtubeRes.ok) {
         const ytText = await youtubeRes.text();
         const videoIdMatch = ytText.match(/"videoId":"([a-zA-Z0-9_-]{11})"/);
@@ -46,22 +73,21 @@ export async function onRequest(context) {
         }
     }
 
-    // B. PROCESS REDDIT (History & Codes)
+    // C. PROCESS REDDIT
     const processReddit = async (res, isHistory) => {
         if (res.ok) {
             const json = await res.json();
             json.data.children.forEach(post => {
                 const p = post.data;
-                // Add to History Index
                 history.push({
                     title: p.title,
                     url: p.url,
                     score: p.score,
                     date: new Date(p.created_utc * 1000).toLocaleDateString(),
-                    type: isHistory ? "ARCHIVE" : "LIVE"
+                    type: isHistory ? "REDDIT ARCHIVE" : "REDDIT LIVE",
+                    source: `r/${p.subreddit}`
                 });
 
-                // Extract Codes
                 const codeRegex = /\b[A-Z0-9]{10,14}\b/g;
                 const found = (p.title + p.selftext).match(codeRegex);
                 if (found) {
@@ -75,10 +101,10 @@ export async function onRequest(context) {
 
     await Promise.all([processReddit(redNewRes, false), processReddit(redTopRes, true)]);
 
-    // C. PROCESS ACTIVISION
+    // D. PROCESS ACTIVISION
     if (activisionRes.ok) {
         const text = await activisionRes.text();
-        const versionMatch = text.match(/Version\s+\d+\.\d+\s+—\s+.*?(?=Version|$)/gs);
+        const versionMatch = text.match(/Version\s+\d+\.\d+.*?(?=Version|$)/gs);
         if (versionMatch) {
             const latestBlock = versionMatch[0];
             const title = latestBlock.split('\n')[0].replace(/<[^>]*>/g, '').trim();
@@ -97,18 +123,17 @@ export async function onRequest(context) {
 
   } catch (err) { console.log("Scrape Error", err); }
 
-  // 3. FALLBACKS & STATIC HISTORY (SEO JUICE)
+  // 3. FALLBACKS
   if (codes.length === 0) codes = [{ code: "BVRPZBZJ53", reward: "Verified Code", source: "Backup" }];
   
-  // Hardcoded History for immediate SEO density (The "Store a lot of posts" part)
-  const legacyHistory = [
-      { title: "Season 1 2026 Meta Analysis: Type 19 vs Grau", date: "1/15/2026", type: "LEGACY" },
-      { title: "How to unlock the Nail Gun in Season 11", date: "12/10/2025", type: "LEGACY" },
-      { title: "Best BR Classes for Isolated Map", date: "11/05/2025", type: "LEGACY" },
-      { title: "Kilo 141 Mythic Drop Rates Explained", date: "10/20/2025", type: "LEGACY" },
-      { title: "World Championship 2025 Winners", date: "09/15/2025", type: "LEGACY" }
-  ];
-  history = [...history, ...legacyHistory];
+  if (patchNotes.length === 0) {
+      patchNotes = [
+          { title: "Version 35.0 — December 8, 2025", desc: "Overall app optimizations to reduce storage space and improve download speeds." },
+          { title: "Storage Optimization", desc: "Android size reduced to ~1.6 GB. iOS size reduced to ~3.3 GB." },
+          { title: "DMZ Recon", desc: "The new DMZ Recon game mode will be downloaded as part of Version 35.0." },
+          { title: "Battle Royale", desc: "Isolated map requires new high-definition audio assets download." }
+      ];
+  }
 
   // 4. RESPONSE
   const data = {
@@ -116,7 +141,7 @@ export async function onRequest(context) {
     hero: {
       subtitle: `AUTOMATED INTEL // ${today.toLocaleDateString()}`,
       title: `META <span style="color:var(--cod-red)">WATCH</span>`,
-      desc: `Real-time surveillance of Season ${calculatedSeason}. Scanning Activision, YouTube & Reddit data streams.`,
+      desc: `Real-time surveillance of Season ${calculatedSeason}. Scanning Activision, YouTube, Reddit & Global News streams.`,
     },
     tierList: [
         { tier: "S+", name: "BP50", type: "AR", analysis: "High Fire Rate. Consistent Meta." },
@@ -127,7 +152,7 @@ export async function onRequest(context) {
     codes: codes,
     patchNotes: patchNotes,
     video: videoIntel,
-    history: history // Huge array of posts for search
+    history: history 
   };
 
   return new Response(JSON.stringify(data), {
