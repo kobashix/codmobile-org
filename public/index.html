@@ -35,12 +35,12 @@
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         /* Hero Section */
-        header.hero { height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; border-bottom: 4px solid var(--cod-gold); background-color: #050505; background-image: linear-gradient(to bottom, rgba(0,0,0,0.7), #050505), url('https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=1920&q=80'); background-position: center; background-size: cover; }
+        header.hero { height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; border-bottom: 4px solid var(--cod-gold); background-color: #050505; background-image: linear-gradient(to bottom, rgba(0,0,0,0.7), #050505), url('https://images.unsplash.com/photo-1552820728-8b83bb6b773f?auto=format&fit=crop&w=1920&q=80'); background-position: center; background-size: cover; }
         h1 { font-family: 'Oswald'; font-size: clamp(3rem, 6vw, 6rem); text-transform: uppercase; line-height: 0.9; margin-bottom: 1rem; }
         .cta-btn { background: var(--cod-red); color: white; padding: 15px 40px; font-family: 'Rajdhani'; font-weight: 700; border: none; text-transform: uppercase; cursor: pointer; clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px); text-decoration: none; display: inline-block; transition: 0.2s; }
         .cta-btn:hover { background: white; color: black; transform: scale(1.05); }
 
-        /* Components */
+        /* Grid */
         .grid-wrapper { padding: 40px 5%; max-width: 1400px; margin: 0 auto; }
         .bento-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
         .card { background: var(--cod-panel); border: 1px solid #333; height: 300px; position: relative; overflow: hidden; cursor: pointer; display: flex; flex-direction: column; justify-content: flex-end; text-decoration: none; }
@@ -51,28 +51,26 @@
         .span-2 { grid-column: span 2; }
         @media (max-width: 900px) { .bento-grid { grid-template-columns: 1fr; } .span-2 { grid-column: span 1; } }
 
-        /* Tables & Lists */
+        /* Data Items */
         .tier-table { width: 100%; border-collapse: collapse; max-width: 900px; margin: 0 auto; }
         .tier-table td { padding: 15px; border-bottom: 1px solid #222; }
         .tier-badge { background: var(--cod-red); padding: 2px 8px; font-weight: bold; border-radius: 2px; }
         .code-box { background: #222; border: 1px dashed var(--cod-gold); padding: 15px; text-align: center; font-family: 'Rajdhani'; font-size: 1.5rem; color: var(--cod-gold); margin: 10px 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
         .source-tag { font-size: 0.7rem; background: #333; padding: 2px 6px; border-radius: 4px; color: #aaa; text-transform: uppercase; }
         .patch-list { list-style: none; padding: 0; }
-        .patch-list li { background: #151515; border-left: 3px solid var(--cod-gold); padding: 15px; margin-bottom: 10px; }
-        .patch-list strong { color: white; display: block; margin-bottom: 5px; font-family: 'Oswald'; text-transform: uppercase; }
-        .patch-img { width: 100%; margin: 20px 0; border-radius: 4px; border: 1px solid #333; display: block; background: #000; }
+        .patch-list li { background: #151515; border-left: 3px solid var(--cod-gold); padding: 25px; margin-bottom: 20px; }
+        .patch-list strong { color: white; display: block; margin-bottom: 10px; font-family: 'Oswald'; text-transform: uppercase; font-size: 1.2rem; }
+        .patch-img { width: 100%; margin: 20px 0; border-radius: 4px; border: 1px solid #333; display: block; }
 
-        /* Search & Archive */
-        .search-container { max-width: 800px; margin: 0 auto; }
-        #search-input { width: 100%; background: #111; border: 1px solid #333; padding: 20px; font-size: 1.2rem; color: white; font-family: 'Rajdhani'; padding-left: 50px; outline: none; transition: border-color 0.3s; }
+        /* Search UI */
+        #search-input { width: 100%; background: #111; border: 1px solid #333; padding: 20px; font-size: 1.2rem; color: white; font-family: 'Rajdhani'; padding-left: 50px; outline: none; }
         .result-item { display: block; text-decoration: none; background: #1a1a1a; padding: 20px; border-left: 4px solid #333; margin-bottom: 15px; transition: background 0.2s; position: relative; }
         .result-item:hover { background: #222; border-color: var(--cod-gold); }
-        .result-title { color: white; font-family: 'Oswald'; font-size: 1.2rem; margin-bottom: 5px; }
         .archive-feed { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; }
         .archive-card { background: #111; padding: 20px; border: 1px solid #222; text-decoration: none; transition: 0.2s; border-radius: 4px; }
         .archive-card:hover { background: #1a1a1a; border-color: var(--cod-gold); }
 
-        /* Video Player Block */
+        /* Video / Web Intelligence */
         .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: black; border: 1px solid #333; }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
         .video-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; border-top: 1px solid #222; padding-top: 20px; }
@@ -82,23 +80,19 @@
         .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
         .video-tag { background: #222; color: #aaa; padding: 4px 10px; font-size: 0.8rem; border-radius: 4px; }
 
-        /* Compliance Content */
+        /* Compliance Restored */
         .compliance-box { background: #111; padding: 30px; border: 1px solid #333; color: #ccc; line-height: 1.8; }
         .compliance-box h3 { color: white; margin: 25px 0 10px; font-family: 'Oswald'; text-transform: uppercase; }
         .compliance-box a { color: var(--cod-gold); text-decoration: underline; cursor: pointer; }
 
-        /* Global Footer */
+        /* Footer */
         footer { border-top: 1px solid #222; background: #050505; margin-top: auto; }
         .footer-content { max-width: 1400px; margin: 0 auto; padding: 60px 5%; text-align: center; color: #444; font-size: 0.8rem; }
-        .footer-links a { color: #666; text-decoration: none; margin: 0 10px; cursor: pointer; font-weight: 600; transition: color 0.2s; }
+        .footer-links a { color: #666; text-decoration: none; margin: 0 10px; cursor: pointer; font-weight: 600; }
         .footer-links a:hover { color: var(--cod-gold); }
-
-        #seo-archive-data { display: none; }
     </style>
 </head>
 <body>
-
-    <script type="application/ld+json" id="structured-data"></script>
 
     <nav>
         <div class="logo" onclick="showPage('home')">CODMobile<span>.ORG</span></div>
@@ -128,12 +122,11 @@
                 <div class="card" onclick="showPage('codes')"><img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=400&q=80" class="card-bg"><div class="card-content"><h3>Live Codes</h3><p style="color:#aaa; font-size:0.8rem;">Redemption Database</p></div></div>
                 <div class="card" onclick="showPage('archive')"><img src="https://images.unsplash.com/photo-1555680202-c86f0e12f086?auto=format&fit=crop&w=400&q=80" class="card-bg"><div class="card-content"><h3>History</h3><p style="color:#aaa; font-size:0.8rem;">Web Intel Feed</p></div></div>
                 <div class="card span-2" id="video-card" onclick="openVideoPlayer()"><div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 3rem; color: white; opacity: 0.8; z-index: 2;">▶</div><img id="video-thumb" src="" class="card-bg" style="opacity: 0.4;"><div class="card-content"><h3>Tactical Briefing</h3><p id="video-title" style="color:#aaa; font-size:0.8rem;">Loading...</p></div></div>
-                <div class="card span-2" onclick="showPage('patchnotes')"><img src="https://images.unsplash.com/photo-1616428753229-87a7a5823158?auto=format&fit=crop&w=800&q=80" class="card-bg"><div class="card-content"><h3>Patch Notes</h3><p style="color:#aaa; font-size:0.8rem;">Official Version Logs</p></div></div>
+                <div class="card span-2" onclick="showPage('patchnotes')"><img src="https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?auto=format&fit=crop&w=800&q=80" class="card-bg"><div class="card-content"><h3>Patch Notes</h3><p style="color:#aaa; font-size:0.8rem;">Official Version Logs</p></div></div>
             </div>
         </div>
         
         <section id="auto-seo" class="grid-wrapper" style="max-width: 900px; padding-top: 0; color: #444; font-size: 0.85rem;"></section>
-        <div id="seo-archive-data"></div>
     </div>
 
     <!-- TIER LIST -->
@@ -146,7 +139,14 @@
     <div id="archive" class="page"><div class="grid-wrapper"><h2 style="font-family:'Oswald'; margin: 20px 0; text-align:center; font-size: 3rem;">INTEL ARCHIVE</h2><div class="archive-feed" id="archive-container"></div><div style="text-align:center; margin-top:40px; cursor:pointer; color:#888;" onclick="showPage('home')">← Return</div></div></div>
 
     <!-- PATCH NOTES -->
-    <div id="patchnotes" class="page"><div class="grid-wrapper" style="max-width:900px;"><h2 style="font-family:'Oswald'; margin: 20px 0; text-align:center; font-size: 3rem;">PATCH NOTES</h2><ul class="patch-list" id="patch-container"></ul><div style="text-align:center; margin-top:40px; cursor:pointer; color:#888;" onclick="showPage('home')">← Return</div></div></div>
+    <div id="patchnotes" class="page">
+        <div class="grid-wrapper" style="max-width:900px;">
+            <h2 style="font-family:'Oswald'; margin: 20px 0; text-align:center; font-size: 3rem;">PATCH NOTES</h2>
+            <div style="margin-bottom: 20px; text-align: center; color: #666; font-size: 0.8rem;">Source: support.activision.com/cod-mobile</div>
+            <ul class="patch-list" id="patch-container"></ul>
+            <div style="text-align:center; margin-top:40px; cursor:pointer; color:#888;" onclick="showPage('home')">← Return</div>
+        </div>
+    </div>
 
     <!-- PLAYER -->
     <div id="player" class="page">
@@ -159,7 +159,7 @@
                 <div class="meta-box"><span class="meta-label">Date</span><div class="meta-value" id="vid-date">-</div></div>
             </div>
             <div id="player-desc" style="background:#111; padding:25px; border:1px solid #222; margin-top:20px; color:#aaa; line-height:1.7;"></div>
-            <div class="tag-cloud" id="vid-tags" style="margin-top: 20px;"></div>
+            <div class="tag-cloud" id="vid-tags"></div>
             <div style="text-align:center; margin-top:40px; cursor:pointer; color:#888;" onclick="showPage('home')">← Return</div>
         </div>
     </div>
@@ -230,12 +230,12 @@
                     }, 
                     { 
                         title: "Visual Intel: Download Manager", 
-                        desc: "Android players can access the Download Manager by tapping the Down Arrow icon at the bottom of the main lobby screen to re-download HD assets.",
+                        desc: "Android players: redownload HD assets via the lobby Down Arrow icon.",
                         image: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?auto=format&fit=crop&w=800&q=80"
                     },
                     { 
-                        title: "DMZ Recon & Map Intel", 
-                        desc: "DMZ Recon game mode downloaded with Version 35.0. Isolated map requires high-definition audio assets for optimal performance.",
+                        title: "DMZ Recon mode", 
+                        desc: "New game mode live starting December 11.",
                         image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80"
                     } 
                 ],
@@ -247,7 +247,10 @@
             try {
                 const res = await fetch('/api/data');
                 globalData = res.ok ? await res.json() : getBackupData();
-                if (!globalData.patchNotes?.length || globalData.patchNotes[0].title === "Manual Override") globalData.patchNotes = getBackupData().patchNotes;
+                // IMMEDIATE FIX: If backend fails or returns override, use backup intel.
+                if (!globalData.patchNotes?.length || globalData.patchNotes[0].title.includes("Override") || globalData.patchNotes[0].title.includes("Manual")) {
+                    globalData.patchNotes = getBackupData().patchNotes;
+                }
             } catch (e) { globalData = getBackupData(); }
 
             document.getElementById('nav-status').innerText = globalData.status;
@@ -266,7 +269,7 @@
             globalData.patchNotes.forEach(p => { 
                 patchBox.innerHTML += `<li>
                     <strong>${p.title}</strong>
-                    <p style="margin-bottom:10px;">${p.desc}</p>
+                    <div style="color:#aaa; font-size:0.9rem; line-height:1.6;">${p.desc}</div>
                     ${p.image ? `<img src="${p.image}" class="patch-img" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80'">` : ''}
                 </li>`; 
             });
