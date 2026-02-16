@@ -97,7 +97,7 @@
         /* Global Footer */
         footer { border-top: 1px solid #222; background: #050505; margin-top: auto; }
         .footer-content { max-width: 1400px; margin: 0 auto; padding: 40px 5%; text-align: center; color: #444; font-size: 0.8rem; }
-        .footer-links a { color: #666; text-decoration: none; margin: 0 10px; transition: color 0.2s; }
+        .footer-links a { color: #666; text-decoration: none; margin: 0 10px; transition: color 0.2s; cursor: pointer; }
         .footer-links a:hover { color: var(--cod-gold); }
     </style>
 </head>
@@ -182,14 +182,66 @@
         </div>
     </div>
 
+    <!-- PRIVACY POLICY -->
+    <div id="privacy" class="page">
+        <div class="grid-wrapper" style="max-width:800px;">
+            <h2 style="font-family:'Oswald'; margin-bottom:20px;">Privacy Policy</h2>
+            <div style="background:#111; padding:30px; border:1px solid #333; color:#ccc; line-height:1.6;">
+                <p><strong>Effective Date:</strong> February 16, 2026</p>
+                <p>CODMobile.org ("we", "us") respects your privacy. This policy explains how we handle information.</p>
+                
+                <h3 style="color:white; margin-top:20px;">1. Information Collection</h3>
+                <p>We do not collect personal data like names or emails unless you voluntarily contact us. We may automatically log non-personal info like IP addresses and browser types for security and analytics.</p>
+
+                <h3 style="color:white; margin-top:20px;">2. Cookies & Third-Party Ads</h3>
+                <p>We use third-party vendors, including Google, to serve ads based on prior visits. Google's use of advertising cookies enables it and its partners to serve ads to you based on your visit to this site and/or other sites on the Internet.</p>
+
+                <h3 style="color:white; margin-top:20px;">3. External Links</h3>
+                <p>This site contains links to other websites (Reddit, YouTube, Activision). We are not responsible for the privacy practices of these external sites.</p>
+            </div>
+            <div style="text-align:center; margin-top:40px; cursor:pointer; color:#888;" onclick="showPage('home')">← Back to Home</div>
+        </div>
+    </div>
+
+    <!-- CONTACT -->
+    <div id="contact" class="page">
+        <div class="grid-wrapper" style="max-width:800px; text-align:center;">
+            <h2 style="font-family:'Oswald'; margin-bottom:20px;">Contact Command</h2>
+            <div style="background:#111; padding:40px; border:1px solid #333; color:#ccc;">
+                <i data-lucide="mail" style="width:40px; height:40px; color:var(--cod-gold); margin-bottom:15px;"></i>
+                <p>For bug reports, takedown requests, or partnership inquiries:</p>
+                <a href="mailto:admin@codmobile.org" style="color:var(--cod-red); font-weight:bold; font-size:1.2rem; text-decoration:none;">admin@codmobile.org</a>
+                <p style="margin-top:20px; font-size:0.8rem; color:#666;">Response time: 24-48 hours via secure channel.</p>
+            </div>
+            <div style="text-align:center; margin-top:40px; cursor:pointer; color:#888;" onclick="showPage('home')">← Back to Home</div>
+        </div>
+    </div>
+
+    <!-- ADCHOICES -->
+    <div id="adchoices" class="page">
+        <div class="grid-wrapper" style="max-width:800px;">
+            <h2 style="font-family:'Oswald'; margin-bottom:20px;">AdChoices & Compliance</h2>
+            <div style="background:#111; padding:30px; border:1px solid #333; color:#ccc; line-height:1.6;">
+                <p>This site is supported by programmatic advertising. We strive to show relevant and safe ads.</p>
+                
+                <h3 style="color:white; margin-top:20px;">Control Your Experience</h3>
+                <ul style="padding-left:20px; margin-top:10px;">
+                    <li>Users may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" style="color:var(--cod-gold);">Google Ads Settings</a>.</li>
+                    <li>You can opt out of a third-party vendor's use of cookies for personalized advertising by visiting <a href="http://www.aboutads.info/choices/" target="_blank" style="color:var(--cod-gold);">aboutads.info</a>.</li>
+                </ul>
+            </div>
+            <div style="text-align:center; margin-top:40px; cursor:pointer; color:#888;" onclick="showPage('home')">← Back to Home</div>
+        </div>
+    </div>
+
     <!-- GLOBAL FOOTER -->
     <footer>
         <div class="footer-content">
             <p>&copy; 2026 CODMobile.org. This site is a fan project and is not affiliated with Activision Publishing, Inc.</p>
             <p class="footer-links" style="margin-top: 10px;">
-                <a href="#">Privacy</a> • 
-                <a href="#">Contact</a> • 
-                <a href="#">AdChoices</a>
+                <a onclick="showPage('privacy'); return false;">Privacy</a> • 
+                <a onclick="showPage('contact'); return false;">Contact</a> • 
+                <a onclick="showPage('adchoices'); return false;">AdChoices</a>
             </p>
         </div>
     </footer>
